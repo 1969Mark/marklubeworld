@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="潤滑油, 黏度, Stribeck, viscosity, lubrication, tribology">
+    <link rel="icon" type="image/png" href="../images/mark_small.png">
+    <title>基礎磨潤學與黏度</title>
+    <link rel="stylesheet" href="../styles/web.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <div class="top_main">
+        <h1 style="font-size:30px;">基礎磨潤學與黏度</h1>
+        <a href="../index.html">回首頁</a>
+        <img src="../images/mark_small.png" height="100px" />
+    </div>
+
+    <hr>
+
+    <main>
+        <div class="container">
+            <div>
+                <h2 style="color: var(--ocean-deep); margin-bottom: 1rem;">Stribeck 曲線理論</h2>
+                <p>
+                    在過往的經驗中，我常與客戶提醒，油品的黏度選擇十分重要。黏度等級選擇正確，基本上設備大概70%不會有問題，因為有足夠油膜作保護避免金屬面的接觸磨損，其餘的就是考慮設備的應用類型與所需要的添加劑種類，例如齒輪油要考慮是否有極壓添加劑，又例如發電機油是否有足夠的鹼值添加劑等等。
+                </p>
+                <p>
+                    在磨潤學中，有一理論稱為<strong>Stribeck Curve</strong>。Stribeck
+                    curve是力學當中磨潤學的一個基礎概念。該曲線指出流體潤滑接觸摩擦力是接觸負載、潤滑劑黏度以及潤滑劑夾帶速率的非線性函數。斯特里貝克曲線示意圖（橫軸為赫西數；縱軸為摩擦力或摩擦係數）區分為 1.
+                    邊界潤滑 2. 混合潤滑 3. 流體動力潤滑。
+                </p>
+                <p>
+                    對於兩流體潤滑介面的接觸行為，斯特里貝克曲線指出了赫西數（Hersey number）與摩擦係數之間的非線性關係。其中，赫西數為無因次量，並定義為：<br>
+                    <strong>Hersey number = (η * N) / P</strong><br>
+                    其中，η為流體動態黏度，N為流體夾帶速率，而P是摩擦接觸的正向負載。
+                </p>
+
+                <dl style="margin: 1.5rem 0;">
+                    <dt style="color: var(--sun-warm); font-weight: bold;">邊界潤滑（Boundary Lubrication）</dt>
+                    <dd style="margin-left: 1rem; margin-bottom: 1rem;">
+                        固體表面的直接接觸，主要由表面粗糙度支撐負載、高摩擦力。在這個區域中，潤滑主要依賴於固體潤滑劑（例如添加劑或固體薄膜）。應用：在高壓、低速或極端條件下，邊界潤滑區域非常重要。</dd>
+
+                    <dt style="color: var(--sun-warm); font-weight: bold;">混合潤滑（Mixed Lubrication）</dt>
+                    <dd style="margin-left: 1rem; margin-bottom: 1rem;">
+                        一些表面粗糙度接觸，由表面粗糙度和液體潤滑劑支撐負載。在這個區域中，潤滑既依賴於液體潤滑劑，也依賴於表面之間的黏附力。應用：中等速度下運行的機械系統通常處於混合潤滑區域。</dd>
+
+                    <dt style="color: var(--sun-warm); font-weight: bold;">流體動力潤滑（Hydrodynamic Lubrication）</dt>
+                    <dd style="margin-left: 1rem; margin-bottom: 1rem;">
+                        粗糙度接觸可忽略不計，負載主要受流體動力的壓力影響。在這個區域中，潤滑完全依賴於液體潤滑劑，並且表面之間的接觸點完全分離。應用：高速運動的機械元件通常處於流體潤滑區域。</dd>
+                </dl>
+
+                <figure style="margin: 2rem 0; text-align: center;">
+                    <img src="../images/fig_basic_stribeck_curve1.png"
+                        style="max-width: 300px; width: 100%; border-radius: 8px;" />
+                    <figcaption style="color: var(--text-secondary); margin-top: 0.5rem;">fig_Stribeck曲線</figcaption>
+                </figure>
+            </div>
+
+            <div>
+                <h2 style="color: var(--ocean-deep); margin-bottom: 1rem;">Stribeck 曲線與油膜厚度</h2>
+                <p>
+                    網站上有很多這類的研究與文章發表，更將此理論與油膜厚度做連結，讓讀者更容易理解此曲線的精神與意義。下圖的文件討論了機械系統中使用的不同類型的潤滑。它將邊界潤滑(Boundary
+                    Lubrication)描述為啟動過程中發生的金屬與金屬的接觸。靜壓潤滑(Hydrostatic Lubrication)使用外部壓力源透過潤滑膜分隔表面。流體動力潤滑(Hydrodynamic
+                    Lubrication)利用表面移動時流體黏度產生的液體壓力將表面完全分離。
+                </p>
+
+                <div class="fig_group"
+                    style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin: 2rem 0;">
+                    <figure style="text-align: center;">
+                        <img src="../images/fig_basic_stribeck_curve2.png"
+                            style="max-width: 450px; width: 100%; border-radius: 8px;" />
+                        <figcaption style="color: var(--text-secondary); margin-top: 0.5rem;">fig_Stribeck曲線與油膜厚度關係
+                        </figcaption>
+                    </figure>
+                    <figure style="text-align: center;">
+                        <img src="../images/fig_basic_stribeck_curve3.png"
+                            style="max-width: 500px; width: 100%; border-radius: 8px;" />
+                        <figcaption style="color: var(--text-secondary); margin-top: 0.5rem;">fig_Stribeck曲線與油膜厚度關係
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <div>
+                <h2 style="color: var(--ocean-deep); margin-bottom: 1rem;">實務應用與黏度選擇</h2>
+                <p>
+                    在較實務的應用上，這曲線圖可理解如下：基本上，所有的設備應該以最低摩擦係數為設計點，當設備操作環境或條件改變，為達到保護設備目的，可藉由改變潤滑油黏度來達成。例如設備的負載提高了，此時操作點會往曲線左邊移動，意味著摩擦力上升，油膜變小，可能導致摩擦發生，此時若改用較高級數黏度的潤滑油，則操作點又可拉回原先的設計點。
+                </p>
+                <p>
+                    由這曲線的理論也可得到一個概念，也就是當負載很大時，需要選擇高黏度等級的潤滑油，例如齒輪，必須選用ISO VG 220或ISO VG 320等類型的黏度等級;
+                    又例如TurboCharger，非常高轉速，所以不會選用如齒輪油這類高黏度等級的油品，會選擇ISO VG 46或ISO VG
+                    68的黏度等級。最後，黏度有不同的規範，一般使用者常會面臨的是ISO和SAE這兩款規範，舉例而言 <strong>ISO VG 100的黏度相當於SAE 30的黏度</strong>。
+                </p>
+
+                <figure style="margin: 2rem 0; text-align: center;">
+                    <img src="../images/fig_basic_viscosityclassification.png"
+                        style="max-width: 100%; border-radius: 8px;" />
+                    <figcaption style="color: var(--text-secondary); margin-top: 0.5rem;">fig_各種黏度規範比較表</figcaption>
+                </figure>
+            </div>
+
+            <div
+                style="margin-top: 2rem; padding: 1rem; background: rgba(255,255,255,0.5); border-radius: 8px; border-left: 5px solid var(--ocean-mid);">
+                <h3>參考資料來源</h3>
+                <ul style="margin-left: 1rem;">
+                    <li>維基百科</li>
+                    <li>"Lubrication Fundamental" - D.M.Pirro, A.A.Wessol</li>
+                    <li>"Lubrication, Types & Stribeck Curve" - Engr. Tarique Ahmed Memon</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div style="text-align: center; padding: 2rem;">
+            <h5>
+                <p>如果對文章內容有疑慮，歡迎來信討論指教</p>
+                <a href="mailto:mark.chuangjj@gmail.com">email to me (Mark CHUANG)</a>
+            </h5>
+        </div>
+    </footer>
+</body>
+
+</html>

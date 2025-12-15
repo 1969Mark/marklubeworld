@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="潤滑油, 船舶潤滑油, Power BI, 油樣管理, 化驗, data analytics">
+    <link rel="icon" type="image/png" href="../images/mark_small.png">
+    <title>使用Power BI做油樣化驗管理</title>
+    <link rel="stylesheet" href="../styles/web.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <div class="top_main">
+        <h1 style="font-size:30px;">使用Power BI做油樣化驗管理</h1>
+        <a href="../index.html">回首頁</a>
+        <img src="../images/mark_small.png" height="100px" />
+    </div>
+
+    <hr>
+
+    <main>
+        <div class="container">
+            <div>
+                <h2 style="color: var(--ocean-deep); margin-bottom: 1rem;">油樣管理的挑戰</h2>
+                <p>
+                    對於一家擁有數艘甚至數十艘船舶的公司，每艘船、每個設備是否有定期送油樣化驗，化驗結果是否有落實追蹤改善，這些工作相當瑣碎也很費心。中、小型船舶公司人力較精簡，往往都是一人身兼數職，如果有方便的管理方式，相信會事半功倍。
+                </p>
+            </div>
+
+            <div>
+                <h2 style="color: var(--ocean-deep); margin-bottom: 1rem;">Power BI vs Excel 比較</h2>
+                <p>Power BI是一個強大的商業智能工具，用於資料分析、視覺化和報表建立：</p>
+
+                <dl style="margin: 1.5rem 0;">
+                    <dt style="color: var(--sun-warm); font-weight: bold;">資料處理和視覺化</dt>
+                    <dd style="margin-left: 1rem; margin-bottom: 1rem;">
+                        <ul style="margin-left: 1rem;">
+                            <li><strong>Excel</strong>：電子表格程序，需事先處理數據並手動建立圖表</li>
+                            <li><strong>Power BI</strong>：可直接連接數據源，快速建立互動式報表和儀表板</li>
+                        </ul>
+                    </dd>
+
+                    <dt style="color: var(--sun-warm); font-weight: bold;">資料量和結構</dt>
+                    <dd style="margin-left: 1rem; margin-bottom: 1rem;">
+                        <ul style="margin-left: 1rem;">
+                            <li><strong>Excel</strong>：數據存儲量有限，適合小型數據集</li>
+                            <li><strong>Power BI</strong>：可處理大量複雜的數據，適用於大型數據集</li>
+                        </ul>
+                    </dd>
+
+                    <dt style="color: var(--sun-warm); font-weight: bold;">自動重新整理</dt>
+                    <dd style="margin-left: 1rem; margin-bottom: 1rem;">
+                        <ul style="margin-left: 1rem;">
+                            <li><strong>Excel</strong>：需要手動重新整理數據</li>
+                            <li><strong>Power BI</strong>：可自動重新整理數據</li>
+                        </ul>
+                    </dd>
+                </dl>
+
+                <figure style="margin: 2rem 0; text-align: center;">
+                    <img src="../images/fig_usedoil_pbi_excel.png" style="max-width: 100%; border-radius: 8px;" />
+                    <figcaption style="color: var(--text-secondary); margin-top: 0.5rem;">fig_Microsoft內掛的Excel和Power
+                        BI應用軟體</figcaption>
+                </figure>
+            </div>
+
+            <div>
+                <h2 style="color: var(--ocean-deep); margin-bottom: 1rem;">Power BI油樣管理建置</h2>
+                <p>以Power BI來管理油樣，基本上必須先備齊以下檔案：</p>
+                <ol style="margin-left: 1.5rem; margin-bottom: 1.5rem;">
+                    <li><strong>化驗報告彙整檔</strong>：請油公司或實驗室提供每份化驗報告的Excel檔，並將資料匯整</li>
+                    <li><strong>化驗設備清單</strong>：根據每艘船每個化驗設備的編號彙整，並標註每個設備預定化驗週期</li>
+                    <li><strong>各船電郵清單</strong>：以後可用定期自動或手動激發來發送"提醒"電郵給船上</li>
+                </ol>
+
+                <div class="fig_group"
+                    style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin: 2rem 0;">
+                    <figure style="text-align: center;">
+                        <img src="../images/fig_usedoil_pbi_relation.png"
+                            style="max-width: 400px; width: 100%; border-radius: 8px;" />
+                        <figcaption style="color: var(--text-secondary); margin-top: 0.5rem;">fig_各檔案之間的關係</figcaption>
+                    </figure>
+                    <figure style="text-align: center;">
+                        <img src="../images/fig_usedoil_pbi_flow.png"
+                            style="max-width: 500px; width: 100%; border-radius: 8px;" />
+                        <figcaption style="color: var(--text-secondary); margin-top: 0.5rem;">fig_管理專案流程圖</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div style="text-align: center; padding: 2rem;">
+            <h5>
+                <p>如果對文章內容有疑慮，歡迎來信討論指教</p>
+                <a href="mailto:mark.chuangjj@gmail.com">email to me (Mark CHUANG)</a>
+            </h5>
+        </div>
+    </footer>
+</body>
+
+</html>
