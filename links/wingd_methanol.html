@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="WinGD, X-DF-M, 甲醇, 雙燃料, methanol, dual fuel, marine engine, 脫碳">
+    <link rel="icon" type="image/png" href="../images/mark_small.png">
+    <title>WinGD 甲醇雙燃料發動機</title>
+    <link rel="stylesheet" href="../styles/web.css">
+    <style>
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .info-table th,
+        .info-table td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .info-table th {
+            background: var(--ocean-deep);
+            color: white;
+            font-weight: 600;
+        }
+
+        .info-table tr:hover {
+            background: rgba(100, 150, 200, 0.1);
+        }
+
+        .highlight-box {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(100, 150, 200, 0.15), rgba(255, 200, 100, 0.1));
+            border-radius: 12px;
+            border-left: 5px solid var(--ocean-mid);
+            margin: 1.5rem 0;
+        }
+
+        .challenge-box {
+            padding: 1rem;
+            background: rgba(255, 200, 200, 0.2);
+            border-radius: 8px;
+            border-left: 4px solid #d9534f;
+            margin: 1rem 0;
+        }
+
+        .advantage-box {
+            padding: 1rem;
+            background: rgba(200, 255, 200, 0.2);
+            border-radius: 8px;
+            border-left: 4px solid #5cb85c;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <div class="top_main">
+        <h1 style="font-size:30px;">WinGD 甲醇雙燃料發動機</h1>
+        <a href="../index.html">回首頁</a>
+        <img src="../images/mark_small.png" height="100px" />
+    </div>
+
+    <hr>
+
+    <main>
+        <div class="container">
+            <!-- 摘要 -->
+            <div class="highlight-box">
+                <p>
+                    <strong>Winterthur Gas & Diesel (WinGD)</strong> 公司為應對國際海事組織 (IMO) 日益嚴格的脫碳目標而開發的 <strong>X-DF-M
+                        甲醇雙燃料引擎</strong>技術。此項創新旨在為航運業提供一種可靠、高效且安全的替代燃料解決方案。
+                </p>
+                <p>
+                    X-DF-M 引擎的核心是一種基於成熟的狄塞爾循環 (Diesel cycle) 的雙燃料設計，利用少量傳統燃料（約 3-5%）作為引燃火焰，點燃高壓噴射的主燃料甲醇。此設計不僅保留了 WinGD X
+                    系列引擎的堅固性和可靠性，還使其能夠在甲醇和傳統柴油模式之間無縫切換。
+                </p>
+            </div>
+
+            <!-- 1. 概述 -->
+            <div>
+                <h2 style="color: var(--ocean-deep); margin-bottom: 1rem;">1. 概述：甲醇作為航運脫碳的解決方案</h2>
+
+                <h3 style="color: var(--ocean-mid); margin: 1.5rem 0 0.5rem;">1.1 航運業的脫碳驅動力</h3>
+                <p>
+                    國際海事組織 (IMO) 為 2030 年和 2050 年設定的二氧化碳 (CO<sub>2</sub>) 和溫室氣體 (GHG)
+                    減排目標，已成為引擎設計師面臨的主要挑戰，推動其產品組合擴展至碳中和燃料。甲醇因其多項優勢，正日益被視為一種極具潛力的船用燃料。
+                </p>
+
+                <h3 style="color: var(--ocean-mid); margin: 1.5rem 0 0.5rem;">1.2 甲醇作為船用燃料的優勢</h3>
+                <div class="advantage-box">
+                    <ul style="margin-left: 1rem;">
+                        <li><strong>環境效益：</strong>與傳統船用燃料相比，甲醇燃燒產生的 SOx、NOx 和 PM 排放量更低。若使用「綠色」或「藍色」甲醇，更能大幅降低船舶生命週期的碳排放。
+                        </li>
+                        <li><strong>儲存與操作便利性：</strong>甲醇在常溫常壓下為液態，無需像 LNG 或氨那樣的低溫儲存條件，簡化了船上儲存與處理系統。</li>
+                        <li><strong>安全特性：</strong>甲醇的可燃範圍比傳統燃料窄，在特定情況下具有一定的安全優勢。</li>
+                        <li><strong>燃料品質一致性：</strong>作為合成燃料，甲醇的化學成分和品質高度統一，簡化了燃料管理。</li>
+                    </ul>
+                </div>
+
+                <h3 style="color: var(--ocean-mid); margin: 1.5rem 0 0.5rem;">1.3 甲醇燃料面臨的挑戰</h3>
+                <div class="challenge-box">
+                    <ul style="margin-left: 1rem;">
+                        <li><strong>生產的碳足跡：</strong>目前甲醇生產主要仍依賴化石能源，實現可持續的採購和生產流程至關重要。</li>
+                        <li><strong>基礎設施：</strong>建立全面的綠色甲醇生產、儲存和配送基礎設施是市場發展的必要條件。</li>
+                        <li><strong>能量密度：</strong>甲醇的能量密度低於傳統船用燃料，需要更大的燃料艙或更頻繁的燃料加注。</li>
+                        <li><strong>毒性：</strong>甲醇代謝物具有高毒性，必須實施嚴格的安全標準和協議。</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 2. 引擎概念與設計 -->
+            <div>
+                <h2 style="color: var(--ocean-deep); margin-bottom: 1rem;">2. WinGD X-DF-M 引擎概念與設計</h2>
+                <p>
+                    WinGD 的 X-DF-M 引擎是為甲醇或傳統燃料油的雙燃料操作而開發的。其設計基於成熟的標準柴油引擎架構，確保了最高的引擎效率和可靠性。
+                </p>
+
+                <h3 style="color: var(--ocean-mid); margin: 1.5rem 0 0.5rem;">2.1 核心燃燒概念</h3>
+                <p>X-DF-M 引擎採用了狄塞爾循環的混合控制燃燒方法，核心工作原理如下：</p>
+                <ol style="margin-left: 1.5rem; margin-bottom: 1rem;">
+                    <li style="margin-bottom: 0.5rem;"><strong>壓縮行程：</strong>活塞壓縮燃燒室內的空氣，使其溫度和壓力升高。</li>
+                    <li style="margin-bottom: 0.5rem;"><strong>引燃噴射：</strong>在壓縮行程頂點附近，標準的柴油噴射系統噴射少量引燃燃料（約佔高負載時總能量的
+                        3-5%）。</li>
+                    <li style="margin-bottom: 0.5rem;"><strong>主燃料噴射與燃燒：</strong>引燃燃料自燃形成穩定的點火源，高壓甲醇主燃料噴入燃燒室被點燃，推動活塞做功。
+                    </li>
+                </ol>
+
+                <h3 style="color: var(--ocean-mid); margin: 1.5rem 0 0.5rem;">2.2 基於現有平台的改造</h3>
+                <p>X-DF-M 引擎是在經過驗證的 WinGD X 系列柴油引擎平台上進行有限範圍的修改而成。主要修改包括：</p>
+                <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+                    <li>甲醇燃料噴射系統</li>
+                    <li>用於甲醇噴射系統的額外作動油軌</li>
+                    <li>新增的作動油供給單元</li>
+                    <li>修改後的氣缸蓋以容納新增的噴嘴</li>
+                    <li>調整的平台和管路</li>
+                </ul>
+            </div>
+
+            <!-- 3. 核心技術 -->
+            <div>
+                <h2 style="color: var(--ocean-deep); margin-bottom: 1rem;">3. 核心技術：甲醇噴射系統</h2>
+                <p>X-DF-M 引擎的甲醇噴射系統是其技術核心，設計上注重簡潔、安全與性能。</p>
+
+                <h3 style="color: var(--ocean-mid); margin: 1.5rem 0 0.5rem;">3.1 系統主要組件</h3>
+                <table class="info-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 25%;">組件</th>
+                            <th>功能描述</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>作動油供給單元</strong></td>
+                            <td>使用由曲軸齒輪機械驅動的商用油泵，將液壓油加壓至 300 bar。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>作動油軌</strong></td>
+                            <td>儲存高壓作動油，其體積設計可將壓力波動維持在目標值的 ±5% 範圍內。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>甲醇增壓單元 (MBU)</strong></td>
+                            <td>每個氣缸安裝一個 MBU，是系統的核心。根據活塞與柱塞的面積比將甲醇壓力放大至所需的噴射壓力。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>甲醇噴射閥</strong></td>
+                            <td>彈簧控制式噴嘴，接收來自 MBU 的高壓甲醇並將其噴入燃燒室。</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 style="color: var(--ocean-mid); margin: 1.5rem 0 0.5rem;">3.2 甲醇增壓單元 (MBU) 詳細設計</h3>
+                <p>MBU 是集多種功能於一身的精密組件：</p>
+                <dl style="margin: 1rem 0;">
+                    <dt style="color: var(--sun-warm); font-weight: bold;">油控閥</dt>
+                    <dd style="margin-left: 1rem; margin-bottom: 0.5rem;">由電磁閥控制，精確調節高壓作動油的流入與流出，從而控制噴射的開始與結束。</dd>
+
+                    <dt style="color: var(--sun-warm); font-weight: bold;">壓力放大器</dt>
+                    <dd style="margin-left: 1rem; margin-bottom: 0.5rem;">由活塞和柱塞組成，利用面積比將甲醇壓力提升至噴射所需的高壓。</dd>
+
+                    <dt style="color: var(--sun-warm); font-weight: bold;">行程感測器</dt>
+                    <dd style="margin-left: 1rem; margin-bottom: 0.5rem;">監測柱塞的運動，為引擎控制系統提供回饋信號。</dd>
+
+                    <dt style="color: var(--sun-warm); font-weight: bold;">多重密封屏障</dt>
+                    <dd style="margin-left: 1rem; margin-bottom: 0.5rem;">低壓甲醇屏障、密封油屏障、機械密封，確保作動油與甲醇之間絕對隔離。</dd>
+                </dl>
+            </div>
+
+            <!-- 4. 安全概念 -->
+            <div>
+                <h2 style="color: var(--ocean-deep); margin-bottom: 1rem;">4. 全方位安全概念</h2>
+                <p>WinGD X-DF-M 引擎的設計嚴格遵守 IMO 關於使用低閃點燃料船舶的規則，其安全等級與使用傳統燃料油的引擎相當。</p>
+
+                <h3 style="color: var(--ocean-mid); margin: 1.5rem 0 0.5rem;">4.1 氣體安全機艙概念</h3>
+                <p>透過雙層管壁的甲醇燃料管路配置，引擎室被視為一個「氣體安全區域」。此概念的核心是，<strong>單一故障不會導致甲醇釋放到機艙空間中</strong>。</p>
+
+                <h3 style="color: var(--ocean-mid); margin: 1.5rem 0 0.5rem;">4.2 關鍵安全措施</h3>
+                <dl style="margin: 1rem 0;">
+                    <dt style="color: var(--sun-warm); font-weight: bold;">雙層管壁設計</dt>
+                    <dd style="margin-left: 1rem; margin-bottom: 1rem;">
+                        所有輸送甲醇的管道和組件均採用雙層管壁。WinGD 提供兩種環形空間處理方案：
+                        <ul style="margin-left: 1rem; margin-top: 0.5rem;">
+                            <li><strong>通風方案：</strong>以每小時 30 次的換氣率對環形空間進行機械負壓通風。</li>
+                            <li><strong>惰化方案：</strong>環形空間被密封並充入加壓的氮氣。</li>
+                        </ul>
+                    </dd>
+
+                    <dt style="color: var(--sun-warm); font-weight: bold;">洩漏偵測</dt>
+                    <dd style="margin-left: 1rem; margin-bottom: 1rem;">
+                        <ul style="margin-left: 1rem;">
+                            <li>防火防爆：甲醇氣體偵測器，警報限值設為 LEL 的 20%</li>
+                            <li>毒性防護：監測甲醇蒸氣濃度，確保低於容許暴露限值</li>
+                            <li>液體偵測：在機艙低點安裝液體洩漏偵測器</li>
+                        </ul>
+                    </dd>
+
+                    <dt style="color: var(--sun-warm); font-weight: bold;">用水吹掃 (Purging)</dt>
+                    <dd style="margin-left: 1rem; margin-bottom: 1rem;">
+                        使用水對甲醇系統進行吹掃，利用水與甲醇完全互溶的特性。測試證明，使用兩倍於系統容積的水即可達到安全條件。</dd>
+
+                    <dt style="color: var(--sun-warm); font-weight: bold;">故障安全操作 (Methanol Trip)</dt>
+                    <dd style="margin-left: 1rem; margin-bottom: 1rem;">
+                        任何甲醇系統的故障都會觸發引擎自動「跳脫」至柴油備用模式。這一轉換在一個引擎循環內完成，保證推進動力不間斷。</dd>
+                </dl>
+            </div>
+
+            <!-- 5. 開發與驗證 -->
+            <div>
+                <h2 style="color: var(--ocean-deep); margin-bottom: 1rem;">5. 開發、模擬與驗證</h2>
+
+                <h3 style="color: var(--ocean-mid); margin: 1.5rem 0 0.5rem;">5.1 模擬與分析</h3>
+                <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+                    <li><strong>一維液壓模擬：</strong>使用 Simulink 建立一維液壓模型來設計和優化甲醇噴射系統。</li>
+                    <li><strong>CFD 模擬：</strong>採用計算流體動力學方法優化燃燒過程，包括噴射壓力、噴嘴幾何形狀和噴霧模式。</li>
+                </ul>
+
+                <h3 style="color: var(--ocean-mid); margin: 1.5rem 0 0.5rem;">5.2 實驗驗證設施</h3>
+                <table class="info-table">
+                    <thead>
+                        <tr>
+                            <th>測試設施</th>
+                            <th>缸徑</th>
+                            <th>主要用途</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>噴霧燃燒室 (SCC)</strong></td>
+                            <td>-</td>
+                            <td>光學觀測定容燃燒室，研究噴霧形態和燃燒特性</td>
+                        </tr>
+                        <tr>
+                            <td><strong>RTX-6 測試引擎</strong></td>
+                            <td>500 mm</td>
+                            <td>多缸測試引擎，測試原型噴射系統的實際性能</td>
+                        </tr>
+                        <tr>
+                            <td><strong>SCE920 單缸測試引擎</strong></td>
+                            <td>920 mm</td>
+                            <td>將測試結果擴展至最大缸徑的引擎</td>
+                        </tr>
+                        <tr>
+                            <td><strong>10X92DF-M-1.0 原型機</strong></td>
+                            <td>920 mm</td>
+                            <td>全尺寸 10 缸原型引擎，最終性能驗證</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 style="color: var(--ocean-mid); margin: 1.5rem 0 0.5rem;">5.3 成功驗證</h3>
+                <div class="highlight-box">
+                    <p>
+                        在 <strong>2025 年 1 月</strong>，首台 10X92DF-M-1.0 引擎成功通過了由船東 (COSCO) 和所有主要船級社見證的工廠驗收測試 (FAT)
+                        和型式認可測試 (TAT)，且未收到任何修改或改進的意見。
+                    </p>
+                </div>
+            </div>
+
+            <!-- 6. 引擎性能 -->
+            <div>
+                <h2 style="color: var(--ocean-deep); margin-bottom: 1rem;">6. 引擎性能與營運表現</h2>
+
+                <h3 style="color: var(--ocean-mid); margin: 1.5rem 0 0.5rem;">6.1 能源消耗與效率</h3>
+                <p style="padding: 1rem; background: rgba(100,200,100,0.15); border-radius: 8px;">
+                    在整個負載範圍內，<strong>甲醇模式下的燃料消耗比柴油模式低 1.5% 到 2.5%</strong>。這主要歸因於甲醇燃料的含氧量有助於更快的後期燃燒階段，從而提高了引擎效率。
+                </p>
+
+                <h3 style="color: var(--ocean-mid); margin: 1.5rem 0 0.5rem;">6.2 排放性能</h3>
+                <dl style="margin: 1rem 0;">
+                    <dt style="color: var(--sun-warm); font-weight: bold;">氮氧化物 (NOx)</dt>
+                    <dd style="margin-left: 1rem; margin-bottom: 0.5rem;">甲醇較高的汽化潛熱導致燃燒溫度低於柴油，有助於降低 NOx 生成。引擎在兩種燃料模式下均採用
+                        SCR 系統滿足 Tier III 標準。</dd>
+
+                    <dt style="color: var(--sun-warm); font-weight: bold;">其他排放物</dt>
+                    <dd style="margin-left: 1rem; margin-bottom: 0.5rem;">甲醇不含硫，不會產生 SO<sub>2</sub> 排放。甲醛
+                        (CH<sub>2</sub>O) 排放低於 15 ppm，氰化氫 (HCN) 低於 10 ppm。</dd>
+                </dl>
+
+                <h3 style="color: var(--ocean-mid); margin: 1.5rem 0 0.5rem;">6.3 營運特性</h3>
+                <table class="info-table">
+                    <tbody>
+                        <tr>
+                            <td style="width: 30%;"><strong>操作範圍</strong></td>
+                            <td>甲醇模式可在 10-100% 引擎功率範圍內操作</td>
+                        </tr>
+                        <tr>
+                            <td><strong>燃料轉換</strong></td>
+                            <td>從柴油到甲醇的燃料轉換可在不到一分鐘內平穩完成</td>
+                        </tr>
+                        <tr>
+                            <td><strong>動態行為</strong></td>
+                            <td>負載接受能力與傳統柴油引擎相似</td>
+                        </tr>
+                        <tr>
+                            <td><strong>引燃油消耗</strong></td>
+                            <td>在 100% 負載時低於總能耗的 5%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div
+                style="margin-top: 2rem; padding: 1rem; background: rgba(255,255,255,0.5); border-radius: 8px; border-left: 5px solid var(--ocean-mid);">
+                <h3>參考資料來源</h3>
+                <ul style="margin-left: 1rem;">
+                    <li>WinGD (Winterthur Gas & Diesel)</li>
+                    <li>IMO Guidelines for Low Flashpoint Fuels</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div style="text-align: center; padding: 2rem;">
+            <h5>
+                <p>如果對文章內容有疑慮，歡迎來信討論指教</p>
+                <a href="mailto:mark.chuangjj@gmail.com">email to me (Mark CHUANG)</a>
+            </h5>
+        </div>
+    </footer>
+</body>
+
+</html>
