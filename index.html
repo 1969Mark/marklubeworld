@@ -56,6 +56,13 @@
     <div class="hero">
         <h2>探索潤滑與海洋的奧秘</h2>
         <p>專業．環保．永續</p>
+        <!-- Search Bar -->
+        <div class="search-container" style="margin: 1.5rem 0;">
+            <input type="text" id="search-input" placeholder="🔍 搜尋議題或影片...（例：甲醇、LNG、BN、汽缸油）"
+                style="width: 100%; max-width: 500px; padding: 12px 20px; font-size: 1rem; border: none; border-radius: 25px; background: rgba(255,255,255,0.95); box-shadow: 0 4px 15px rgba(0,0,0,0.2); outline: none;">
+        </div>
+        <div id="search-results-count"
+            style="color: rgba(255,255,255,0.9); font-size: 0.9rem; margin-bottom: 0.5rem; display: none;"></div>
         <a href="#topics" class="cta-button">探索議題</a>
     </div>
 
@@ -310,6 +317,69 @@
         // Back to top click handler
         backToTop.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Search Functionality
+        const searchInput = document.getElementById('search-input');
+        const searchResultsCount = document.getElementById('search-results-count');
+        const topicCards = document.querySelectorAll('.topic-grid .card');
+        const videoCards = document.querySelectorAll('.video-card');
+
+        searchInput.addEventListener('input', function () {
+            const query = this.value.toLowerCase().trim();
+            let visibleTopics = 0;
+            let visibleVideos = 0;
+
+            // Filter topic cards
+            topicCards.forEach(card => {
+                const title = card.querySelector('h3')?.textContent.toLowerCase() || '';
+                const desc = card.querySelector('p')?.textContent.toLowerCase() || '';
+                const matches = query === '' || title.includes(query) || desc.includes(query);
+
+                if (matches) {
+                    card.style.display = '';
+                    card.style.opacity = '1';
+                    card.style.transform = 'scale(1)';
+                    visibleTopics++;
+                } else {
+                    card.style.display = 'none';
+                    card.style.opacity = '0';
+                    card.style.transform = 'scale(0.95)';
+                }
+            });
+
+            // Filter video cards
+            videoCards.forEach(card => {
+                const title = card.querySelector('h4')?.textContent.toLowerCase() || '';
+                const desc = card.querySelector('p')?.textContent.toLowerCase() || '';
+                const matches = query === '' || title.includes(query) || desc.includes(query);
+
+                if (matches) {
+                    card.style.display = '';
+                    card.style.opacity = '1';
+                    visibleVideos++;
+                } else {
+                    card.style.display = 'none';
+                    card.style.opacity = '0';
+                }
+            });
+
+            // Show results count
+            if (query !== '') {
+                searchResultsCount.style.display = 'block';
+                searchResultsCount.textContent = `找到 ${visibleTopics} 個議題、${visibleVideos} 個影片`;
+            } else {
+                searchResultsCount.style.display = 'none';
+            }
+        });
+
+        // Clear search on Escape key
+        searchInput.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                this.value = '';
+                this.dispatchEvent(new Event('input'));
+                this.blur();
+            }
         });
     </script>
 </body>
