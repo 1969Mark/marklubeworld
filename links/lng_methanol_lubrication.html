@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="LNG, 甲醇, methanol, 雙燃料, 汽缸油, cylinder oil, bore polishing, 缸套拋光">
+    <link rel="icon" type="image/png" href="../images/mark_small.png">
+    <title>LNG與甲醇燃料對船舶主機潤滑的挑戰與對策</title>
+    <link rel="stylesheet" href="../styles/web.css">
+    <style>
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .info-table th,
+        .info-table td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .info-table th {
+            background: var(--ocean-deep);
+            color: white;
+            font-weight: 600;
+        }
+
+        .info-table tr:hover {
+            background: rgba(100, 150, 200, 0.1);
+        }
+
+        .highlight-box {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(100, 150, 200, 0.15), rgba(255, 200, 100, 0.1));
+            border-radius: 12px;
+            border-left: 5px solid var(--ocean-mid);
+            margin: 1.5rem 0;
+        }
+
+        .warning-box {
+            padding: 1rem;
+            background: rgba(255, 200, 100, 0.2);
+            border-radius: 8px;
+            border-left: 4px solid #f0ad4e;
+            margin: 1rem 0;
+        }
+
+        .danger-box {
+            padding: 1rem;
+            background: rgba(255, 200, 200, 0.2);
+            border-radius: 8px;
+            border-left: 4px solid #d9534f;
+            margin: 1rem 0;
+        }
+
+        .success-box {
+            padding: 1rem;
+            background: rgba(200, 255, 200, 0.2);
+            border-radius: 8px;
+            border-left: 4px solid #5cb85c;
+            margin: 1rem 0;
+        }
+
+        .analogy-box {
+            padding: 1.5rem;
+            background: rgba(200, 200, 255, 0.15);
+            border-radius: 12px;
+            border-left: 5px solid #6c5ce7;
+            margin: 1.5rem 0;
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <div class="top_main">
+        <h1 style="font-size:28px;">LNG與甲醇燃料對船舶主機潤滑的挑戰與對策</h1>
+        <a href="../index.html">回首頁</a>
+        <img src="../images/mark_small.png" height="100px" />
+    </div>
+
+    <hr>
+
+    <main>
+        <div class="container">
+            <!-- 摘要 -->
+            <div class="highlight-box">
+                <p>
+                    全球航運業正經歷自燃煤轉向燃油以來最劇烈的能源轉型，液化天然氣（LNG）與甲醇（Methanol）已成為新造船訂單的主流燃料選擇。然而，這些清潔燃料在降低排放的同時，也對大型二衝程主機的汽缸潤滑系統提出了前所未有的挑戰。
+                </p>
+                <p>
+                    傳統以高鹼價（High Base Number, BN）汽缸油對抗重油（HFO）中高硫份所產生之硫酸的潤滑邏輯已完全失效。取而代之的是業界所面臨的<strong>「清潔度悖論」（Cleanliness
+                        Paradox）</strong>：燃料越清潔，反而因缺乏傳統燃燒生成的碳灰（Soot）保護層，使汽缸套面臨更複雜的物理化學攻擊。
+                </p>
+            </div>
+
+            <!-- 核心挑戰摘要 -->
+            <div>
+                <h2 style="color: var(--ocean-deep); margin-bottom: 1rem;">核心挑戰</h2>
+
+                <div class="danger-box">
+                    <h4 style="margin: 0 0 0.5rem; color: #d9534f;">🔵 LNG 燃料的威脅：缸套拋光（Bore Polishing）</h4>
+                    <p style="margin: 0;">由於 LNG
+                        幾乎不含硫，傳統高鹼價潤滑油中用於中和酸的大量鈣鹽添加劑（碳酸�ite）無法被消耗，反而會沈積並在高溫下燒結成硬質磨料，磨損掉汽缸套上用於儲存潤滑油的珩磨紋，最終導致油膜破裂與嚴重刮傷（Scuffing）。
+                    </p>
+                </div>
+
+                <div class="danger-box">
+                    <h4 style="margin: 0 0 0.5rem; color: #d9534f;">🟢 甲醇燃料的威脅：多重化學攻擊</h4>
+                    <ul style="margin: 0.5rem 0 0 1rem;">
+                        <li>不完全燃燒產生的<strong>甲酸（Formic Acid）</strong>會與汽缸壁發生「腐蝕-磨損」協同效應</li>
+                        <li>甲醇作為強極性溶劑，會直接溶解或<strong>洗去（Washing Effect）</strong>油膜</li>
+                        <li>燃料稀釋導致的黏度下降</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 一、摩擦學典範轉移 -->
+            <div>
+                <h2 style="color: var(--ocean-deep); margin-bottom: 1rem;">一、摩擦學典範轉移：從「對抗強酸」到「精密化學管理」</h2>
+                <p>
+                    雙燃料主機的普及正在驅動航運業的摩擦學（Tribology）經歷一場根本性的典範轉移。過去數十年，汽缸潤滑的核心任務是對抗重油（HFO）燃燒產生的大量強硫酸（H<sub>2</sub>SO<sub>4</sub>）。然而，隨著燃料轉向幾乎不含硫的
+                    LNG 與甲醇，潤滑策略的重心已從「以量取勝」的粗放式鹼性中和，轉向「精準對症」的精密化學表面管理。
+                </p>
+
+                <div class="analogy-box">
+                    <p style="margin: 0;">
+                        <strong>類比說明：</strong>傳統燃油（HFO）時代的潤滑油就像是穿著厚重的<strong>「板甲」</strong>，依靠厚度與硬度（高鹼價）來抵擋大刀闘斧的物理與強酸攻擊；而雙燃料（LNG/甲醇）時代的潤滑油則必須像是一套高科技的<strong>「防護衣（Hazmat
+                            Suit）」</strong>，輕量化（低灰分）以避免自身造成負擔，但具備極高的化學氣密性與特殊塗層，以抵禦看不見的有機酸滲透與溶劑溶解。
+                    </p>
+                </div>
+            </div>
+
+            <!-- 二、LNG 的潤滑挑戰 -->
+            <div>
+                <h2 style="color: var(--ocean-deep); margin-bottom: 1rem;">二、液化天然氣（LNG）的潤滑挑戰：「清潔陷阱」</h2>
+                <p>LNG 燃燒極為清潔，但這也帶來了獨特的潤滑管理陷阱，其中最核心的問題是<strong>「缸套拋光」（Bore Polishing）</strong>。</p>
+
+                <h3 style="color: var(--ocean-mid); margin: 1.5rem 0 0.5rem;">2.1 缸套拋光：鈣鹽灰分從「護衛」變「暴徒」</h3>
+                <p>此問題的根源在於傳統高鹼價（BN 100-140）汽缸油中的<strong>碳酸鈣（CaCO<sub>3</sub>）</strong>添加劑，在無硫環境下引發的連鎖反應：</p>
+
+                <ol style="margin-left: 1.5rem; margin-bottom: 1rem;">
+                    <li style="margin-bottom: 0.75rem;">
+                        <strong>化學失衡：</strong>在燃燒重油時，碳酸鈣會與硫酸反應生成無害的硫酸鈣（石膏）並排出。但在 LNG
+                        模式下，由於缺乏硫，這些「失業」的過剩碳酸鈣無酸可中和，只能以灰分（Ash）的形式殘留下來。
+                    </li>
+                    <li style="margin-bottom: 0.75rem;">
+                        <strong>物理相變：</strong>這些灰分沈積在活塞頂部與活塞環岸，在燃燒高溫下發生燒結（Sintering），從鬆散的粉末轉變為堅硬、緻密的磨料沈積物。
+                    </li>
+                    <li style="margin-bottom: 0.75rem;">
+                        <strong>機械破壞：</strong>當這些硬質沈積物接觸到汽缸壁時，它們就像砂紙一樣，持續磨平汽缸套內表面用於儲存潤滑油的珩磨紋（Honing Marks）。
+                    </li>
+                    <li style="margin-bottom: 0.75rem;">
+                        <strong>最終後果：</strong>珩磨紋被磨平後，汽缸壁變得過度光滑，油膜無法有效附著，導致金屬與金屬直接接觸，最終引發嚴重的<strong>刮傷（Scuffing）</strong>甚至引擎咬死。
+                    </li>
+                </ol>
+
+                <div class="analogy-box">
+                    <p style="margin: 0;">
+                        <strong>類比說明：</strong>在 LNG
+                        主機中使用傳統高鹼價潤滑油，就像是在和平時期（無硫環境）派駐了一支龐大的軍隊（碳酸鈣）。由於沒有敵人（硫酸）可以作戰，這支無所事事的軍隊反而變成了佔據街道、破壞基礎設施（珩磨紋）的暴徒（硬質灰分），最終摧毀了它們本應保護的城市（引擎）。
+                    </p>
+                </div>
+
+                <h3 style="color: var(--ocean-mid); margin: 1.5rem 0 0.5rem;">2.2 輔助因素：缺乏碳灰保護</h3>
+                <p>
+                    除了灰分磨損，LNG
+                    的清潔燃燒不會產生傳統燃油燃燒時那種軟質的碳灰（Soot）。在傳統引擎中，適量的碳灰能作為固體潤滑劑並吸附氧化前驅物。缺乏這層保護，使得汽缸套直接暴露在熱應力與漆膜（Lacquer）生成的風險中。
+                </p>
+            </div>
+
+            <!-- 三、甲醇的潤滑挑戰 -->
+            <div>
+                <h2 style="color: var(--ocean-deep); margin-bottom: 1rem;">三、甲醇（Methanol）的潤滑挑戰：多重化學攻擊</h2>
+                <p>甲醇作為一種含氧且具強極性的燃料，其對潤滑系統的挑戰與 LNG 截然不同，主要體現在腐蝕、油膜破壞與燃料稀釋。</p>
+
+                <h3 style="color: var(--ocean-mid); margin: 1.5rem 0 0.5rem;">3.1 腐蝕-磨損協同效應</h3>
+                <p>甲醇在不完全燃燒時會生成甲醛（HCHO）與甲酸（HCOOH）。甲酸雖然是弱酸，但具高滲透性，能引發破壞性的「腐蝕-磨損」循環：</p>
+
+                <ol style="margin-left: 1.5rem; margin-bottom: 1rem;">
+                    <li style="margin-bottom: 0.5rem;"><strong>化學腐蝕：</strong>甲酸穿透油膜，與汽缸壁的鐵反應，生成質地鬆軟的甲酸亞鐵（Iron Formate）。
+                    </li>
+                    <li style="margin-bottom: 0.5rem;"><strong>機械磨損：</strong>活塞環運動時輕易刮除這層軟質腐蝕物，暴露出新鮮的金屬表面。</li>
+                    <li style="margin-bottom: 0.5rem;"><strong>惡性循環：</strong>新鮮的金屬表面再次遭受甲酸攻擊，導致磨損率呈指數級上升。</li>
+                </ol>
+                <p>此外，甲醇燃燒產生的大量水分會吸收甲酸形成電解質，加速電化學腐蝕。</p>
+
+                <h3 style="color: var(--ocean-mid); margin: 1.5rem 0 0.5rem;">3.2 油膜的破壞：洗去效應（Washing Effect）</h3>
+                <p>甲醇是強極性溶劑，而傳統潤滑油是非極性的。若液態甲醇噴濺至汽缸壁，將產生雙重破壞：</p>
+                <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+                    <li><strong>溶解油膜：</strong>直接溶解附著的潤滑油。</li>
+                    <li><strong>競爭吸附：</strong>甲醇分子會與潤滑油中的清淨劑競爭金屬表面的吸附位點，導致保護層剝離。</li>
+                </ul>
+
+                <div class="warning-box">
+                    <p style="margin: 0;">一旦油膜被「洗去」，在活塞環上下止點等邊界潤滑區域，極易發生金屬直接接觸，導致異常磨損。</p>
+                </div>
+            </div>
+
+            <!-- 四、技術對策 -->
+            <div>
+                <h2 style="color: var(--ocean-deep); margin-bottom: 1rem;">四、技術對策：第二類（Category II）BN 40 汽缸油的崛起</h2>
+                <p>為應對上述挑戰，業界已達成共識，確立了以<strong>「低鹼價、高清淨性」</strong>為核心的 Category II 潤滑油標準，其中 <strong>BN 40
+                        被視為黃金標準</strong>。</p>
+
+                <h3 style="color: var(--ocean-mid); margin: 1.5rem 0 0.5rem;">4.1 配方邏輯的重構</h3>
+                <dl style="margin: 1rem 0;">
+                    <dt style="color: var(--sun-warm); font-weight: bold;">鹼價（BN）與清淨能力的脫鉤</dt>
+                    <dd style="margin-left: 1rem; margin-bottom: 1rem;">BN 40 被證明是最佳平衡點，既能有效中和甲醇產生的弱酸，又能將灰分控制在極低水平，避免
+                        LNG 模式下的沈積風險。</dd>
+
+                    <dt style="color: var(--sun-warm); font-weight: bold;">清淨劑化學的演進</dt>
+                    <dd style="margin-left: 1rem; margin-bottom: 1rem;">為了在低鹼價下維持引擎清潔，配方核心從傳統的磺酸鈣（Calcium
+                        Sulfonates）轉向<strong>水楊酸鈣（Calcium
+                            Salicylates）</strong>等先進添加劑。水楊酸鹽具有類似膠束（Micelle）的結構，能實現「無灰分散」，即不依賴金屬鹽，而是透過化學增溶作用來包裹氧化產物，防止漆膜生成。
+                    </dd>
+
+                    <dt style="color: var(--sun-warm); font-weight: bold;">功能性添加劑的精細化</dt>
+                    <dd style="margin-left: 1rem; margin-bottom: 1rem;">配方中新增了針對甲醇的破乳化劑（防止油水乳化）和腐蝕抑制劑（形成鈍化膜）。</dd>
+                </dl>
+
+                <div class="success-box">
+                    <h4 style="margin: 0 0 0.5rem; color: #5cb85c;">✅ Category II BN 40 汽缸油的核心特點</h4>
+                    <ul style="margin: 0 0 0 1rem;">
+                        <li><strong>低灰分</strong> - 避免缸套拋光</li>
+                        <li><strong>高清淨性</strong> - 成功將清潔能力與鹼價脫鉤</li>
+                        <li><strong>抗腐蝕</strong> - 對抗甲酸攻擊</li>
+                        <li><strong>抗乳化</strong> - 維持油水分離特性</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 五、OEM 規範 -->
+            <div>
+                <h2 style="color: var(--ocean-deep); margin-bottom: 1rem;">五、主機製造商（OEM）規範與營運實踐</h2>
+                <p>三大主機製造商均已為雙燃料時代的潤滑制定了明確指導方針。</p>
+
+                <table class="info-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 20%;">製造商</th>
+                            <th>核心規範與建議</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Everllence</strong><br>(前 MAN ES)</td>
+                            <td>
+                                <ul style="margin: 0; padding-left: 1rem;">
+                                    <li><strong>強制使用 Category II 潤滑油：</strong>針對 Mark 9 及更高版本主機</li>
+                                    <li><strong>推崇 BN 40 單一油品策略：</strong>建議使用一款高性能 Cat II BN 40 油品通用於所有低硫/無硫燃料模式，不建議頻繁切換
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>WinGD</strong></td>
+                            <td>
+                                <ul style="margin: 0; padding-left: 1rem;">
+                                    <li><strong>設立雙燃料驗證（DF-Validation）：</strong>油品需通過嚴格的積碳控制測試</li>
+                                    <li><strong>認可 BN 40 為通用方案：</strong>雖然曾傾向為 LNG 推薦更低鹼價油品，但目前已驗證多款 BN 40 油品可用於通用目的
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Japan Engine Corp.</strong><br>(J-ENG)</td>
+                            <td>
+                                <ul style="margin: 0; padding-left: 1rem;">
+                                    <li><strong>推薦較寬的 BN 範圍（40-70）：</strong>但特別警告在低硫燃料下使用過高 BN 油品可能導致掃氣箱出現「白色油泥」</li>
+                                    <li><strong>禁止船上混合油品：</strong>強調應使用預混好的成品油</li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 style="color: var(--ocean-mid); margin: 1.5rem 0 0.5rem;">營運最佳實踐</h3>
+
+                <div class="highlight-box">
+                    <h4 style="margin: 0 0 1rem; color: var(--ocean-deep);">1. 掃氣箱洩油分析（SDA）成為核心</h4>
+                    <p>SDA 是監控雙燃料主機潤滑狀況的黃金標準。船員必須依賴 SDA 數據來動態調整注油策略：</p>
+                    <ul style="margin-left: 1rem;">
+                        <li><strong>鐵（Fe）含量：</strong>監控磨損。在甲醇模式下飆升，可能意味著甲酸腐蝕或油膜被洗去。</li>
+                        <li><strong>殘餘鹼價（Residual BN）：</strong>監控油品效能。在 LNG 模式下過高，提示灰分沈積風險；在甲醇模式下過低，提示酸中和能力不足。</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box">
+                    <h4 style="margin: 0 0 1rem; color: var(--ocean-deep);">2. 動態注油策略</h4>
+                    <p style="margin: 0;">即使在無硫的氣體模式下，也必須維持足夠的最低注油率（通常約 <strong>0.6 g/kWh</strong>），以確保油膜厚度能抵抗燃料稀釋與洗去效應。
+                    </p>
+                </div>
+            </div>
+
+            <div
+                style="margin-top: 2rem; padding: 1rem; background: rgba(255,255,255,0.5); border-radius: 8px; border-left: 5px solid var(--ocean-mid);">
+                <h3>參考資料來源</h3>
+                <ul style="margin-left: 1rem;">
+                    <li>Everllence (MAN Energy Solutions)</li>
+                    <li>WinGD (Winterthur Gas & Diesel)</li>
+                    <li>Japan Engine Corporation (J-ENG)</li>
+                    <li>CIMAC Papers on Dual-Fuel Engine Lubrication</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div style="text-align: center; padding: 2rem;">
+            <h5>
+                <p>如果對文章內容有疑慮，歡迎來信討論指教</p>
+                <a href="mailto:mark.chuangjj@gmail.com">email to me (Mark CHUANG)</a>
+            </h5>
+        </div>
+    </footer>
+</body>
+
+</html>
