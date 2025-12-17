@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="往復式壓縮機, 空氣壓縮機, 閥門, 積碳, 潤滑油, reciprocating compressor, air compressor, valve, coking">
+    <link rel="icon" type="image/png" href="../images/mark_small.png">
+    <title>船用往復式壓縮機故障、維護與潤滑策略</title>
+    <link rel="stylesheet" href="../styles/web.css">
+    <style>
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 8px;
+            overflow: hidden;
+            font-size: 0.9rem;
+        }
+
+        .info-table th,
+        .info-table td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .info-table th {
+            background: var(--ocean-deep);
+            color: white;
+            font-weight: 600;
+        }
+
+        .info-table tr:hover {
+            background: rgba(100, 150, 200, 0.1);
+        }
+
+        .highlight-box {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(100, 150, 200, 0.15), rgba(255, 200, 100, 0.1));
+            border-radius: 12px;
+            border-left: 5px solid var(--ocean-mid);
+            margin: 1.5rem 0;
+        }
+
+        .warning-box {
+            padding: 1rem;
+            background: rgba(255, 200, 100, 0.2);
+            border-radius: 8px;
+            border-left: 4px solid #f0ad4e;
+            margin: 1rem 0;
+        }
+
+        .danger-box {
+            padding: 1rem;
+            background: rgba(255, 100, 100, 0.15);
+            border-radius: 8px;
+            border-left: 4px solid #d9534f;
+            margin: 1rem 0;
+        }
+
+        .success-box {
+            padding: 1rem;
+            background: rgba(100, 200, 100, 0.15);
+            border-radius: 8px;
+            border-left: 4px solid #5cb85c;
+            margin: 1rem 0;
+        }
+
+        .insight-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .insight-card {
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 8px;
+            border-top: 3px solid var(--ocean-mid);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <div class="top_main">
+        <h1 style="font-size:24px;">船用往復式壓縮機故障、維護與潤滑策略</h1>
+        <a href="../index.html">回首頁</a>
+        <img src="../images/mark_small.png" height="100px" />
+    </div>
+
+    <hr>
+
+    <main>
+        <div class="container">
+            <!-- 執行摘要 -->
+            <div class="highlight-box">
+                <h2 style="margin-top: 0; color: var(--ocean-deep);">執行摘要</h2>
+                <p>
+                    本簡報旨在深入剖析大型商船往復式多段空氣壓縮機的運作原理、失效模式、維護策略及潤滑油選用。壓縮空氣是啟動船舶主機的核心動力源，其壓縮機系統的可靠性直接決定船舶的機動性與安全，被視為船舶的<strong>「心臟起搏器」</strong>。任何故障都可能導致船舶失去動力，面臨「死船」（Dead
+                    Ship）的極端風險。
+                </p>
+            </div>
+
+            <!-- 核心洞察 -->
+            <div>
+                <h2 style="color: var(--ocean-deep); margin-bottom: 1rem;">核心洞察</h2>
+                <div class="insight-grid">
+                    <div class="insight-card">
+                        <h4 style="margin: 0 0 0.5rem; color: var(--ocean-mid);">1️⃣ 熱力學的必要性</h4>
+                        <p style="margin: 0; font-size: 0.9rem;">採用多段壓縮與中間冷卻（Intercooling）是克服熱力學限制的必要手段。若無中間冷卻，單級壓縮至30
+                            bar會產生超過400°C的高溫，將引發潤滑失效與氣缸爆炸。</p>
+                    </div>
+                    <div class="insight-card">
+                        <h4 style="margin: 0 0 0.5rem; color: var(--ocean-mid);">2️⃣ 關鍵失效模式</h4>
+                        <p style="margin: 0; font-size: 0.9rem;">
+                            壓縮機故障的核心根源在於「積碳→洩漏→高溫→更多積碳」的<strong>惡性循環</strong>。閥門病變、機械磨損、熱交換器衰退為主要失效模式。</p>
+                    </div>
+                    <div class="insight-card">
+                        <h4 style="margin: 0 0 0.5rem; color: var(--ocean-mid);">3️⃣ 維護策略的轉變</h4>
+                        <p style="margin: 0; font-size: 0.9rem;">維護哲學必須從被動維修轉向基於狀態的預防性維護。將級間壓力視為診斷閥門健康的「聽診器」。</p>
+                    </div>
+                    <div class="insight-card">
+                        <h4 style="margin: 0 0 0.5rem; color: var(--ocean-mid);">4️⃣ 潤滑油的決定性作用</h4>
+                        <p style="margin: 0; font-size: 0.9rem;">在高壓高溫環境下，潤滑油的選用是<strong>安全問題</strong>，而非經濟問題。強烈建議採用符合
+                            DIN 51506 VDL 標準的合成油。</p>
+                    </div>
+                </div>
+
+                <div class="success-box">
+                    <p style="margin: 0;"><strong>策略總結：</strong>「以合成油抗高溫積碳，以數據監控級間壓力，以紀律執行閥門更換」</p>
+                </div>
+            </div>
+
+            <!-- 1. 多段壓縮與中間冷卻 -->
+            <div>
+                <h2 style="color: var(--ocean-deep); margin-bottom: 1rem;">1. 多段壓縮與中間冷卻的熱力學原理</h2>
+                <p>船用空氣壓縮機之所以採用多段壓縮設計，其核心是為了平衡熱力學效率與機械生存性，以克服單級壓縮在物理學上的限制。</p>
+
+                <h3 style="color: var(--ocean-mid); margin: 1.5rem 0 0.5rem;">1.1 安全性：防止潤滑油失效與爆炸（首要原因）</h3>
+                <ul style="margin-left: 1.5rem;">
+                    <li><strong>避免極端高溫：</strong>將空氣從1 bar直接單級壓縮至30 bar，理論排氣溫度將輕易超過400°C</li>
+                    <li><strong>潤滑油的物理極限：</strong>該溫度遠超任何常規潤滑油的閃點與自燃點，會瞬間碳化、燃燒甚至引發爆炸</li>
+                    <li><strong>溫度控制：</strong>中間冷卻器強制移除壓縮熱，將排氣溫度控制在安全的140°C至160°C以下</li>
+                </ul>
+
+                <h3 style="color: var(--ocean-mid); margin: 1.5rem 0 0.5rem;">1.2 提升效率：最小化功耗</h3>
+                <ul style="margin-left: 1.5rem;">
+                    <li><strong>降低壓縮功：</strong>中間冷卻將壓縮過程從低效的「絕熱過程」轉向高效的「等溫過程」</li>
+                    <li><strong>省力原理：</strong>冷卻後空氣密度增加，下一級壓縮所需機械功大幅減少</li>
+                    <li><strong>提升容積效率：</strong>冷卻後的空氣密度更高，相同氣缸容積可壓縮更多質量的空氣</li>
+                </ul>
+
+                <h3 style="color: var(--ocean-mid); margin: 1.5rem 0 0.5rem;">1.3 機械保護：延長組件壽命</h3>
+                <ul style="margin-left: 1.5rem;">
+                    <li><strong>降低機械應力：</strong>分段壓縮降低每一級壓縮比，大幅降低活塞、連桿與曲軸軸承的機械應力</li>
+                    <li><strong>冷凝水分離：</strong>高溫潮濕空氣冷卻後水分凝結析出，減少進入高壓級與空氣瓶的水分</li>
+                </ul>
+            </div>
+
+            <!-- 2. 關鍵失效模式 -->
+            <div>
+                <h2 style="color: var(--ocean-deep); margin-bottom: 1rem;">2. 關鍵失效模式與根本原因分析</h2>
+                <p>船用壓縮機在機艙高溫、高濕、高振動的惡劣環境中運作，使其成為故障率高的設備。</p>
+
+                <h3 style="color: var(--ocean-mid); margin: 1.5rem 0 0.5rem;">2.1 閥門組件的病變</h3>
+                <p>閥門是壓縮機的「心臟」，也是最脆弱的環節。</p>
+
+                <div class="warning-box">
+                    <h4 style="margin: 0 0 0.5rem;">碳化沉積（Coking）惡性循環</h4>
+                    <ol style="margin: 0 0 0 1rem;">
+                        <li><strong>成因：</strong>排氣溫度過高或劣質潤滑油，導致油膜熱裂解生成積碳</li>
+                        <li><strong>密封失效：</strong>積碳附著導致閥門無法完全關閉</li>
+                        <li><strong>熱氣回流：</strong>排氣閥洩漏導致高溫高壓氣體倒流回氣缸</li>
+                        <li><strong>惡性循環：</strong>回流熱氣使起始溫度升高，加速積碳，閥片退火軟化或熱疲勞斷裂</li>
+                    </ol>
+                </div>
+
+                <p><strong>疲勞斷裂與衝擊損傷：</strong></p>
+                <ul style="margin-left: 1.5rem;">
+                    <li>閥片每分鐘承受上千次高頻衝擊，長期產生金屬疲勞裂紋</li>
+                    <li>閥彈簧高溫下發生潛變，彈力下降引發「閥顫」（Valve Flutter）</li>
+                    <li>斷裂閥片碎片掉入氣缸，嚴重刮傷氣缸套或嵌入活塞頂部</li>
+                </ul>
+
+                <h3 style="color: var(--ocean-mid); margin: 1.5rem 0 0.5rem;">2.2 運動組件與熱交換器的衰退</h3>
+                <ul style="margin-left: 1.5rem;">
+                    <li><strong>氣缸與活塞環磨損：</strong>吸氣過濾不當引入磨料，高溫導致刮傷與咬死</li>
+                    <li><strong>軸承失效：</strong>油泵磨損或濾網堵塞導致油壓不足，迅速燒毀軸承</li>
+                    <li><strong>熱交換器腐蝕：</strong>若犧牲陽極（鋅棒）耗盡或絕緣失效，銅管將發生電化學腐蝕穿孔</li>
+                </ul>
+
+                <h3 style="color: var(--ocean-mid); margin: 1.5rem 0 0.5rem;">2.3 災難性故障：啟動空氣管路爆炸</h3>
+                <div class="danger-box">
+                    <h4 style="margin: 0 0 0.5rem; color: #d9534f;">⚠️ 最危險的故障 - 爆炸三要素</h4>
+                    <ol style="margin: 0 0 0 1rem;">
+                        <li><strong>燃料：</strong>刮油環磨損導致「油氣攜帶」，管路內壁沉積油膜和油霧</li>
+                        <li><strong>氧氣：</strong>30 bar高壓壓縮空氣提供高濃度助燃劑</li>
+                        <li><strong>火源：</strong>主機啟動空氣閥洩漏，高溫燃氣倒灌入啟動空氣總管</li>
+                    </ol>
+                    <p style="margin: 0.5rem 0 0;">當高溫燃氣與管路內油霧相遇，形成超音速爆轟波（Detonation），瞬間壓力可撕裂鋼製管路。</p>
+                </div>
+            </div>
+
+            <!-- 3. 預防性維護 -->
+            <div>
+                <h2 style="color: var(--ocean-deep); margin-bottom: 1rem;">3. 預防性維護與診斷策略</h2>
+                <p>維護策略應從「被動維修」轉向「基於狀態的維護」（CBM）和嚴格的預防保養計畫（PMS）。</p>
+
+                <h3 style="color: var(--ocean-mid); margin: 1.5rem 0 0.5rem;">3.1 運轉參數監控與故障診斷</h3>
+                <table class="info-table">
+                    <thead>
+                        <tr>
+                            <th>故障徵兆</th>
+                            <th>潛在原因</th>
+                            <th>檢查與對策</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>級間壓力異常升高</strong></td>
+                            <td>下一級吸氣閥洩漏或斷裂；級間冷卻器阻塞</td>
+                            <td>1. 檢查下一級吸氣閥<br>2. 清洗級間冷卻器</td>
+                        </tr>
+                        <tr>
+                            <td><strong>級間壓力異常降低</strong></td>
+                            <td>本級吸氣閥洩漏或進氣受阻；活塞環磨損嚴重</td>
+                            <td>1. 檢查本級吸氣閥與濾網<br>2. 測量活塞環間隙</td>
+                        </tr>
+                        <tr>
+                            <td><strong>排氣溫度過高</strong></td>
+                            <td>閥門洩漏導致熱氣重壓縮；冷卻水流量不足</td>
+                            <td>1. 立即停機檢查閥門<br>2. 檢查冷卻水泵與管路</td>
+                        </tr>
+                        <tr>
+                            <td><strong>滑油消耗量大</strong></td>
+                            <td>刮油環磨損或裝反；曲軸箱呼吸器阻塞</td>
+                            <td>1. 更換刮油環<br>2. 清潔呼吸器</td>
+                        </tr>
+                        <tr>
+                            <td><strong>啟動空氣管路發熱</strong></td>
+                            <td>主機啟動空氣閥洩漏，高溫燃氣倒灌</td>
+                            <td>1. 緊急更換或研磨主機啟動閥<br>2. 檢查管路油氣積聚</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 style="color: var(--ocean-mid); margin: 1.5rem 0 0.5rem;">3.2 嚴格的維護保養計畫</h3>
+                <dl style="margin: 1rem 0;">
+                    <dt style="color: var(--sun-warm); font-weight: bold;">日常（Daily）</dt>
+                    <dd style="margin-left: 1rem; margin-bottom: 1rem;">
+                        <strong>洩放冷凝水：</strong>這是最重要且最簡單的工作。每日每班必須排空所有冷卻器與空氣瓶的冷凝水，以防腐蝕與水擊。
+                    </dd>
+
+                    <dt style="color: var(--sun-warm); font-weight: bold;">週期性保養（1000 - 4000 小時）</dt>
+                    <dd style="margin-left: 1rem; margin-bottom: 1rem;">
+                        <ul style="margin: 0.5rem 0 0 1rem;">
+                            <li><strong>閥門保養（2000-3000小時）：</strong>拆解並清潔閥門，<strong>強制更換</strong>閥片與彈簧，避免金屬疲勞斷裂</li>
+                            <li><strong>頂部大修（4000小時）：</strong>吊出活塞，檢查活塞環與氣缸磨損，徹底清洗冷卻器管束</li>
+                        </ul>
+                    </dd>
+
+                    <dt style="color: var(--sun-warm); font-weight: bold;">腐蝕控制</dt>
+                    <dd style="margin-left: 1rem; margin-bottom: 1rem;">
+                        定期（3-6個月）檢查並更換消耗超過50%的犧牲陽極（鋅棒）。安裝時必須確保與殼體有良好金屬接觸，嚴禁纏繞過多止洩帶導致絕緣失效。
+                    </dd>
+                </dl>
+            </div>
+
+            <!-- 4. 潤滑油選用 -->
+            <div>
+                <h2 style="color: var(--ocean-deep); margin-bottom: 1rem;">4. 潤滑油選用之關鍵決策</h2>
+                <p>在高壓空氣壓縮機中，潤滑油的選擇直接關乎安全。所有油品均須符合 <strong>DIN 51506 VDL</strong> 標準。黏度通常選用 <strong>ISO VG 100</strong>
+                    或 <strong>ISO VG 150</strong>。</p>
+
+                <h3 style="color: var(--ocean-mid); margin: 1.5rem 0 0.5rem;">4.1 礦物油 vs. 合成油：安全性與總體成本的抉擇</h3>
+                <table class="info-table">
+                    <thead>
+                        <tr>
+                            <th>比較項目</th>
+                            <th>礦物油</th>
+                            <th>合成油 (PAO/Ester)</th>
+                            <th>營運影響</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>換油週期</strong></td>
+                            <td>1,000 - 2,000 小時</td>
+                            <td>4,000 - 8,000 小時</td>
+                            <td>合成油大幅減少廢油處理與人力成本</td>
+                        </tr>
+                        <tr>
+                            <td><strong>高溫氧化穩定性</strong></td>
+                            <td>差（150°C以上易裂解）</td>
+                            <td>優（200°C以上仍穩定）</td>
+                            <td>礦物油易導致閥門積碳惡性循環</td>
+                        </tr>
+                        <tr>
+                            <td><strong>殘碳形成</strong></td>
+                            <td>高</td>
+                            <td>極低</td>
+                            <td>合成油能保持閥門清潔</td>
+                        </tr>
+                        <tr>
+                            <td><strong>高壓下自燃點</strong></td>
+                            <td>較低（~200-250°C @ 30bar）</td>
+                            <td>較高（大於400°C @ 30bar）</td>
+                            <td>合成油提供關鍵安全裕度，防止管路爆炸</td>
+                        </tr>
+                        <tr>
+                            <td><strong>揮發性</strong></td>
+                            <td>高</td>
+                            <td>低</td>
+                            <td>合成油減少油耗與油氣攜帶量</td>
+                        </tr>
+                        <tr>
+                            <td><strong>總體擁有成本</strong></td>
+                            <td>初始成本低，維護頻繁</td>
+                            <td>初始成本高，長期成本更低</td>
+                            <td>合成油 TCO 更具優勢</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 style="color: var(--ocean-mid); margin: 1.5rem 0 0.5rem;">4.2 使用警告</h3>
+                <div class="danger-box">
+                    <h4 style="margin: 0 0 0.5rem; color: #d9534f;">⚠️ 嚴禁混用</h4>
+                    <p style="margin: 0;">
+                        合成油與礦物油通常不相容。若要轉換油品，必須對系統進行<strong>徹底沖洗（Flushing）</strong>，否則會產生膠狀沉澱物堵塞油路，導致災難性故障。</p>
+                </div>
+                <div class="warning-box">
+                    <h4 style="margin: 0 0 0.5rem;">相容性確認</h4>
+                    <p style="margin: 0;">轉換油品前需確認與系統中的油封、墊片等密封件材質相容。</p>
+                </div>
+            </div>
+
+            <!-- 參考文件 -->
+            <div
+                style="margin-top: 2rem; padding: 1rem; background: rgba(255,255,255,0.5); border-radius: 8px; border-left: 5px solid var(--sun-gold);">
+                <h3>參考文件</h3>
+                <p>
+                    <a href="../files/Ship_Heart_Survival_Preventative_Medicine.pdf" target="_blank"
+                        style="font-weight: bold; color: var(--ocean-mid);">
+                        下載簡報資料: Ship_Heart_Survival_Preventative_Medicine.pdf
+                    </a>
+                </p>
+            </div>
+
+            <div
+                style="margin-top: 2rem; padding: 1rem; background: rgba(255,255,255,0.5); border-radius: 8px; border-left: 5px solid var(--ocean-mid);">
+                <h3>參考資料來源</h3>
+                <ul style="margin-left: 1rem;">
+                    <li>DIN 51506 VDL - Lubricants for Air Compressors</li>
+                    <li>Marine Engineering Best Practices</li>
+                    <li>Compressor Manufacturers Technical Documentation</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div style="text-align: center; padding: 2rem;">
+            <h5>
+                <p>如果對文章內容有疑慮，歡迎來信討論指教</p>
+                <a href="mailto:mark.chuangjj@gmail.com">email to me (Mark CHUANG)</a>
+            </h5>
+        </div>
+    </footer>
+</body>
+
+</html>
