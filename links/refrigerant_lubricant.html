@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="冷媒, 潤滑油, POE, HFC, HFO, 冷凍機油, refrigerant, lubricant, compressor oil">
+    <link rel="icon" type="image/png" href="../images/mark_small.png">
+    <title>冷媒與潤滑油匹配指南</title>
+    <link rel="stylesheet" href="../styles/web.css">
+    <style>
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 8px;
+            overflow: hidden;
+            font-size: 0.85rem;
+        }
+
+        .info-table th,
+        .info-table td {
+            padding: 0.6rem 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .info-table th {
+            background: var(--ocean-deep);
+            color: white;
+            font-weight: 600;
+        }
+
+        .info-table tr:hover {
+            background: rgba(100, 150, 200, 0.1);
+        }
+
+        .highlight-box {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(100, 150, 200, 0.15), rgba(255, 200, 100, 0.1));
+            border-radius: 12px;
+            border-left: 5px solid var(--ocean-mid);
+            margin: 1.5rem 0;
+        }
+
+        .warning-box {
+            padding: 1rem;
+            background: rgba(255, 200, 100, 0.2);
+            border-radius: 8px;
+            border-left: 4px solid #f0ad4e;
+            margin: 1rem 0;
+        }
+
+        .danger-box {
+            padding: 1rem;
+            background: rgba(255, 100, 100, 0.15);
+            border-radius: 8px;
+            border-left: 4px solid #d9534f;
+            margin: 1rem 0;
+        }
+
+        .success-box {
+            padding: 1rem;
+            background: rgba(100, 200, 100, 0.15);
+            border-radius: 8px;
+            border-left: 4px solid #5cb85c;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <div class="top_main">
+        <h1 style="font-size:26px;">冷媒與潤滑油匹配指南</h1>
+        <a href="../index.html">回首頁</a>
+        <img src="../images/mark_small.png" height="100px" />
+    </div>
+
+    <hr>
+
+    <main>
+        <div class="container">
+            <!-- 執行摘要 -->
+            <div class="highlight-box">
+                <h2 style="margin-top: 0; color: var(--ocean-deep);">執行摘要</h2>
+                <p>本簡報綜合分析了冷凍空調（HVAC&R）領域中冷媒與潤滑油的匹配科學，聚焦於其技術演進、日益嚴格的環保法規，以及錯誤匹配所引發的災難性系統故障。</p>
+
+                <h3 style="color: var(--ocean-mid);">核心結論</h3>
+                <ol style="margin: 0.5rem 0 0 1rem;">
+                    <li><strong>法規驅動的技術轉型：</strong>《基加利修正案》及F-Gas法規強制推動低GWP冷媒</li>
+                    <li><strong>匹配核心在於互溶性：</strong>冷媒與油構成「二元工質對」，基於化學極性匹配</li>
+                    <li><strong>錯誤匹配的災難後果：</strong>油滯留、鍍銅現象、馬達燒毀</li>
+                    <li><strong>船舶應用主流方案：</strong>R-513A（空調）、R-448A（冷凍）、CO2（貨櫃）</li>
+                    <li><strong>嚴格操作規範：</strong>舊油殘留量需低於5%，POE油必須防潮</li>
+                </ol>
+            </div>
+
+            <!-- 一、冷媒演進 -->
+            <div>
+                <h2 style="color: var(--ocean-deep); margin-bottom: 1rem;">一、冷媒的技術演進與法規博弈</h2>
+                <p>製冷劑的發展史是在熱力學性能、安全性與環境影響之間尋求平衡的過程。</p>
+
+                <h3 style="color: var(--ocean-mid); margin: 1.5rem 0 0.5rem;">冷媒世代演進</h3>
+                <table class="info-table">
+                    <thead>
+                        <tr>
+                            <th>世代</th>
+                            <th>類型</th>
+                            <th>代表冷媒</th>
+                            <th>特性與影響</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>第一/二代</td>
+                            <td>CFCs / HCFCs</td>
+                            <td>R-12, R-22</td>
+                            <td>含氯，破壞臭氧層（ODP&gt;0）。已被《蒙特婁議定書》淘汰</td>
+                        </tr>
+                        <tr>
+                            <td>第三代</td>
+                            <td>HFCs</td>
+                            <td>R-134a, R-404A</td>
+                            <td>ODP=0，但GWP極高（如R-404A GWP=3922）</td>
+                        </tr>
+                        <tr>
+                            <td>第四代</td>
+                            <td>HFOs</td>
+                            <td>R-1234yf, R-513A</td>
+                            <td>含碳碳雙鍵，GWP&lt;750。純HFOs多為A2L級</td>
+                        </tr>
+                        <tr>
+                            <td>天然冷媒</td>
+                            <td>Natural</td>
+                            <td>CO2, NH3, 丙烷</td>
+                            <td>GWP≤1，但存在高壓、毒性或可燃性挑戰</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="success-box">
+                    <h4 style="margin: 0 0 0.5rem;">結論</h4>
+                    <p style="margin: 0;">
+                        對於<strong>新購設備或新造船</strong>，投資高GWP技術面臨巨大合規與成本風險，環保冷媒幾乎是唯一選項。對於現有資產，則可在維持現狀、過渡性改裝或徹底更換之間策略選擇。</p>
+                </div>
+            </div>
+
+            <!-- 二、船舶應用 -->
+            <div>
+                <h2 style="color: var(--ocean-deep); margin-bottom: 1rem;">二、大型商船的冷媒應用實例與趨勢</h2>
+                <table class="info-table">
+                    <thead>
+                        <tr>
+                            <th>應用系統</th>
+                            <th>過去常用</th>
+                            <th>2024-2025 主流</th>
+                            <th>未來選項</th>
+                            <th>關鍵考量</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>機艙中央空調</strong></td>
+                            <td>R-134a</td>
+                            <td>R-513A</td>
+                            <td>R-1234ze</td>
+                            <td>安全性(A1級)、改裝簡便</td>
+                        </tr>
+                        <tr>
+                            <td><strong>伙食冷凍庫</strong></td>
+                            <td>R-404A, R-22</td>
+                            <td>R-448A, R-449A</td>
+                            <td>CO2</td>
+                            <td>低溫性能、GWP合規</td>
+                        </tr>
+                        <tr>
+                            <td><strong>冷凍貨櫃</strong></td>
+                            <td>R-134a, R-404A</td>
+                            <td>R-513A</td>
+                            <td>CO2 (R-744)</td>
+                            <td>全球供應鏈、極低GWP</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <ul style="margin-left: 1.5rem; margin-top: 1rem;">
+                    <li><strong>R-513A（GWP~630）：</strong>R-134a最佳替代品，A1級不可燃，改裝成本極低</li>
+                    <li><strong>R-448A/R-449A（GWP~1300）：</strong>R-404A改裝市場的絕對主流，GWP降低65%</li>
+                    <li><strong>CO2（R-744）：</strong>GWP=1，在冷凍貨櫃領域迅速普及，但壓力可達100-120 bar</li>
+                </ul>
+            </div>
+
+            <!-- 三、匹配科學 -->
+            <div>
+                <h2 style="color: var(--ocean-deep); margin-bottom: 1rem;">三、冷凍機油的匹配科學</h2>
+                <p>冷凍機油與冷媒構成「二元工質對」，其匹配核心在於<strong>互溶性（Miscibility）</strong>與<strong>化學極性（Polarity）</strong>。</p>
+
+                <h3 style="color: var(--ocean-mid); margin: 1.5rem 0 0.5rem;">基礎油分類與特性</h3>
+                <table class="info-table">
+                    <thead>
+                        <tr>
+                            <th>油品類型</th>
+                            <th>縮寫</th>
+                            <th>化學特性</th>
+                            <th>適用冷媒</th>
+                            <th>注意事項</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>礦物油</strong></td>
+                            <td>MO</td>
+                            <td>非極性</td>
+                            <td>CFCs, HCFCs</td>
+                            <td>與HFC/HFO完全不互溶</td>
+                        </tr>
+                        <tr>
+                            <td><strong>烷基苯油</strong></td>
+                            <td>AB</td>
+                            <td>非極性</td>
+                            <td>HCFCs (R-22)</td>
+                            <td>穩定性優於MO</td>
+                        </tr>
+                        <tr>
+                            <td><strong>聚酯油</strong></td>
+                            <td>POE</td>
+                            <td>極性</td>
+                            <td>HFCs, HFOs</td>
+                            <td>有致命的吸濕性</td>
+                        </tr>
+                        <tr>
+                            <td><strong>聚亞烷基二醇油</strong></td>
+                            <td>PAG</td>
+                            <td>極性</td>
+                            <td>汽車空調</td>
+                            <td>導電率高，禁用於密閉式壓縮機</td>
+                        </tr>
+                        <tr>
+                            <td><strong>聚乙烯醚油</strong></td>
+                            <td>PVE</td>
+                            <td>極性</td>
+                            <td>HFCs</td>
+                            <td>抗水解能力強</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 style="color: var(--ocean-mid); margin: 1.5rem 0 0.5rem;">匹配邏輯</h3>
+                <ul style="margin-left: 1.5rem;">
+                    <li><strong>非極性匹配：</strong>R-12、R-22與礦物油（MO）或烷基苯油（AB）良好互溶</li>
+                    <li><strong>極性匹配：</strong>HFC/HFO冷媒必須選用POE油，確保油能隨冷媒循環</li>
+                    <li><strong>CO2系統：</strong>因超強溶解力，必須使用高黏度等級（ISO VG 85以上）的特殊POE油</li>
+                </ul>
+            </div>
+
+            <!-- 四、錯誤匹配故障 -->
+            <div>
+                <h2 style="color: var(--ocean-deep); margin-bottom: 1rem;">四、錯誤匹配導致的系統故障機制</h2>
+
+                <div class="danger-box">
+                    <h4 style="margin: 0 0 0.5rem; color: #d9534f;">1. 物理性故障：「回油飢餓」</h4>
+                    <p style="margin: 0;"><strong>機制：</strong>HFC冷媒與礦物油在低溫蒸發器中相分離，油變成蠟狀物。</p>
+                    <ul style="margin: 0.5rem 0 0 1rem;">
+                        <li><strong>油滯留（Oil Logging）：</strong>僅0.1mm油膜可導致熱傳效率下降30%以上</li>
+                        <li><strong>壓縮機咬死：</strong>曲軸箱缺油導致軸承乾摩擦熔焊</li>
+                    </ul>
+                </div>
+
+                <div class="danger-box">
+                    <h4 style="margin: 0 0 0.5rem; color: #d9534f;">2. 化學性故障：「酸蝕與鍍銅」</h4>
+                    <p style="margin: 0;"><strong>機制：</strong>POE油吸濕後水解產生酸，腐蝕銅管並在鋼製部件表面沉積銅膜。</p>
+                    <ul style="margin: 0.5rem 0 0 1rem;">
+                        <li><strong>鍍銅現象：</strong>改變精密公差，導致閥片洩漏或軸承卡死</li>
+                        <li><strong>絕緣破壞：</strong>酸侵蝕馬達線圈，導致匝間短路燒毀</li>
+                    </ul>
+                </div>
+
+                <div class="warning-box">
+                    <h4 style="margin: 0 0 0.5rem;">3. 電氣與機械特性誤用</h4>
+                    <ul style="margin: 0;">
+                        <li><strong>PAG油導電短路：</strong>誤用於密閉式壓縮機將直接導致馬達短路</li>
+                        <li><strong>黏度失控：</strong>HFC對POE油有稀釋作用，過低黏度導致油膜破裂</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 五、操作建議 -->
+            <div>
+                <h2 style="color: var(--ocean-deep); margin-bottom: 1rem;">五、操作建議與未來展望</h2>
+
+                <dl style="margin: 1rem 0;">
+                    <dt style="color: var(--sun-warm); font-weight: bold;">嚴格的油品管理</dt>
+                    <dd style="margin-left: 1rem; margin-bottom: 0.75rem;">建立顏色編碼制度區分油品，嚴禁混用</dd>
+
+                    <dt style="color: var(--sun-warm); font-weight: bold;">POE油的防潮操作</dt>
+                    <dd style="margin-left: 1rem; margin-bottom: 0.75rem;">開封后盡快用完或用乾燥氮氣密封，更換乾燥過濾器時迅速操作</dd>
+
+                    <dt style="color: var(--sun-warm); font-weight: bold;">定期酸度測試</dt>
+                    <dd style="margin-left: 1rem; margin-bottom: 0.75rem;">每半年使用酸度測試包監控油品狀況</dd>
+
+                    <dt style="color: var(--sun-warm); font-weight: bold;">徹底的改裝沖洗</dt>
+                    <dd style="margin-left: 1rem; margin-bottom: 0.75rem;">
+                        冷媒轉換時多次換油沖洗，確保舊油殘留量<strong>低於5%</strong>（嚴格要求1%）</dd>
+                </dl>
+
+                <div class="success-box">
+                    <h4 style="margin: 0 0 0.5rem;">結語</h4>
+                    <p style="margin: 0;">
+                        從CFC到HFO及天然冷媒，冷凍技術的發展是追求環境責任的必然趨勢。無論冷媒如何變化，<strong>「正確的油匹配」</strong>始終是系統可靠運行的基石。</p>
+                </div>
+            </div>
+
+            <!-- 參考文件 -->
+            <div
+                style="margin-top: 2rem; padding: 1rem; background: rgba(255,255,255,0.5); border-radius: 8px; border-left: 5px solid var(--sun-gold);">
+                <h3>參考文件</h3>
+                <p>
+                    <a href="../files/冰與油的致命夥伴關係.pdf" target="_blank"
+                        style="font-weight: bold; color: var(--ocean-mid);">
+                        下載簡報資料: 冰與油的致命夥伴關係.pdf
+                    </a>
+                </p>
+            </div>
+
+            <div
+                style="margin-top: 2rem; padding: 1rem; background: rgba(255,255,255,0.5); border-radius: 8px; border-left: 5px solid var(--ocean-mid);">
+                <h3>參考資料來源</h3>
+                <ul style="margin-left: 1rem;">
+                    <li>《蒙特婁議定書》基加利修正案</li>
+                    <li>歐盟 F-Gas Regulation (EU) 517/2014</li>
+                    <li>ASHRAE Standard 34 - Designation and Safety Classification of Refrigerants</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div style="text-align: center; padding: 2rem;">
+            <h5>
+                <p>如果對文章內容有疑慮，歡迎來信討論指教</p>
+                <a href="mailto:mark.chuangjj@gmail.com">email to me (Mark CHUANG)</a>
+            </h5>
+        </div>
+    </footer>
+</body>
+
+</html>
