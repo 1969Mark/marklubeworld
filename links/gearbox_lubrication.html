@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="齒輪箱, 潤滑油, 黏度, 點蝕, 膠合, gearbox, lubricant, viscosity, pitting, scuffing">
+    <link rel="icon" type="image/png" href="../images/mark_small.png">
+    <title>齒輪箱潤滑與維護關鍵洞察簡報</title>
+    <link rel="stylesheet" href="../styles/web.css">
+    <style>
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 8px;
+            overflow: hidden;
+            font-size: 0.85rem;
+        }
+
+        .info-table th,
+        .info-table td {
+            padding: 0.6rem 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .info-table th {
+            background: var(--ocean-deep);
+            color: white;
+            font-weight: 600;
+        }
+
+        .info-table tr:hover {
+            background: rgba(100, 150, 200, 0.1);
+        }
+
+        .highlight-box {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(100, 150, 200, 0.15), rgba(255, 200, 100, 0.1));
+            border-radius: 12px;
+            border-left: 5px solid var(--ocean-mid);
+            margin: 1.5rem 0;
+        }
+
+        .analogy-box {
+            padding: 1rem;
+            background: rgba(200, 200, 255, 0.15);
+            border-radius: 8px;
+            border-left: 4px solid #6c5ce7;
+            margin: 1rem 0;
+            font-style: italic;
+        }
+
+        .warning-box {
+            padding: 1rem;
+            background: rgba(255, 200, 100, 0.2);
+            border-radius: 8px;
+            border-left: 4px solid #f0ad4e;
+            margin: 1rem 0;
+        }
+
+        .conclusion-box {
+            padding: 1rem;
+            background: rgba(100, 200, 100, 0.15);
+            border-radius: 8px;
+            border-left: 4px solid #5cb85c;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <div class="top_main">
+        <h1 style="font-size:24px;">齒輪箱潤滑與維護關鍵洞察簡報</h1>
+        <a href="../index.html">回首頁</a>
+        <img src="../images/mark_small.png" height="100px" />
+    </div>
+
+    <hr>
+
+    <main>
+        <div class="container">
+            <!-- 執行摘要 -->
+            <div class="highlight-box">
+                <h2 style="margin-top: 0; color: var(--ocean-deep);">執行摘要</h2>
+                <p>
+                    本簡報綜合分析了齒輪箱潤滑油選用、設備維護策略及失效診斷的關鍵要素。核心結論指出，現代齒輪設備管理正從傳統的定期維護轉向<strong>基於狀態的維護（CBM）</strong>，此策略不僅能顯著延長設備壽命，更能滿足海事船級社對於延長檢驗週期的嚴格要求。
+                </p>
+                <p>
+                    潤滑油的正確選用是設備可靠性的基石，其三大核心要素——<strong>基礎油、黏度與添加劑</strong>——共同決定了設備的運行效率與壽命。
+                </p>
+            </div>
+
+            <!-- 一、潤滑油選用 -->
+            <div>
+                <h2 style="color: var(--ocean-deep); margin-bottom: 1rem;">一、潤滑油選用的核心三要素</h2>
+                <p>潤滑油被視為齒輪箱的「血液」，其選擇與管理直接影響設備性能。摩擦學研究指出，大多數齒輪失效均可追溯至潤滑失效或選型不當。</p>
+
+                <h3 style="color: var(--ocean-mid); margin: 1.5rem 0 0.5rem;">1.1 基礎油類型：性能的基石</h3>
+                <table class="info-table">
+                    <thead>
+                        <tr>
+                            <th>特性指標</th>
+                            <th>礦物油</th>
+                            <th>PAO</th>
+                            <th>PAG</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>API 分類</strong></td>
+                            <td>Group I / II</td>
+                            <td>Group IV</td>
+                            <td>Group V</td>
+                        </tr>
+                        <tr>
+                            <td><strong>黏度指數 (VI)</strong></td>
+                            <td>90 - 100</td>
+                            <td>130 - 160</td>
+                            <td>150 - 200+</td>
+                        </tr>
+                        <tr>
+                            <td><strong>氧化壽命</strong></td>
+                            <td>標準</td>
+                            <td>長（2-3倍）</td>
+                            <td>極長</td>
+                        </tr>
+                        <tr>
+                            <td><strong>抗微點蝕能力</strong></td>
+                            <td>一般</td>
+                            <td>優良</td>
+                            <td>卓越</td>
+                        </tr>
+                        <tr>
+                            <td><strong>與礦物油相容性</strong></td>
+                            <td>N/A</td>
+                            <td>可混溶</td>
+                            <td>完全不可混溶</td>
+                        </tr>
+                        <tr>
+                            <td><strong>典型應用</strong></td>
+                            <td>一般工廠</td>
+                            <td>港口起重機、長換油週期</td>
+                            <td>蝸輪蝸桿、風力發電</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="analogy-box">
+                    <h4 style="margin: 0 0 0.5rem; font-style: normal;">🏔️ 概念類比：登山運動員</h4>
+                    <ul style="margin: 0; font-style: normal;">
+                        <li><strong>基礎油是「體質」：</strong>礦物油為普通體質，易疲勞；PAO/PAG為專業運動員，耐力強</li>
+                        <li><strong>黏度是「登山鞋厚度」：</strong>慢走重載需厚底鞋；快速輕載需薄底鞋</li>
+                        <li><strong>添加劑是「護具與營養品」：</strong>極壓添加劑如同護膝，防止極限壓力下受傷</li>
+                    </ul>
+                </div>
+
+                <h3 style="color: var(--ocean-mid); margin: 1.5rem 0 0.5rem;">1.2 黏度選擇：油膜厚度的關鍵</h3>
+                <p>黏度是選油的首要參數，直接決定金屬接觸面間的油膜厚度。</p>
+
+                <dl style="margin: 1rem 0;">
+                    <dt style="color: var(--sun-warm); font-weight: bold;">高速輕載</dt>
+                    <dd style="margin-left: 1rem; margin-bottom: 0.75rem;">應選用較低黏度（如 ISO VG 68, 100），以減少攪拌阻力與發熱</dd>
+
+                    <dt style="color: var(--sun-warm); font-weight: bold;">低速重載</dt>
+                    <dd style="margin-left: 1rem; margin-bottom: 0.75rem;">必須依賴高黏度（如 ISO VG 320, 460, 680）來維持油膜厚度</dd>
+                </dl>
+
+                <h4 style="margin: 1rem 0 0.5rem;">Lambda 比 (λ) 與壽命</h4>
+                <table class="info-table">
+                    <thead>
+                        <tr>
+                            <th>Lambda 比</th>
+                            <th>潤滑狀態</th>
+                            <th>磨損情況</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>λ &gt; 3</strong></td>
+                            <td>全油膜潤滑</td>
+                            <td>幾乎無磨損，設備壽命最長</td>
+                        </tr>
+                        <tr>
+                            <td><strong>1 &lt; λ &lt; 3</strong></td>
+                            <td>混合潤滑</td>
+                            <td>部分金屬接觸，需依賴抗磨添加劑</td>
+                        </tr>
+                        <tr>
+                            <td><strong>λ &lt; 1</strong></td>
+                            <td>邊界潤滑</td>
+                            <td>極易發生磨損與膠合，完全依賴極壓添加劑</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 style="color: var(--ocean-mid); margin: 1.5rem 0 0.5rem;">1.3 添加劑技術：極端工況的化學防護</h3>
+                <ul style="margin-left: 1.5rem;">
+                    <li><strong>極壓 (EP) 添加劑：</strong>含有活性硫、磷化合物，在高壓高溫下生成保護膜。注意：活性硫對黃色金屬（青銅）具腐蝕性</li>
+                    <li><strong>抗磨 (AW) 添加劑：</strong>如 ZDDP，主要在混合潤滑區提供保護</li>
+                    <li><strong>防銹抗氧化 (R&O) 添加劑：</strong>適用於輕載且濕度高的場合</li>
+                </ul>
+            </div>
+
+            <!-- 二、海事應用 -->
+            <div>
+                <h2 style="color: var(--ocean-deep); margin-bottom: 1rem;">二、海事應用的特殊潤滑挑戰</h2>
+                <p>在船舶應用中，<strong>水分</strong>是潤滑油的主要污染物，帶來多重威脅：</p>
+                <ul style="margin-left: 1.5rem;">
+                    <li><strong>降低油膜強度：</strong>水在高壓區會瞬間氣化，破壞油膜承載力</li>
+                    <li><strong>引發腐蝕：</strong>特別是海水會導致嚴重的電化學腐蝕</li>
+                    <li><strong>導致添加劑失效：</strong>部分添加劑遇水會發生水解</li>
+                </ul>
+
+                <div class="warning-box">
+                    <h4 style="margin: 0 0 0.5rem;">⚠️ 抗乳化性至關重要</h4>
+                    <p style="margin: 0;">海事齒輪油必須具備卓越的<strong>抗乳化性（Demulsibility）</strong>。DNV
+                        等船級社明確要求推進系統齒輪油需通過嚴格的抗乳化測試（如 ASTM D1401，30分鐘內乳化層體積小於3ml）。</p>
+                </div>
+            </div>
+
+            <!-- 三、失效模式 -->
+            <div>
+                <h2 style="color: var(--ocean-deep); margin-bottom: 1rem;">三、齒輪失效模式與標準化診斷</h2>
+                <p>應採用 <strong>ANSI/AGMA 1010-F14《齒輪齒面磨損與失效術語》</strong> 規範進行標準化評估。</p>
+
+                <h3 style="color: var(--ocean-mid); margin: 1.5rem 0 0.5rem;">3.1 主要失效類型</h3>
+                <table class="info-table">
+                    <thead>
+                        <tr>
+                            <th>失效類型</th>
+                            <th>機制</th>
+                            <th>特徵</th>
+                            <th>對策</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>磨粒磨損</strong></td>
+                            <td>硬質顆粒刮削齒面</td>
+                            <td>沿滑動方向的刮痕</td>
+                            <td>改善密封與過濾</td>
+                        </tr>
+                        <tr>
+                            <td><strong>微點蝕</strong></td>
+                            <td>油膜厚度不足（λ &lt; 1）</td>
+                            <td>灰暗磨砂狀斑塊</td>
+                            <td>使用 PAG 基礎油</td>
+                        </tr>
+                        <tr>
+                            <td><strong>宏觀點蝕</strong></td>
+                            <td>反覆接觸應力</td>
+                            <td>肉眼可見凹坑</td>
+                            <td>提高黏度、降低負荷</td>
+                        </tr>
+                        <tr>
+                            <td><strong>膠合</strong></td>
+                            <td>瞬時接觸溫度超過油膜極限</td>
+                            <td>粗糙撕裂狀條紋</td>
+                            <td>使用 EP 添加劑</td>
+                        </tr>
+                        <tr>
+                            <td><strong>彎曲疲勞</strong></td>
+                            <td>齒根應力集中</td>
+                            <td>「海灘紋」斷口</td>
+                            <td>設計優化、減少過載</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 四、維護策略 -->
+            <div>
+                <h2 style="color: var(--ocean-deep); margin-bottom: 1rem;">四、維護策略與先進診斷技術</h2>
+                <p>現代維護策略強調從被動修復轉向主動預測，核心是從「預防性維護」過渡到「狀態基礎維護 (CBM)」。</p>
+
+                <h3 style="color: var(--ocean-mid); margin: 1.5rem 0 0.5rem;">4.1 工業與海事實務維護</h3>
+                <dl style="margin: 1rem 0;">
+                    <dt style="color: var(--sun-warm); font-weight: bold;">日常巡檢</dt>
+                    <dd style="margin-left: 1rem; margin-bottom: 0.75rem;">檢查油位、油色、溫度、異音與呼吸器狀態</dd>
+
+                    <dt style="color: var(--sun-warm); font-weight: bold;">月度/季度任務</dt>
+                    <dd style="margin-left: 1rem; margin-bottom: 0.75rem;">檢查過濾器壓差、執行振動分析、定期取油樣送檢</dd>
+
+                    <dt style="color: var(--sun-warm); font-weight: bold;">年度大修</dt>
+                    <dd style="margin-left: 1rem; margin-bottom: 0.75rem;">雷射對中校正、內視鏡檢查與地腳螺栓緊固</dd>
+                </dl>
+
+                <h3 style="color: var(--ocean-mid); margin: 1.5rem 0 0.5rem;">4.2 先進診斷工具</h3>
+                <table class="info-table">
+                    <thead>
+                        <tr>
+                            <th>診斷技術</th>
+                            <th>原理</th>
+                            <th>關鍵指標</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>振動頻譜分析</strong></td>
+                            <td>監測齒輪嚙合頻率及諧波</td>
+                            <td>邊頻（Sidebands）增長是局部故障信號</td>
+                        </tr>
+                        <tr>
+                            <td><strong>磨粒分析</strong></td>
+                            <td>顯微鏡觀察油樣中磨損顆粒</td>
+                            <td>球狀顆粒=疲勞；捲曲切屑=磨粒磨損</td>
+                        </tr>
+                        <tr>
+                            <td><strong>紅外線熱影像</strong></td>
+                            <td>掃描設備溫度分布</td>
+                            <td>同類軸承溫差 &gt; 5-10°C 需關注</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 五、核心結論 -->
+            <div>
+                <h2 style="color: var(--ocean-deep); margin-bottom: 1rem;">五、核心結論與戰略建議</h2>
+                <div class="conclusion-box">
+                    <ol style="margin: 0; padding-left: 1.25rem;">
+                        <li style="margin-bottom: 0.5rem;"><strong>維護策略轉型：</strong>全面推行狀態基礎維護（CBM），以油樣分析和振動監測為核心</li>
+                        <li style="margin-bottom: 0.5rem;"><strong>潤滑管理精細化：</strong>根據工況和環境精準選擇潤滑油，海事應用中抗乳化性與極壓保護性同等重要
+                        </li>
+                        <li style="margin-bottom: 0.5rem;"><strong>檢查與診斷標準化：</strong>採用 AGMA 1010-F14 術語規範目視檢查，依據 ISO
+                            20816 評估振動數據</li>
+                        <li style="margin-bottom: 0;"><strong>確保合規性：</strong>嚴格遵循船級社檢驗規則，保存完整的狀態監控記錄</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- 參考文件 -->
+            <div
+                style="margin-top: 2rem; padding: 1rem; background: rgba(255,255,255,0.5); border-radius: 8px; border-left: 5px solid var(--sun-gold);">
+                <h3>參考文件</h3>
+                <p>
+                    <a href="../files/Precision_Gearbox_Health_Strategy.pdf" target="_blank"
+                        style="font-weight: bold; color: var(--ocean-mid);">
+                        下載簡報資料: Precision_Gearbox_Health_Strategy.pdf
+                    </a>
+                </p>
+            </div>
+
+            <div
+                style="margin-top: 2rem; padding: 1rem; background: rgba(255,255,255,0.5); border-radius: 8px; border-left: 5px solid var(--ocean-mid);">
+                <h3>參考資料來源</h3>
+                <ul style="margin-left: 1rem;">
+                    <li>ANSI/AGMA 1010-F14 - Appearance of Gear Teeth - Terminology of Wear and Failure</li>
+                    <li>AGMA 9005-E02 - Industrial Gear Lubrication</li>
+                    <li>ISO 20816 - Mechanical Vibration - Measurement and Evaluation</li>
+                    <li>DNV Rules for Classification - Ships</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div style="text-align: center; padding: 2rem;">
+            <h5>
+                <p>如果對文章內容有疑慮，歡迎來信討論指教</p>
+                <a href="mailto:mark.chuangjj@gmail.com">email to me (Mark CHUANG)</a>
+            </h5>
+        </div>
+    </footer>
+</body>
+
+</html>
