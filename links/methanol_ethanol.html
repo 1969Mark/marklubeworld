@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="甲醇, 乙醇, Methanol, Ethanol, 船舶燃料, 海運脫碳, 二衝程引擎, IMO, 雙燃料">
+    <link rel="icon" type="image/png" href="../images/mark_small.png">
+    <title>甲醇與乙醇船舶燃料分析</title>
+    <link rel="stylesheet" href="../styles/web.css">
+    <style>
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .info-table th,
+        .info-table td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .info-table th {
+            background: var(--ocean-deep);
+            color: white;
+            font-weight: 600;
+        }
+
+        .info-table tr:hover {
+            background: rgba(100, 150, 200, 0.1);
+        }
+
+        .highlight-box {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(100, 150, 200, 0.15), rgba(255, 200, 100, 0.1));
+            border-radius: 12px;
+            border-left: 5px solid var(--ocean-mid);
+            margin: 1.5rem 0;
+        }
+
+        .warning-box {
+            padding: 1rem;
+            background: rgba(255, 200, 100, 0.2);
+            border-radius: 8px;
+            border-left: 4px solid #f0ad4e;
+            margin: 1rem 0;
+        }
+
+        .success-box {
+            padding: 1rem;
+            background: rgba(200, 255, 200, 0.2);
+            border-radius: 8px;
+            border-left: 4px solid #5cb85c;
+            margin: 1rem 0;
+        }
+
+        .section-title {
+            color: var(--ocean-deep);
+            margin: 2rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--sun-gold);
+        }
+
+        .sub-section {
+            color: var(--ocean-mid);
+            margin: 1.5rem 0 0.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <div class="top_main">
+        <h1 style="font-size:28px;">2025 甲醇與乙醇船舶燃料分析</h1>
+        <a href="../index.html">回首頁</a>
+        <img src="../images/mark_small.png" height="100px" />
+    </div>
+
+    <hr>
+
+    <main>
+        <div class="container">
+            <!-- 主圖 -->
+            <figure style="text-align: center; margin-bottom: 2rem;">
+                <img src="../images/Methanol_Ethanol.png" alt="甲醇與乙醇船舶燃料分析"
+                    style="max-width: 100%; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);">
+            </figure>
+
+            <!-- 摘要 -->
+            <div class="highlight-box">
+                <p>
+                    隨著全球海運業進入脫碳轉型的關鍵十年，國際海事組織（IMO）與歐盟等區域監管機構對於溫室氣體（GHG）排放的要求已從單純的營運指標演變為嚴格的法規約束。在此背景下，<strong>甲醇（Methanol）</strong>與<strong>乙醇（Ethanol）</strong>作為液態醇類燃料，因其在常溫常壓下呈液態、與現有基礎設施兼容性高以及燃燒特性優良等優點，正逐漸成為二衝程低速船用引擎領域的研究焦點與應用首選。
+                </p>
+                <p>
+                    本報告將從<strong>主機廠家技術研發</strong>、<strong>燃料供應體系保障</strong>、<strong>船東客戶營運考量</strong>以及<strong>市場未來預期</strong>四大維度，對這兩種醇類燃料進行全面而深入的對比分析。
+                </p>
+            </div>
+
+            <!-- 一、主機廠家技術開發 -->
+            <h2 class="section-title">一、主機廠家技術開發與二衝程引擎演進</h2>
+            <p>
+                在二衝程低速引擎市場，技術授權方（OEM）如 MAN Energy Solutions（下稱 MAN ES）與 WinGD 的研發路徑直接決定了燃料轉型的技術底座。目前，甲醇引擎技術已進入商業成熟期，而乙醇技術則正處於從研發驗證邁向規模化應用的關鍵過渡階段。
+            </p>
+
+            <h3 class="sub-section">1.1 甲醇與乙醇燃燒特性與引擎循環分析</h3>
+            <p>
+                醇類燃料與傳統殘渣燃油（HFO）在物理化學性質上存在顯著差異，這要求主機廠家在燃油噴射系統、噴嘴材料及控制策略上進行深度調整。甲醇與乙醇均具有低十六烷值、低黏度與低閃點的特性，這意味著它們無法僅靠壓縮熱自燃，必須依賴導燃油（Pilot Fuel）進行引燃。
+            </p>
+
+            <p>下表彙整了甲醇、乙醇與傳統重油之關鍵物理化學數據對比：</p>
+            <table class="info-table">
+                <thead>
+                    <tr>
+                        <th>物理化學屬性</th>
+                        <th>單位</th>
+                        <th>甲醇 (Methanol)</th>
+                        <th>乙醇 (Ethanol)</th>
+                        <th>傳統重油 (HFO)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>分子式</td>
+                        <td>-</td>
+                        <td>CH<sub>3</sub>OH</td>
+                        <td>C<sub>2</sub>H<sub>5</sub>OH</td>
+                        <td>複雜碳氫化合物</td>
+                    </tr>
+                    <tr>
+                        <td>低位發熱量 (LHV)</td>
+                        <td>MJ/kg</td>
+                        <td>19.7 - 20.0</td>
+                        <td>26.7 - 26.9</td>
+                        <td>~40.0</td>
+                    </tr>
+                    <tr>
+                        <td>密度 (@15°C)</td>
+                        <td>kg/m³</td>
+                        <td>792</td>
+                        <td>789</td>
+                        <td>980 - 1010</td>
+                    </tr>
+                    <tr>
+                        <td>體積能量密度</td>
+                        <td>MJ/L</td>
+                        <td>15.8</td>
+                        <td>21.1</td>
+                        <td>35.0 - 36.0</td>
+                    </tr>
+                    <tr>
+                        <td>閃點</td>
+                        <td>°C</td>
+                        <td>12</td>
+                        <td>13 - 14</td>
+                        <td>>60</td>
+                    </tr>
+                    <tr>
+                        <td>自燃溫度</td>
+                        <td>°C</td>
+                        <td>464</td>
+                        <td>363 - 365</td>
+                        <td>~250</td>
+                    </tr>
+                    <tr>
+                        <td>汽化潛熱</td>
+                        <td>kJ/kg</td>
+                        <td>1109</td>
+                        <td>845</td>
+                        <td>~270</td>
+                    </tr>
+                    <tr>
+                        <td>化學計量空燃比</td>
+                        <td>-</td>
+                        <td>6.45</td>
+                        <td>9.0</td>
+                        <td>14.5</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>
+                從熱力學角度看，醇類燃料的高汽化潛熱特性在噴射過程中會吸收大量熱量，這雖然有助於降低燃燒室溫度並抑制氮氧化物（NOx）的生成，但也可能導致低負荷運行時的點火延遲。乙醇的體積能量密度約為 21.1 MJ/L，優於甲醇的 15.8 MJ/L，這意味著在相同的動力輸出要求下，乙醇引擎所需的噴油量少於甲醇，噴油泵與噴嘴的壓力負荷相對較小。然而，甲醇因不含碳-碳鍵（C-C bond），其燃燒過程中幾乎不產生煙灰與顆粒物（PM），這使其在廢氣處理系統的設計上較乙醇更具極限優勢。
+            </p>
+
+            <h3 class="sub-section">1.2 MAN Energy Solutions：ME-LGIM 平台的成功與拓展</h3>
+            <p>
+                MAN ES 在二衝程甲醇引擎領域佔據絕對的市場領先地位。其 ME-LGIM（Liquid Gas Injection Methanol）系列引擎已商用超過十年，累積運行時間超過 60 萬小時。
+            </p>
+            <div class="success-box">
+                <h4 style="margin: 0 0 0.5rem; color: #5cb85c;">✅ MAN ES 技術優勢</h4>
+                <ul style="margin: 0 0 0 1rem;">
+                    <li>ME-LGIM 採用高壓噴射技術與柴油循環（Diesel Cycle），熱效率優於奧圖循環</li>
+                    <li>利用約 5% 的導燃油引燃甲醇，高負荷下甲醇替代率可穩定在 95% 以上</li>
+                    <li>已實現從 1,000 TEU 到 23,000 TEU 貨櫃船的全口徑覆蓋</li>
+                    <li>2025 年 6 月交付全球最強大的甲醇引擎 12G95ME-C10.5-LGIM，功率高達 82,440 kW</li>
+                </ul>
+            </div>
+            <p>
+                在乙醇兼容性方面，MAN ES 採取了「平台共享」策略。2025 年 9 月，該公司在日本成功完成了以乙醇為燃料的 90 口徑引擎測試，驗證了 ME-LGIM 平台僅需針對噴嘴幾何形狀與噴射控制系統進行微調，即可切換至乙醇模式。這種技術靈活性為船東提供了極大的資產保障，使其能夠根據區域市場的燃料供應情況調整運作策略。
+            </p>
+
+            <h3 class="sub-section">1.3 WinGD：X-DF-M 的創新與乙醇專用引擎的承諾</h3>
+            <p>
+                WinGD 則透過其 X-DF-M 系列甲醇引擎加速佈局。與 MAN ES 相似，WinGD 的 X-DF-M 引擎同樣採用高壓噴射與柴油循環，並在 2024 年 12 月的 10X92DF-M 測試中展現了在 45% 至 75% 負荷下的無縫燃料切換能力。
+            </p>
+            <p>
+                WinGD 的核心競爭力在於其在乙醇技術上的前瞻性投資。WinGD 早於 2014 年即開始研究乙醇作為船用燃料，並在歐盟資助的 HERCULES 2 項目中開發了針對酒精燃料的「靈活噴油器」（Flexible Injector）。該公司宣佈將於 <strong>2026 年正式推出首款專門針對乙醇優化的二衝程引擎</strong>，並計劃於 2027 年交付，這使其成為全球首家將乙醇列為一級燃料路徑的主機廠家。
+            </p>
+
+            <h3 class="sub-section">1.4 材料科學挑戰：腐蝕控制與潤滑需求</h3>
+            <p>醇類燃料對金屬與非金屬材料的化學反應是主機廠家必須解決的關鍵工程難題。甲醇與乙醇的化學特性決定了其對材料的選擇性破壞，若設計不當，將導致噴油泵失效或管路洩漏。</p>
+            <table class="info-table">
+                <thead>
+                    <tr>
+                        <th>類別</th>
+                        <th>甲醇 (Methanol) 兼容性要求</th>
+                        <th>乙醇 (Ethanol) 兼容性要求</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>金屬材料</strong></td>
+                        <td>兼容不鏽鋼、青銅；禁止使用鋅、鋁、黃銅</td>
+                        <td>兼容不鏽鋼、青銅；禁止使用鋅、鋁、黃銅、鉛</td>
+                    </tr>
+                    <tr>
+                        <td><strong>特殊風險</strong></td>
+                        <td>鈦合金會產生應力腐蝕裂紋 (SCC)</td>
+                        <td>腐蝕風險與甲醇相似，但對部分密封件侵蝕性更強</td>
+                    </tr>
+                    <tr>
+                        <td><strong>非金屬密封</strong></td>
+                        <td>推薦使用 Teflon、EPDM、Neoprene</td>
+                        <td>推薦使用 Buna-N、Viton、Teflon、FRB</td>
+                    </tr>
+                    <tr>
+                        <td><strong>禁止材料</strong></td>
+                        <td>腈橡膠 (Nitrile)、丁基橡膠</td>
+                        <td>天然橡膠、PVC、聚氨酯</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>
+                此外，醇類燃料極低的黏度使得傳統燃油泵的流體潤滑膜難以形成。主機廠家必須採用特殊塗層技術（如類鑽石碳 DLC 塗層）與高壓公共軌系統（Common Rail），並研發專門的氣缸潤滑油，以應對酒精燃料可能帶來的缸套磨損加劇問題。
+            </p>
+
+            <!-- 二、燃料供應體系 -->
+            <h2 class="section-title">二、燃料供應體系：產能預測、基礎設施與物流挑戰</h2>
+            <p>
+                燃料的「可獲得性」（Availability）與「可負擔性」（Affordability）是決定技術路徑能否成功的終極變量。目前，甲醇在海運加注網絡的建設上佔據先機，而乙醇則具備極強的現有工業產能潛力。
+            </p>
+
+            <h3 class="sub-section">2.1 甲醇供應鏈：從化石灰向綠色電能轉型</h3>
+            <p>
+                全球甲醇年需求量已超過 1 億噸，但目前絕大部分為基於天然氣或煤炭的灰/棕甲醇。對於脫碳目標，核心在於綠色甲醇（生物甲醇或電能甲醇）的供應規模與成本曲線。
+            </p>
+            <div class="warning-box">
+                <h4 style="margin: 0 0 0.5rem; color: #f0ad4e;">⚠️ 產能缺口分析</h4>
+                <ul style="margin: 0 0 0 1rem;">
+                    <li>2025 年全球生物甲醇產量僅約 220 萬噸，與 2040 年預計的 6,000 萬噸海運需求相比仍有巨大鴻溝</li>
+                    <li>截至 2025 年 9 月，全球已宣佈的綠色甲醇產能預計到 2030 年可達 4,390 萬噸</li>
+                    <li>中國在低碳甲醇領域佔據主導地位，貢獻了全球 43% 的在建產能</li>
+                </ul>
+            </div>
+            <p>
+                在基礎設施方面，甲醇因在常溫下呈液態，可利用現有的化學品儲罐進行改裝。目前全球已有約 20 個港口具備甲醇加注能力，但專用加注駁船（Bunker Barge）仍然稀缺，大多數操作仍依賴小型化學品船進行。
+            </p>
+            <p>
+                成本動態方面，綠色甲醇的價格目前約為化石甲醇的 2.5 至 4 倍。電能甲醇的成本高度依賴再生能源價格與碳捕集（DAC）技術。IRENA 預測，隨著技術成熟，電能甲醇成本有望在 2050 年降至 $250 - 630 / t。
+            </p>
+
+            <h3 class="sub-section">2.2 乙醇供應鏈：利用既有農業與工業基座</h3>
+            <p>與甲醇相比，乙醇在海運市場的切入點在於其成熟的陸路供應鏈。</p>
+            <div class="success-box">
+                <h4 style="margin: 0 0 0.5rem; color: #5cb85c;">✅ 乙醇供應規模優勢</h4>
+                <ul style="margin: 0 0 0 1rem;">
+                    <li>美國與巴西擁有龐大的乙醇出口基礎設施</li>
+                    <li>美國乙醇標稱產能達 180 億加侖，且具備完善的鐵路、駁船與港口連接</li>
+                    <li>由於乙醇的能量密度高於甲醇，在相同的加注體積下，乙醇能提供額外 30% 以上的能量儲備</li>
+                </ul>
+            </div>
+            <p>
+                目前乙醇在海運領域的主要阻礙在於監管認證。儘管乙醇具備生物來源，但在 IMO 的《燃料全生命週期溫室氣體強度》認定中，土地利用變化（ILUC）對乙醇碳強度的影響仍存在爭議，需要通過更嚴謹的證明文件（PoS）來確保其合規性。
+            </p>
+
+            <!-- 三、監管框架 -->
+            <h2 class="section-title">三、監管框架下的價格博弈與激勵</h2>
+            <p>歐盟的 FuelEU Maritime 條例與歐盟碳交易體系（EU ETS）為綠色燃料提供了強大的經濟驅動力。</p>
+            <table class="info-table">
+                <thead>
+                    <tr>
+                        <th>法規機制</th>
+                        <th>影響描述</th>
+                        <th>數據指標</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>FuelEU Maritime 罰款</strong></td>
+                        <td>針對不合規溫室氣體強度燃料的懲罰逐年升高</td>
+                        <td>2025年：39歐元/噸 VLSFO 當量；2050年：1,997歐元/噸</td>
+                    </tr>
+                    <tr>
+                        <td><strong>EU ETS 碳定價</strong></td>
+                        <td>船舶排放的 CO<sub>2</sub> 需購買配額</td>
+                        <td>假設碳價為 100 歐元/噸，傳統燃油附加成本約為 321 歐元/噸</td>
+                    </tr>
+                    <tr>
+                        <td><strong>RFNBO 獎勵因數</strong></td>
+                        <td>在 2034 年前使用電能甲醇等非生物來源再生燃料可獲得雙倍積分</td>
+                        <td>旨在縮小電能燃料與生物燃料的價格差距</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>
+                在這些監管框架下，綠色醇類燃料的「最高可接受價格」大幅提升。分析顯示，到 2035 年以後，如果不採用綠色燃料，傳統燃油船舶面臨的合規成本將超過燃料本身的採購價。
+            </p>
+
+            <!-- 四、船東客戶 -->
+            <h2 class="section-title">四、船東客戶：營運效率、資產保值與戰略抉擇</h2>
+            <p>對船東而言，選擇何種燃料不僅是環保策略，更是涉及船舶設計、貨位損失（Slot Loss）與長期資產價值的重大商業決策。</p>
+
+            <h3 class="sub-section">4.1 載貨空間損失與續航里程的權衡</h3>
+            <p>醇類燃料較低的能量密度要求船舶配備更大的燃料艙。對於貨運利潤高度敏感的貨櫃船，這直接轉化為標準箱（TEU）數量的喪失。以 15,000 TEU 貨櫃船為例：</p>
+            <table class="info-table">
+                <thead>
+                    <tr>
+                        <th>燃料路徑</th>
+                        <th>所需燃料艙體積 (m³)</th>
+                        <th>預計損失箱位 (TEU)</th>
+                        <th>備註</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>標準 HFO</strong></td>
+                        <td>8,000</td>
+                        <td>0</td>
+                        <td>基準</td>
+                    </tr>
+                    <tr>
+                        <td><strong>甲醇 (Methanol)</strong></td>
+                        <td>16,000</td>
+                        <td>500 - 610</td>
+                        <td>若油箱佈置於居住艙下方可減少損失</td>
+                    </tr>
+                    <tr>
+                        <td><strong>乙醇 (Ethanol)</strong></td>
+                        <td>約 12,500</td>
+                        <td>預計 350 - 450</td>
+                        <td>受益於較高能量密度，箱位表現優於甲醇</td>
+                    </tr>
+                    <tr>
+                        <td><strong>氨 (Ammonia)</strong></td>
+                        <td>20,000</td>
+                        <td>700 - 1,100</td>
+                        <td>體積需求最大</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>
+                馬士基（Maersk）的實踐顯示，船東可以通過優化航線規劃與縮短加注間隔（如採用「一次往返加注一次」模式）來縮減油箱體積，進而將甲醇船的箱位損失控制在 200 - 400 TEU 範圍內。
+            </p>
+
+            <h3 class="sub-section">4.2 資本支出 (CAPEX) 與改裝潛力</h3>
+            <p>
+                <strong>造船溢價：</strong>新建一艘甲醇雙燃料船舶的成本比標準燃油船高出約 11%-15%。乙醇系統由於與甲醇高度相似，預計其新建成本與甲醇持平。
+            </p>
+            <p>
+                <strong>改裝的可行性：</strong>醇類燃料被公認為「最接近掉入式燃料」（Drop-in solution）的替代方案。對於現役船隊，將引擎改裝為雙燃料運行（Retrofit）的技術風險較低。馬士基與中遠海運已有成功的改裝經驗，通常在船廠停靠兩週內即可完成引擎部分的物理轉換。
+            </p>
+            <p>
+                <strong>營運支出 (OPEX) 與燃料溢價：</strong>目前最大的挑戰在於燃料溢價無法完全轉嫁給最終客戶。馬士基與達飛（CMA CGM）等領先企業正通過長期採購協議（Offtake Agreements）與直接投資產能來鎖定供應，以降低價格波動風險。
+            </p>
+
+            <h3 class="sub-section">4.3 營運安全與人員培訓</h3>
+            <p>醇類燃料雖然毒性遠低於氨，但其低閃點特性決定了其在操作上必須具備嚴格的安全協議。</p>
+            <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+                <li><strong>同步作業 (SIMOPS)：</strong>船東期望在加注燃料的同時進行裝卸貨作業。馬士基的回饋指出，雖然 SIMOPS 在初始階段需要與港口、接收方和供應方進行為期數月的協調，但實踐證明其過程是直截了當且可控的。</li>
+                <li><strong>氣體防護與通風：</strong>醇類蒸汽比空氣重，會向低處流動。船舶需在低位設置氣體偵測器，並配備氮氣吹掃（Purging）系統，確保維修人員在開蓋保養前管路已徹底惰化。</li>
+                <li><strong>培訓與文化轉型：</strong>從傳統燃油向醇類燃料轉型，要求船員具備對化學品處理的更高專業度。船東需在首航前對船員進行系統化的低閃點燃料安全訓練。</li>
+            </ul>
+
+            <!-- 五、市場各方期望 -->
+            <h2 class="section-title">五、市場各方期望與未來分析</h2>
+            <p>醇類燃料在海運業的定位正經歷從「備選方案」向「主流支柱」的轉變。市場各方對未來的期望呈現出多元化且高度競爭的態勢。</p>
+
+            <h3 class="sub-section">5.1 醇類燃料與氨、LNG 的長期共存與競爭</h3>
+            <p>市場共識認為，未來的燃料組合將是多元化的，不存在「一枝獨秀」的局面。</p>
+            <div class="highlight-box">
+                <p>
+                    <strong>醇類燃料的穩健性：</strong>由於甲醇與乙醇在安全性與技術成熟度上的優勢，它們被視為 2030 年前最務實的深度脫碳工具。與氨相比，醇類燃料不需要昂貴且複雜的低溫壓力儲罐；與 LNG 相比，它們在全生命週期下的脫碳潛力更直接。
+                </p>
+                <p style="margin-bottom: 0;">
+                    <strong>期望：技術標準化：</strong>市場各方，特別是港口管理部門與船東，強烈期望 IMO 能儘快將臨時性的甲醇/乙醇指南（MSC.1/Circ.1621）正式納入《IGF Code》，以提供穩定的法律預期，降低金融機構的融資風險。
+                </p>
+            </div>
+
+            <h3 class="sub-section">5.2 跨行業能源競爭的憂慮</h3>
+            <p>航運業正面臨來自航空業與化工業的「綠色分子搶奪戰」。</p>
+            <div class="warning-box">
+                <p style="margin: 0;">
+                    <strong>航空業的壓力：</strong>由於航空燃料對能量密度的要求極端苛刻，航空業對生物燃料（如乙醇轉噴氣燃料 SAF）的需求可能推高乙醇價格，進而排擠航運業的獲取空間。市場期望出現跨行業的採購聯盟（如 ZEMBA），通過匯集需求來激發更大規模的產能投資，並建立區域性的「能源中心」，同時供應航海、航空與陸路重型運輸。
+                </p>
+            </div>
+
+            <h3 class="sub-section">5.3 綠色金融與碳信用機制的深度集成</h3>
+            <p>市場參與者期望未來的醇類燃料轉型不僅是技術升級，更是金融與數據的整合。</p>
+            <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+                <li><strong>帳簿與認領（Book-and-Claim）系統：</strong>由於綠色燃料加注地點分佈不均，市場期望建立完善的數位化認證系統，使船東在一個地點購買綠色乙醇/甲醇，而在另一個具備物理供應的地點加注，通過碳積分抵扣實現合規。</li>
+                <li><strong>綠色融資期望：</strong>金融機構對醇類燃料船舶的訂單展現出更高熱情。具備「醇類就緒」（Methanol-ready）或「乙醇兼容」標籤的船舶在二手市場與長期租賃合約中預期將具備更高的殘值與競爭力。</li>
+            </ul>
+
+            <!-- 綜合結論 -->
+            <h2 class="section-title">綜合結論</h2>
+            <p>甲醇與乙醇在二衝程低速引擎領域的競爭與互補，反映了海運脫碳的現實主義路徑。</p>
+            <div class="highlight-box">
+                <ul style="margin: 0 0 0 1rem;">
+                    <li><strong>主機廠家端：</strong>甲醇已確立了「領先者」地位，而乙醇則作為具備「供應穩定性」的強有力挑戰者浮現。兩大廠家的引擎平台已趨於收斂，實現了跨醇類燃燒的技術柔性。</li>
+                    <li><strong>供應端：</strong>綠色甲醇的規模化面臨「化學建廠」的長週期挑戰，而乙醇則受限於「生物質資源分配」與「法規認證」。未來的勝負將取決於誰能提供更具規模效應的低碳分子。</li>
+                    <li><strong>客戶端：</strong>船東已不再糾結於燃料選擇，而是轉向「多燃料就緒」的資產配置策略。載貨箱位損失與合規罰款之間的精確計算，將成為航運商核心競爭力的體現。</li>
+                </ul>
+            </div>
+            <p>
+                綜上所述，醇類燃料為海運業提供了一條兼具技術可行性與經濟可控性的脫碳橋樑。隨著 2030 年 IMO 里程碑目標的臨近，甲醇與乙醇的並存將進一步增強全球貿易航線的能源韌性，共同驅動海運業邁向淨零排放的未來。
+            </p>
+
+            <!-- 參考文件 -->
+            <div
+                style="margin-top: 2rem; padding: 1rem; background: rgba(255,255,255,0.5); border-radius: 8px; border-left: 5px solid var(--sun-gold);">
+                <h3>參考文件</h3>
+                <p>
+                    <a href="../files/Methanol_Ethanol_Marine_Fuels.pdf" target="_blank"
+                        style="font-weight: bold; color: var(--ocean-mid);">
+                        下載簡報資料: Methanol_Ethanol_Marine_Fuels.pdf
+                    </a>
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div style="text-align: center; padding: 2rem;">
+            <h5>
+                <p>如果對文章內容有疑慮，歡迎來信討論指教</p>
+                <a href="mailto:mark.chuangjj@gmail.com">email to me (Mark CHUANG)</a>
+            </h5>
+        </div>
+    </footer>
+</body>
+
+</html>
