@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="LNG, 灰分, Sulphated Ash, 四衝程, 雙燃料, 發電機, 潤滑油, 氣門, 早燃, 爆震">
+    <link rel="icon" type="image/png" href="../images/mark_small.png">
+    <title>LNG船對潤滑油灰分的管控</title>
+    <link rel="stylesheet" href="../styles/web.css">
+    <style>
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .info-table th,
+        .info-table td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .info-table th {
+            background: var(--ocean-deep);
+            color: white;
+            font-weight: 600;
+        }
+
+        .info-table tr:hover {
+            background: rgba(100, 150, 200, 0.1);
+        }
+
+        .highlight-box {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(100, 150, 200, 0.15), rgba(255, 200, 100, 0.1));
+            border-radius: 12px;
+            border-left: 5px solid var(--ocean-mid);
+            margin: 1.5rem 0;
+        }
+
+        .warning-box {
+            padding: 1rem;
+            background: rgba(255, 200, 100, 0.2);
+            border-radius: 8px;
+            border-left: 4px solid #f0ad4e;
+            margin: 1rem 0;
+        }
+
+        .success-box {
+            padding: 1rem;
+            background: rgba(200, 255, 200, 0.2);
+            border-radius: 8px;
+            border-left: 4px solid #5cb85c;
+            margin: 1rem 0;
+        }
+
+        .section-title {
+            color: var(--ocean-deep);
+            margin: 2rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--sun-gold);
+        }
+
+        .sub-section {
+            color: var(--ocean-mid);
+            margin: 1.5rem 0 0.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <div class="top_main">
+        <h1 style="font-size:28px;">2025 LNG船對潤滑油灰分的管控</h1>
+        <a href="../index.html">回首頁</a>
+        <img src="../images/mark_small.png" height="100px" />
+    </div>
+
+    <hr>
+
+    <main>
+        <div class="container">
+            <!-- 主圖 -->
+            <figure style="text-align: center; margin-bottom: 2rem;">
+                <img src="../images/LNG_Ash.png" alt="LNG船對潤滑油灰分的管控"
+                    style="max-width: 100%; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);">
+            </figure>
+
+            <!-- 摘要 -->
+            <div class="highlight-box">
+                <p>
+                    在現代航運與工業動力系統向低碳排放轉型的進程中，液化天然氣（LNG）已成為四衝程中速發電機最主要的替代燃料。然而，當四衝程雙燃料（Dual Fuel,
+                    DF）發電機從傳統的高硫重油（HFO）或輕柴油（MDO）切換至 LNG 燃燒模式時，燃燒室內的化學環境、熱力循環特徵以及潤滑需求發生了根本性的轉變。
+                </p>
+                <p>
+                    在這些轉變中，潤滑油的「<strong>硫酸鹽灰分</strong>」（Sulphated
+                    Ash）含量成為引擎製造商（OEM）最為關注且管制最為嚴格的技術指標。灰分的高低直接關係到燃燒室的清潔度、氣門系統的完好性以及整機的熱力效率。本報告將從化學組成、酸鹼中和機制、摩擦學特性以及機械失效模式等維度，深度分析為何在燃燒
+                    LNG 的工況下，必須對潤滑油灰分進行嚴格且精確的管制。
+                </p>
+            </div>
+
+            <!-- 一、灰分的化學本質 -->
+            <h2 class="section-title">一、潤滑油灰分的化學本質與來源分析</h2>
+            <p>
+                硫酸鹽灰分是指潤滑油在規定條件下完全燃燒後，殘留物經硫酸處理並再次加熱至恆重所得到的金屬硫酸鹽與氧化物固體殘渣。在典型的發電機潤滑油配方中，灰分並非來自基礎油本身，而是源於為了提升性能而添加的功能性添加劑，特別是清淨劑與抗磨劑。
+            </p>
+
+            <h3 class="sub-section">1.1 添加劑中的金屬元素與灰分形成</h3>
+            <p>潤滑油添加劑包中包含多種金屬有機化合物，其在燃燒行程中會因高溫分解並轉化為固體殘留物：</p>
+            <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+                <li><strong>清淨劑（Detergents）：</strong>這是灰分最主要的來源。清淨劑如鈣（Ca）或鎂（Mg）的磺酸鹽（Sulfonates）、酚鹽（Phenates）或水楊酸鹽（Salicylates），其分子核心包含鹼性金屬鹽，用於中和燃燒副產物並維持引擎部件清潔。
+                </li>
+                <li><strong>抗磨劑（Anti-wear Agents）：</strong>二烷基二硫代磷酸鋅（ZDDP）是最常見的抗磨添加劑，其包含的鋅（Zn）與磷（P）元素在氧化後會形成堅硬的殘渣。</li>
+                <li><strong>其他金屬元素：</strong>部分配方中可能包含鋇（Ba）、鈉（Na）或鉀（K），這些金屬在高溫燃燒後均會貢獻於最終的灰分測量值。</li>
+            </ul>
+
+            <p>下表詳細列出了常見潤滑油添加劑金屬元素及其在燃燒後對灰分與引擎狀態的影響：</p>
+            <table class="info-table">
+                <thead>
+                    <tr>
+                        <th>金屬元素</th>
+                        <th>主要添加劑功能</th>
+                        <th>燃燒產物形式</th>
+                        <th>對引擎之潛在影響</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>鈣 (Ca)</td>
+                        <td>鹼值來源、高溫清淨</td>
+                        <td>硫酸鈣、氧化鈣</td>
+                        <td>形成灰分沉積物，高含量下可能誘發早燃</td>
+                    </tr>
+                    <tr>
+                        <td>鎂 (Mg)</td>
+                        <td>鹼值來源、防腐蝕</td>
+                        <td>氧化鎂、硫酸鎂</td>
+                        <td>形成的灰分較鈣鹽更硬，增加缸套拋光風險</td>
+                    </tr>
+                    <tr>
+                        <td>鋅 (Zn)</td>
+                        <td>抗磨損、抗氧化</td>
+                        <td>氧化鋅、磷酸鋅</td>
+                        <td>貢獻於硬質灰分，可能使催化轉化器中毒</td>
+                    </tr>
+                    <tr>
+                        <td>鉬 (Mo)</td>
+                        <td>摩擦改進、抗氧化</td>
+                        <td>氧化鉬</td>
+                        <td>具有自由基清除作用，高含量下有助於減少早燃事件</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 class="sub-section">1.2 灰分含量的分級規範</h3>
+            <p>根據引擎製造商的通用標準，潤滑油的灰分含量通常被劃分為四個等級，這對於雙燃料引擎在不同模式下的油品選擇至關重要：</p>
+            <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+                <li><strong>無灰型（Ashless）：</strong>灰分重量比低於 0.1%，通常不含金屬清淨劑，多用於二衝程氣體引擎或特定小型機組。</li>
+                <li><strong>低灰型（Low Ash）：</strong>灰分含量介於 0.1% 至 0.5%（或 0.6%）之間。這是大多數四衝程 LNG 引擎與雙燃料引擎在燃氣模式下的標準配置。</li>
+                <li><strong>中灰型（Medium Ash）：</strong>灰分含量在 0.5% 至 1.0% 之間，適用於特定設計的氣體引擎或燃燒特定生物氣體的工況。</li>
+                <li><strong>高灰型（High Ash）：</strong>灰分含量大於 1.0%，通常是傳統柴油引擎油（HDMO）或高硫重油系統油的特徵。</li>
+            </ul>
+
+            <!-- 二、酸鹼中和特性 -->
+            <h2 class="section-title">二、酸鹼中和特性：從硫中和到硝化控制的轉變</h2>
+            <p>
+                四衝程雙燃料發電機對灰分嚴格管制的首要原因，在於 LNG 燃燒後的酸性副產物與傳統液體燃料有本質上的差異，這直接改變了對潤滑油「總鹼值」（Base Number, BN）的需求。
+            </p>
+
+            <h3 class="sub-section">2.1 燃燒產物的化學差異</h3>
+            <p>
+                在燃燒傳統重油（HFO）時，燃料中高達 3.5%
+                的硫會在燃燒中轉化為二氧化硫（SO<sub>2</sub>）與三氧化硫（SO<sub>3</sub>），隨後與燃燒產生的水蒸氣結合形成強酸——硫酸（H<sub>2</sub>SO<sub>4</sub>）。為了防止酸性物質對缸套與活塞環造成腐蝕性磨損，潤滑油必須具備極高的鹼值（通常
+                BN 為 30 至 70 mg KOH/g），這意味著油品中必須含有大量的金屬清淨劑，進而產生高灰分。
+            </p>
+            <p>
+                相較之下，LNG 的主要成分是甲烷（CH<sub>4</sub>），幾乎不含硫。因此，LNG 燃燒不會產生硫酸腐蝕問題。然而，LNG
+                燃燒通常伴隨更高的燃燒溫度，這會促使空氣中的氮氣氧化，生成氮氧化物（NOx）。NOx 會與潤滑油發生「硝化」（Nitration）反應，生成弱酸性有機物質。硝化反應產生的酸性強度遠低於硫酸，因此 LNG
+                工況僅需要極低的 BN（通常為 4 至 15 mg KOH/g）即可滿足中和需求。
+            </p>
+
+            <h3 class="sub-section">2.2 高鹼值/高灰分油品在 LNG 工況下的副作用</h3>
+            <div class="warning-box">
+                <p style="margin: 0;">
+                    如果雙燃料發電機在燃燒 LNG 時錯誤地使用了高灰分（高 BN）的柴油引擎潤滑油，將會出現以下問題：
+                </p>
+                <ul style="margin: 0.5rem 0 0 1rem;">
+                    <li><strong>鹼基過剩與沉積：</strong>由於缺乏強酸（硫酸）來消耗金屬清淨劑中的鹼基，這些金屬成分在無化學反應消耗的情況下，會直接在活塞頂部、環槽與汽缸蓋上熱解形成固體灰分沉積。
+                    </li>
+                    <li><strong>BN 假性保留：</strong>由於 LNG 燃燒產酸量小，潤滑油的 BN 消耗極慢。這可能導致操作人員誤以為油品狀態良好，但實際上過剩的鹼基已經轉化為有害的沉積物。
+                    </li>
+                </ul>
+            </div>
+
+            <p>下表比較了不同燃料類型對潤滑油鹼值與灰分特性的需求：</p>
+            <table class="info-table">
+                <thead>
+                    <tr>
+                        <th>燃料類型</th>
+                        <th>硫含量 (% m/m)</th>
+                        <th>主要酸性挑戰</th>
+                        <th>推薦 BN (mg KOH/g)</th>
+                        <th>推薦灰分限制</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>高硫重油 (HFO)</td>
+                        <td>> 2.0%</td>
+                        <td>強硫酸腐蝕</td>
+                        <td>50 - 70</td>
+                        <td>高灰分 (> 1.0%)</td>
+                    </tr>
+                    <tr>
+                        <td>低硫柴油 (ULSD)</td>
+                        <td>
+                            < 0.1%</td>
+                        <td>輕微硫酸、氧化</td>
+                        <td>10 - 20</td>
+                        <td>中/高灰分 (~ 1.0%)</td>
+                    </tr>
+                    <tr>
+                        <td>液化天然氣 (LNG)</td>
+                        <td>趨近於 0</td>
+                        <td>硝化、高溫氧化</td>
+                        <td>4 - 7 (專用)</td>
+                        <td>極低灰分 (≤ 0.5%)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- 三、潤滑特性分析 -->
+            <h2 class="section-title">三、潤滑特性分析：氣門系統的「金髮姑娘原則」</h2>
+            <p>
+                在四衝程氣體引擎中，灰分在潤滑特性方面的作用表現出一種精確的平衡需求，這被業界稱為「金髮姑娘原則」：灰分不可過多，亦不可過少。
+            </p>
+
+            <h3 class="sub-section">3.1 灰分不足導致的氣門下陷（Valve Recession）</h3>
+            <p>
+                與柴油不同，LNG 是一種「乾燥」燃料。在燃燒行程中，它不會像液體燃料那樣留下任何具有潤滑特性的煤煙（Soot）或燃燒殘留物。這對進排氣門，特別是排氣門的密封界面構成了嚴峻挑戰。
+            </p>
+            <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+                <li><strong>物理機制：</strong>當氣門關閉並與氣門座（Valve Seat）高速撞擊時，在缺乏中間介質的情況下，金屬表面會發生微觀焊接與撕裂，稱為「黏著磨損」。</li>
+                <li><strong>灰分的緩衝作用：</strong>潤滑油中的金屬灰分在燃燒後會形成一層薄薄的金屬氧化物塗層，附著在氣門臉（Valve
+                    Face）與氣門座上。這層灰分充當了固體潤滑劑和「緩衝墊」，防止金屬直接接觸，從而抑制氣門下陷。</li>
+                <li><strong>無灰油的侷限：</strong>如果在四衝程 DF 引擎中使用完全無灰（Ashless）的潤滑油，氣門座將迅速磨損，導致氣門下陷，最終造成缸蓋報廢。</li>
+            </ul>
+
+            <h3 class="sub-section">3.2 灰分過多導致的氣門燒毀：溝槽化與火炬化</h3>
+            <div class="warning-box">
+                <p style="margin: 0;">
+                    一旦灰分管制不嚴，導致灰分含量超過 OEM 設定的上限（通常為 0.6%），就會引發更具毀滅性的後果：
+                </p>
+                <ul style="margin: 0.5rem 0 0 1rem;">
+                    <li><strong>沉積物剝落：</strong>過厚的灰分層在機械衝擊與熱循環作用下會發生局部剝落。</li>
+                    <li><strong>溝槽化（Guttering）：</strong>灰分剝落後產生的微小空隙成為高溫燃燒氣體洩漏的通道。洩漏的氣流速極高，會對氣門金屬產生機械侵蝕與化學沖刷，形成放射狀的溝槽。
+                    </li>
+                    <li><strong>火炬化（Torching）：</strong>高溫火焰透過溝槽噴射，其效果如同氧乙炔切割火炬，能在極短時間內（數小時甚至數分鐘）將氣門熔毀。</li>
+                </ul>
+            </div>
+
+            <p>下表總結了灰分水平對氣門系統的不同影響：</p>
+            <table class="info-table">
+                <thead>
+                    <tr>
+                        <th>灰分水平</th>
+                        <th>物理表現</th>
+                        <th>對氣門系統的影響</th>
+                        <th>後果</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>不足 (< 0.4%)</td>
+                        <td>金屬直接接觸</td>
+                        <td>氣門臉與座的黏著磨損</td>
+                        <td>氣門下陷、失去氣門間隙</td>
+                    </tr>
+                    <tr>
+                        <td>適中 (0.45% - 0.6%)</td>
+                        <td>均勻的灰分膜</td>
+                        <td>提供緩衝與固體潤滑</td>
+                        <td>最佳組件壽命</td>
+                    </tr>
+                    <tr>
+                        <td>過高 (> 0.6%)</td>
+                        <td>不均勻沉積、結焦</td>
+                        <td>沉積物剝落導致漏氣通路</td>
+                        <td>氣門溝槽化、火炬化燒毀</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- 四、燃燒產物造成的磨損 -->
+            <h2 class="section-title">四、燃燒產物造成的磨損與機械故障：深度物理機制</h2>
+            <p>
+                除了化學腐蝕與緩衝特性外，灰分沉積物本身作為一種「燃燒產物」，會透過物理性的磨料磨損與對熱力循環的干擾，對發電機造成致命傷害。
+            </p>
+
+            <h3 class="sub-section">4.1 磨料磨損與缸套拋光（Bore Polishing）</h3>
+            <p>
+                潤滑油在燃燒行程中會被刮入環槽或在缸壁上燒失，殘留的灰分顆粒具有顯著的硬度，特別是當配方中含有大量鎂鹽或經過高溫重結晶後的鈣鹽時。
+            </p>
+            <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+                <li><strong>缸套拋光機制：</strong>堅硬的灰分顆粒會隨活塞的往復運動，磨去缸套內壁由珩磨形成的交叉網紋。這些網紋本是用於儲存潤滑油以形成流體動力油膜的。一旦網紋被磨平，缸套表面變得異常光滑（拋光），油膜將無法附著。
+                </li>
+                <li><strong>連鎖反應：</strong>拋光後的缸套會導致潤滑失效，引發嚴重的局部乾摩擦。這隨後會導致活塞環刮傷（Scuffing）、氣體竄漏（Blow-by）增加，並使潤滑油消耗量進一步飆升。
+                </li>
+            </ul>
+
+            <h3 class="sub-section">4.2 活塞環黏滯與清潔度惡化</h3>
+            <p>
+                四衝程發電機在高熱負荷工況下，活塞環槽區域的潤滑油極易發生熱降解。
+            </p>
+            <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+                <li><strong>灰分填塞：</strong>如果潤滑油灰分過高，燃燒殘留物會與氧化產生的漆膜（Varnish）結合，填充活塞環與環槽之間的狹小間隙。</li>
+                <li><strong>環黏滯失效：</strong>沉積物硬化後，活塞環失去自由浮動的能力，無法在壓縮與動力行程中緊貼缸壁。這不僅導致壓縮壓力下降，還會使燃燒室的高溫氣體洩漏至曲軸箱，加速整機潤滑油的氧化變質。
+                </li>
+            </ul>
+
+            <h3 class="sub-section">4.3 異常燃燒：早燃與爆震的誘因</h3>
+            <p>
+                在 LNG 模式（氣體噴射或預混模式）下，引擎對燃燒室內的熱點（Hot Spots）極為敏感。灰分沉積物在這一過程中扮演了極其危險的角色。
+            </p>
+            <div class="warning-box">
+                <ul style="margin: 0 0 0 1rem;">
+                    <li><strong>沉積物熱點：</strong>灰分沉積物是熱的不良導體。在連續燃燒中，活塞頂或氣門上的厚重灰分塊會因散熱不暢而變得紅熱，形成類似「電熱塞」的效果。</li>
+                    <li><strong>早燃（Pre-ignition）：</strong>在活塞尚未到達預定點火位置（且火星塞尚未跳火）時，這些紅熱的灰分點就提前點燃了預混的甲烷/空氣混合氣。這種不受控制的燃燒會導致缸內壓力瞬間飆升至設計上限的數倍。
+                    </li>
+                    <li><strong>爆震（Knocking）：</strong>異常的燃燒壓力波會誘發末端氣體的自燃，產生猛烈的爆震。爆震產生的衝擊波會直接破壞活塞環岸、擠壓軸承合金，甚至導致連桿彎曲，其損害往往在數分鐘內即可使引擎報廢。
+                    </li>
+                </ul>
+            </div>
+
+            <p>下表展示了灰分引起的異常燃燒類型及其損害特徵：</p>
+            <table class="info-table">
+                <thead>
+                    <tr>
+                        <th>現象類型</th>
+                        <th>誘發原因</th>
+                        <th>物理表現</th>
+                        <th>主要機械損害</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>早燃 (Pre-ignition)</td>
+                        <td>紅熱灰分點提前引燃</td>
+                        <td>壓縮行程中壓力突增</td>
+                        <td>活塞頂熔穿、連桿變形</td>
+                    </tr>
+                    <tr>
+                        <td>爆震 (Knocking)</td>
+                        <td>壓力波誘發末端氣體自燃</td>
+                        <td>高頻震盪、金屬敲擊聲</td>
+                        <td>活塞環岸斷裂、軸承失效</td>
+                    </tr>
+                    <tr>
+                        <td>隨機早燃 (SPI/LSPI)</td>
+                        <td>機油滴與灰分微粒自燃</td>
+                        <td>突發性超高壓燃燒</td>
+                        <td>嚴重的結構性組件損壞</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- 五、潤滑油配方技術的演進 -->
+            <h2 class="section-title">五、潤滑油配方技術的演進：滿足灰分管制的策略</h2>
+            <p>
+                面對雙燃料發電機對灰分管制的嚴苛要求，現代潤滑油技術已經從傳統的「高鹼值」轉向「高效能低灰分」的設計路徑。
+            </p>
+
+            <h3 class="sub-section">5.1 從磺酸鹽到水楊酸鹽的變革</h3>
+            <p>
+                傳統的清淨劑多採用鈣/鎂磺酸鹽，雖然成本低廉，但形成的灰分較硬且熱穩定性較差。現代高端氣體引擎油大量採用水楊酸鹽（Salicylates）清淨劑。
+            </p>
+            <div class="success-box">
+                <ul style="margin: 0 0 0 1rem;">
+                    <li><strong>雙重功能：</strong>水楊酸鹽分子本身既具備中和酸性的鹼基，又具備優異的抗氧化與清淨能力。</li>
+                    <li><strong>灰分特性：</strong>水楊酸鈣產生的灰分質地較軟，在高溫下具有更好的流動性或易排除性，極大地降低了氣門溝槽化與缸套拋光的風險。</li>
+                    <li><strong>低灰分高鹼值：</strong>透過優化的合成技術，水楊酸鹽可以在較低的灰分重量比下提供足夠的 BN 儲備，滿足雙燃料引擎在短時間燃燒低硫柴油時的中和需求。</li>
+                </ul>
+            </div>
+
+            <h3 class="sub-section">5.2 鉬系添加劑與無灰分散劑的應用</h3>
+            <p>為了在降低灰分的同時不犧牲潤滑保護，配方工程師引入了更多非金屬（無灰）或低灰分組分：</p>
+            <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+                <li><strong>無灰分散劑（Ashless
+                        Dispersants）：</strong>透過高分子量的聚異丁烯丁二醯亞胺（PIBSI）等物質，在不增加灰分的前提下，有效懸浮燃燒產生的漆膜與氧化物，防止環黏滯。</li>
+                <li><strong>鉬系抗磨劑：</strong>二硫代氨基甲酸鉬（MoDTC）等化學品能在提供極佳邊界潤滑性能的同時，起到抑制早燃的作用，這對於高增壓的 LNG 引擎至關重要。</li>
+            </ul>
+
+            <h3 class="sub-section">5.3 基礎油質量的影響</h3>
+            <p>
+                由於低灰分潤滑油的添加劑比例較低，基礎油（Base Oil）的質量變得至關重要。
+            </p>
+            <p>
+                <strong>API Group II/III：</strong>現代專用氣體引擎油多採用加氫裂化的 API Group II 或 Group III 基礎油。與傳統 Group I
+                油相比，它們具有極低的揮發性，從源頭上減少了因潤滑油蒸發進入燃燒室而產生的灰分總量。
+            </p>
+
+            <!-- 六、渦輪增壓器與後處理系統 -->
+            <h2 class="section-title">六、渦輪增壓器與後處理系統的附加管制需求</h2>
+            <p>
+                灰分管制的影響範圍不僅限於汽缸內部，還延伸至發電機的進排氣系統與排放控制單元。
+            </p>
+
+            <h3 class="sub-section">6.1 渦輪增壓器（TC）的效率損失</h3>
+            <p>在四衝程發電機中，燃燒產生的固體灰分顆粒會隨排氣流經渦輪增壓器。</p>
+            <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+                <li><strong>葉片結垢：</strong>灰分會在高速旋轉的渦輪葉片背壓面累積，改變葉片的空氣動力學輪廓。</li>
+                <li><strong>性能下降：</strong>即使是微米的灰分層，也會顯著降低渦輪效率，導致掃氣壓力不足、燃燒不完全，最終反映為引擎動力下降與油耗上升。</li>
+                <li><strong>失衡風險：</strong>不均勻的灰分沉積或局部剝落會導致轉子動不平衡，在數萬轉的高速下，這將導致 TC 軸承的災難性損壞。</li>
+            </ul>
+
+            <h3 class="sub-section">6.2 排氣後處理系統的保護</h3>
+            <p>為了符合 IMO Tier III 等氮氧化物排放標準，現代發電機常配備選擇性催化還原系統（SCR）或顆粒過濾器（DPF）。</p>
+            <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+                <li><strong>催化劑中毒與堵塞：</strong>潤滑油中的鋅、磷與鈣灰分會覆蓋 SCR 催化劑的活性位點，降低脫硝效率。</li>
+                <li><strong>不可再生的過濾器堵塞：</strong>對於配置 DPF 的機組，灰分與碳煙（Soot）不同，它無法通過再生行程燒掉。灰分會永久性地積聚在過濾器孔隙中，增加背壓，縮短過濾器壽命。
+                </li>
+            </ul>
+
+            <p>下表總結了灰分對引擎外部組件的影響：</p>
+            <table class="info-table">
+                <thead>
+                    <tr>
+                        <th>受影響組件</th>
+                        <th>損害機制</th>
+                        <th>技術後果</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>渦輪增壓器 (TC)</td>
+                        <td>葉片灰分結垢、轉子失衡</td>
+                        <td>掃氣壓力下降、機械振動、軸承燒損</td>
+                    </tr>
+                    <tr>
+                        <td>SCR 催化劑</td>
+                        <td>活性位點中毒、灰分覆蓋</td>
+                        <td>NOx 排放超標、催化劑壽命縮短</td>
+                    </tr>
+                    <tr>
+                        <td>DPF 過濾器</td>
+                        <td>永久性灰分積累、不可再生堵塞</td>
+                        <td>排氣背壓上升、燃油經濟性惡化</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- 七、雙燃料操作中的切換策略 -->
+            <h2 class="section-title">七、雙燃料操作中的灰分與鹼值切換策略</h2>
+            <p>
+                雙燃料發電機面臨的最複雜挑戰在於：在燃燒 LNG 時需要「低灰分/低 BN」，但在燃燒重油時需要「高灰分/高 BN」。如何在這兩者之間進行潤滑管理是運維核心。
+            </p>
+
+            <h3 class="sub-section">7.1 油品通用性與限制</h3>
+            <p>根據 MAN Energy Solutions 與 Wärtsilä 的指導原則，雙燃料引擎通常推薦使用「折衷型」的低灰分高清潔性油品，但有明確的燃料限制：</p>
+            <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+                <li><strong>單一油品策略：</strong>若發電機主要燃燒 LNG 並以低硫柴油（S < 0.1%）作為引燃油，則必須長期使用低灰分專用油（灰分 ≤ 0.5% - 0.6%）。</li>
+                <li><strong>重油模式的例外：</strong>若發電機需要長期燃燒高硫重油（HFO），則必須切換至高 BN（例如 BN 30 或 40）的油品，但此時引擎在切換回 LNG
+                    模式時，其連續運行時間通常會受到嚴格限制，以防止灰分迅速積累。</li>
+            </ul>
+
+            <h3 class="sub-section">7.2 關鍵運維參數控制指標</h3>
+            <p>在對雙燃料發電機進行潤滑油在線監測時，針對灰分管制的二手油分析應關注以下界限值：</p>
+            <table class="info-table">
+                <thead>
+                    <tr>
+                        <th>分析項目</th>
+                        <th>預警界限</th>
+                        <th>技術意義</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>灰分增長率</td>
+                        <td>較新油增加 > 0.2%</td>
+                        <td>表示潤滑油消耗異常或添加劑熱分解嚴重</td>
+                    </tr>
+                    <tr>
+                        <td>BN 保留率</td>
+                        <td>低於新油 50% 或 < 4.0</td>
+                        <td>鹼值儲備枯竭，酸腐蝕風險增加</td>
+                    </tr>
+                    <tr>
+                        <td>硝化度 (Nitration)</td>
+                        <td>> 20 Abs/cm (IR)</td>
+                        <td>指示 LNG 燃燒溫度過高或燃氣洩漏嚴重</td>
+                    </tr>
+                    <tr>
+                        <td>TAN (總酸值)</td>
+                        <td>增加量 > 2.5 mg KOH/g</td>
+                        <td>表示有機酸與硝化產物累積，油品壽命終結</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- 結論 -->
+            <h2 class="section-title">結論與技術洞察</h2>
+            <p>
+                燃燒 LNG 的四衝程雙燃料發電機對潤滑油灰分的嚴格管制，並非單一因素的結果，而是化學、熱力學與摩擦學多重約束下的必然選擇。
+            </p>
+            <div class="highlight-box">
+                <ul style="margin: 0 0 0 1rem;">
+                    <li>從<strong>酸鹼中和角度</strong>看，LNG 的「零硫」特性消除了對高鹼值金屬添加劑的需求，使得傳統高灰分油品失去了存在基礎，轉而成為燃燒室內的有害污染源。</li>
+                    <li>從<strong>潤滑特性</strong>看，灰分在氣體引擎中扮演著極其敏感的緩衝角色，不足則導致氣門下陷，過量則引發氣門火炬化燒毀，這種「窄窗口」特性決定了灰分含量必須精確維持在
+                        0.45% 至 0.60% 的標稱範圍內。</li>
+                    <li>從<strong>燃燒安全角度</strong>看，灰分沉積物是誘發早燃與爆震的最主要誘因，直接威脅到活塞與連桿的結構安全。</li>
+                </ul>
+            </div>
+            <p>
+                此外，灰分對缸套拋光、活塞環黏滯以及渦輪增壓器效率的負面影響，決定了低灰分技術是維持發電機長效運行與燃油經濟性的基石。隨著環保法規對排放後處理系統的要求日益嚴苛，潤滑油的灰分、磷、硫（SAPS）管制將進一步收緊。
+            </p>
+            <p>
+                未來的技術趨勢將依賴於更高性能的 API Group III/IV 基礎油，以及更高效的無灰清淨劑與分散劑，在確保灰分低於 0.5%
+                的同時，提供更強的熱氧化穩定性與清淨性，以支持雙燃料發電機在複雜航向與負荷下的安全、清潔運行。
+            </p>
+
+            <!-- 參考文件 -->
+            <div
+                style="margin-top: 2rem; padding: 1rem; background: rgba(255,255,255,0.5); border-radius: 8px; border-left: 5px solid var(--sun-gold);">
+                <h3>參考文件</h3>
+                <p>
+                    <a href="../files/LNG_Ash_Control_Strategy.pdf" target="_blank"
+                        style="font-weight: bold; color: var(--ocean-mid);">
+                        下載簡報資料: LNG_Ash_Control_Strategy.pdf
+                    </a>
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div style="text-align: center; padding: 2rem;">
+            <h5>
+                <p>如果對文章內容有疑慮，歡迎來信討論指教</p>
+                <a href="mailto:mark.chuangjj@gmail.com">email to me (Mark CHUANG)</a>
+            </h5>
+        </div>
+    </footer>
+</body>
+
+</html>
