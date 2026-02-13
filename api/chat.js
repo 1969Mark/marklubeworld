@@ -30,8 +30,26 @@ function loadKnowledgeBase() {
     return cachedKnowledgeBase;
   }
 
-  const kbPath = path.join(process.cwd(), "knowledge_base.json");
-  const rawData = fs.readFileSync(kbPath, "utf-8");
+  // Try multiple paths for Vercel compatibility
+  const possiblePaths = [
+    path.join(__dirname, "..", "knowledge_base.json"),
+    path.join(process.cwd(), "knowledge_base.json"),
+  ];
+
+  let rawData = null;
+  for (const kbPath of possiblePaths) {
+    try {
+      rawData = fs.readFileSync(kbPath, "utf-8");
+      console.log("Knowledge base loaded from:", kbPath);
+      break;
+    } catch (e) {
+      console.log("KB not found at:", kbPath);
+    }
+  }
+
+  if (!rawData) {
+    throw new Error("Knowledge base file not found in any expected location");
+  }
 
   /** @type {Array<{title: string, url: string, category: string, content: string}>} */
   const articles = JSON.parse(rawData);
@@ -159,9 +177,11 @@ module.exports = async function handler(req, res) {
       success: true,
     });
   } catch (error) {
-    console.error("Chat API error:", error);
+    console.error("Chat API error:", error.message || error);
+    console.error("Stack:", error.stack);
     res.status(500).json({
       error: "AI 助理暫時無法回應，請稍後再試。",
+      detail: process.env.NODE_ENV !== "production" ? error.message : undefined,
       success: false,
     });
   }
