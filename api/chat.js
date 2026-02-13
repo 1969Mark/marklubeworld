@@ -1,7 +1,6 @@
 // ==========================================================
 // 1. Dependencies & Configuration
 // ==========================================================
-const { GoogleGenAI } = require("@google/genai");
 const fs = require("fs");
 const path = require("path");
 
@@ -58,10 +57,10 @@ function loadKnowledgeBase() {
   const formattedArticles = articles
     .map(
       (article, index) =>
-        `--- 文章 ${index + 1}: ${article.title} ---\n` +
-        `分類: ${article.category}\n` +
-        `網址: ${article.url}\n` +
-        `內容:\n${article.content}\n`
+        `--- Article ${index + 1}: ${article.title} ---\n` +
+        `Category: ${article.category}\n` +
+        `URL: ${article.url}\n` +
+        `Content:\n${article.content}\n`
     )
     .join("\n");
 
@@ -101,7 +100,7 @@ ${knowledgeBase}`;
 }
 
 // ==========================================================
-// 4. API Handler
+// 4. API Handler (using dynamic import for ESM @google/genai)
 // ==========================================================
 
 /**
@@ -145,10 +144,13 @@ module.exports = async function handler(req, res) {
     const knowledgeBase = loadKnowledgeBase();
     const systemPrompt = buildSystemPrompt(knowledgeBase);
 
-    // Initialize new Google GenAI SDK
+    // Dynamic import for ESM-only @google/genai package
+    const { GoogleGenAI } = await import("@google/genai");
+
+    // Initialize Google GenAI SDK
     const ai = new GoogleGenAI({ apiKey });
 
-    // Build chat history in new SDK format
+    // Build chat history in SDK format
     /** @type {Array<{role: string, parts: Array<{text: string}>}>} */
     const chatHistory = Array.isArray(history)
       ? history.map((msg) => ({
@@ -157,7 +159,7 @@ module.exports = async function handler(req, res) {
         }))
       : [];
 
-    // Create chat session with new SDK API
+    // Create chat session
     const chat = ai.chats.create({
       model: MODEL_NAME,
       history: chatHistory,
@@ -168,7 +170,7 @@ module.exports = async function handler(req, res) {
       },
     });
 
-    // Send message using new SDK API
+    // Send message
     const result = await chat.sendMessage({ message });
     const responseText = result.text;
 
