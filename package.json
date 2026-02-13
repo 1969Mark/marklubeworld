@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "馬克的潤滑油世界 - 專業船舶潤滑油技術資源平台",
   "scripts": {
+    "build": "node scripts/build-knowledge.js",
     "build-knowledge": "node scripts/build-knowledge.js",
     "dev": "vercel dev"
   },
