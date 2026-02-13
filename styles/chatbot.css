@@ -23,54 +23,89 @@
 }
 
 /* ==========================================================
-   2. Floating Action Button (FAB)
+   2. Floating Action Button (FAB) — Mascot Style
    ========================================================== */
 .chatbot-fab {
   position: fixed;
   bottom: 24px;
   right: 24px;
-  width: var(--chat-btn-size);
-  height: var(--chat-btn-size);
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--chat-primary), var(--chat-primary-dark));
+  width: auto;
+  height: auto;
+  border-radius: 0;
+  background: none;
   border: none;
   cursor: pointer;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 16px rgba(0, 119, 182, 0.4);
-  transition: var(--chat-transition);
+  gap: 4px;
   z-index: 9998;
-  animation: chatbot-fab-pulse 2s ease-in-out infinite;
+  transition: var(--chat-transition);
+  padding: 0;
 }
 
 .chatbot-fab:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 24px rgba(0, 119, 182, 0.5);
+  transform: scale(1.08);
 }
 
-.chatbot-fab svg {
-  width: 28px;
-  height: 28px;
-  fill: #ffffff;
+.chatbot-fab-img {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--chat-primary);
+  box-shadow: 0 4px 16px rgba(0, 119, 182, 0.35);
   transition: var(--chat-transition);
+  animation: chatbot-fab-glow 2.5s ease-in-out infinite;
 }
 
-.chatbot-fab.active svg.icon-chat {
+.chatbot-fab:hover .chatbot-fab-img {
+  box-shadow: 0 6px 24px rgba(0, 119, 182, 0.5);
+  border-color: var(--chat-primary-dark);
+}
+
+.chatbot-fab-label {
+  background: var(--chat-primary);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 10px;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  letter-spacing: 0.5px;
+}
+
+/* Hide mascot image and label when chat is open, show close button */
+.chatbot-fab.active .chatbot-fab-img,
+.chatbot-fab.active .chatbot-fab-label {
   display: none;
 }
 
-.chatbot-fab svg.icon-close {
+.chatbot-fab .chatbot-fab-close {
   display: none;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--chat-primary), var(--chat-primary-dark));
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0, 119, 182, 0.4);
 }
 
-.chatbot-fab.active svg.icon-close {
-  display: block;
+.chatbot-fab.active .chatbot-fab-close {
+  display: flex;
 }
 
-@keyframes chatbot-fab-pulse {
-  0%, 100% { box-shadow: 0 4px 16px rgba(0, 119, 182, 0.4); }
-  50% { box-shadow: 0 4px 24px rgba(0, 119, 182, 0.6); }
+.chatbot-fab .chatbot-fab-close svg {
+  width: 22px;
+  height: 22px;
+  fill: #ffffff;
+}
+
+@keyframes chatbot-fab-glow {
+  0%, 100% { box-shadow: 0 4px 16px rgba(0, 119, 182, 0.35); }
+  50% { box-shadow: 0 4px 24px rgba(0, 119, 182, 0.55); }
 }
 
 /* ==========================================================
