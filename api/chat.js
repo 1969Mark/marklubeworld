@@ -118,68 +118,9 @@ module.exports = async function handler(req, res) {
     return;
   }
 
-  // Only accept POST requests
-  if (req.method !== "POST") {
-    res.status(405).json({ error: "Method not allowed" });
-    return;
-  }
-
-  try {
-    // Validate API key
-    const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) {
-      console.error("GEMINI_API_KEY is not set");
-      res.status(500).json({ error: "Server configuration error" });
-      return;
-    }
-
-    // Parse request body
-    const { message, history } = req.body;
-    if (!message || typeof message !== "string") {
-      res.status(400).json({ error: "Message is required" });
-      return;
-    }
-
-    // Load knowledge base (TEMPORARILY DISABLED FOR TESTING)
-    const systemPrompt = "You are a helpful assistant. Keep answers brief.";
-
-    console.log("Calling Gemini API directly via fetch...");
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL_NAME}:generateContent?key=${apiKey}`;
-    
-    const apiResponse = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        contents: [{ role: 'user', parts: [{ text: message }] }],
-        system_instruction: { parts: [{ text: systemPrompt }] },
-        generationConfig: {
-          maxOutputTokens: MAX_OUTPUT_TOKENS,
-          temperature: TEMPERATURE
-        }
-      })
-    });
-
-    const data = await apiResponse.json();
-    
-    if (!apiResponse.ok) {
-      console.error("Gemini API Error:", data);
-      throw new Error(data.error?.message || `Gemini API responded with status ${apiResponse.status}`);
-    }
-
-    const responseText = data.candidates?.[0]?.content?.parts?.[0]?.text || "No response";
-    console.log("Direct fetch successful");
-
-    res.status(200).json({
-      reply: responseText,
-      success: true,
-      direct: true
-    });
-  } catch (error) {
-    console.error("Chat API Fatal Error:", error.message || error);
-    res.status(500).json({
-      error: "AI 助理暫時無法回應，請稍後再試。",
-      detail: error.message,
-      success: false,
-    });
-  }
+  res.status(200).json({
+    hello: "world",
+    method: req.method,
+    time: new Date().toISOString()
+  });
 };
