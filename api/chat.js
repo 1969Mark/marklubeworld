@@ -2,36 +2,36 @@ const fs = require("fs");
 const path = require("path");
 
 const MODEL_NAME = "gemini-2.0-flash";
-const MAX_OUTPUT_TOKENS = 1024;
 
-function loadKnowledgeBase(limit = 3) {
-  const possiblePaths = [
-    path.join(__dirname, "..", "knowledge_base.json"),
-    path.join(process.cwd(), "knowledge_base.json"),
-  ];
-  let rawData = null;
-  for (const p of possiblePaths) {
-    try { if (fs.existsSync(p)) { rawData = fs.readFileSync(p, "utf-8"); break; } } catch (e) {}
+function loadKB() {
+  try {
+    const kbPath = path.join(process.cwd(), "knowledge_base.json");
+    if (!fs.existsSync(kbPath)) return "知識庫不存在";
+    const data = fs.readFileSync(kbPath, "utf-8");
+    const articles = JSON.parse(data);
+    // Limit to 10 articles for stability
+    return articles.slice(0, 10).map(a => `[${a.title}]\n${a.content}`).join("\n\n");
+  } catch (e) {
+    return "KB_LOAD_ERROR: " + e.message;
   }
-  if (!rawData) throw new Error("KB_MISSING");
-  const articles = JSON.parse(rawData);
-  return articles.slice(0, limit).map((a, i) => `[${a.title}]\n${a.content}`).join("\n\n");
 }
 
 module.exports = async function handler(req, res) {
-  if (req.method === "OPTIONS") {
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.status(200).end();
-    return;
-  }
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+  if (req.method === "OPTIONS") return res.status(200).end();
 
   try {
     const apiKey = process.env.GEMINI_API_KEY;
     const { message, history } = req.body || {};
-    if (!message) throw new Error("NO_MESSAGE");
+    
+    if (!apiKey) throw new Error("GEMINI_API_KEY 未設定");
+    if (!message) throw new Error("請輸入問題");
 
-    const kbText = loadKnowledgeBase(3);
-    const systemPrompt = `你是 Mark's Lubricant World AI 助理。請用繁體中文回答。知識庫：\n${kbText}`;
+    const kb = loadKB();
+    const systemPrompt = `你是「Mark's Lubricant World」網站 AI 助理。請用繁體中文回答，基於以下知識庫：\n\n${kb}`;
 
     const contents = (history || []).map(m => ({
       role: m.role === "user" ? "user" : "model",
@@ -41,24 +41,39 @@ module.exports = async function handler(req, res) {
 
     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL_NAME}:generateContent?key=${apiKey}`;
     
+    // Set a 25s timeout
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 25000);
+
     const apiRes = await fetch(apiUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         contents: contents,
         system_instruction: { parts: [{ text: systemPrompt }] }
-      })
+      }),
+      signal: controller.signal
     });
 
+    clearTimeout(timeout);
     const data = await apiRes.json();
-    if (!apiRes.ok) throw new Error(data.error?.message || "API_ERROR");
 
-    res.status(200).json({
-      reply: data.candidates?.[0]?.content?.parts?.[0]?.text || "NO_RESPONSE",
-      success: true
-    });
+    if (!apiRes.ok) {
+      // Return 200 so we can see the error in UI instead of a generic connection error
+      return res.status(200).json({
+        error: data.error?.message || `Google API Error (${apiRes.status})`,
+        success: false
+      });
+    }
+
+    const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "無回應";
+    res.status(200).json({ reply, success: true });
 
   } catch (error) {
-    res.status(500).json({ error: error.message, success: false });
+    console.error("API Handler Error:", error);
+    res.status(200).json({
+      error: error.name === "AbortError" ? "請求連線超時，請稍後再試。" : error.message,
+      success: false
+    });
   }
 };
