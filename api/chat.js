@@ -141,14 +141,26 @@ module.exports = async function handler(req, res) {
     }
 
     // Load knowledge base
-    const knowledgeBase = loadKnowledgeBase();
+    let knowledgeBase;
+    try {
+      knowledgeBase = loadKnowledgeBase();
+      console.log("Knowledge base loaded successfully, length:", knowledgeBase.length);
+    } catch (e) {
+      console.error("Failed to load knowledge base:", e.message);
+      res.status(500).json({ error: "知識庫加載失敗", detail: e.message, success: false });
+      return;
+    }
+
     const systemPrompt = buildSystemPrompt(knowledgeBase);
+    console.log("System prompt built, length:", systemPrompt.length);
 
     // Dynamic import for ESM-only @google/genai package
+    console.log("Importing @google/genai...");
     const { GoogleGenAI } = await import("@google/genai");
 
     // Initialize Google GenAI SDK
     const ai = new GoogleGenAI({ apiKey });
+    console.log("AI client initialized with model:", MODEL_NAME);
 
     // Build chat history in SDK format
     /** @type {Array<{role: string, parts: Array<{text: string}>}>} */
@@ -158,6 +170,8 @@ module.exports = async function handler(req, res) {
           parts: [{ text: msg.content }],
         }))
       : [];
+
+    console.log("History turns:", chatHistory.length);
 
     // Create chat session
     const chat = ai.chats.create({
@@ -171,19 +185,22 @@ module.exports = async function handler(req, res) {
     });
 
     // Send message
+    console.log("Sending message to Gemini...");
     const result = await chat.sendMessage({ message });
     const responseText = result.text;
+    console.log("Received response successfully");
 
     res.status(200).json({
       reply: responseText,
       success: true,
     });
   } catch (error) {
-    console.error("Chat API error:", error.message || error);
+    console.error("Chat API Fatal Error:", error.message || error);
     console.error("Stack:", error.stack);
     res.status(500).json({
       error: "AI 助理暫時無法回應，請稍後再試。",
-      detail: process.env.NODE_ENV !== "production" ? error.message : undefined,
+      detail: error.message,
+      stack: error.stack,
       success: false,
     });
   }
