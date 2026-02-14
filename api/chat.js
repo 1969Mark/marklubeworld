@@ -140,59 +140,44 @@ module.exports = async function handler(req, res) {
       return;
     }
 
-    // Load knowledge base
+    // Load knowledge base (TEMPORARILY DISABLED FOR TESTING)
+    /*
     let knowledgeBase;
     try {
       knowledgeBase = loadKnowledgeBase();
-      console.log("Knowledge base loaded successfully, length:", knowledgeBase.length);
     } catch (e) {
-      console.error("Failed to load knowledge base:", e.message);
       res.status(500).json({ error: "知識庫加載失敗", detail: e.message, success: false });
       return;
     }
-
     const systemPrompt = buildSystemPrompt(knowledgeBase);
-    console.log("System prompt built, length:", systemPrompt.length);
+    */
+    const systemPrompt = "You are a helpful assistant. Keep answers brief.";
+    console.log("Using simplified system prompt");
 
     // Dynamic import for ESM-only @google/genai package
-    console.log("Importing @google/genai...");
     const { GoogleGenAI } = await import("@google/genai");
 
     // Initialize Google GenAI SDK
     const ai = new GoogleGenAI({ apiKey });
-    console.log("AI client initialized with model:", MODEL_NAME);
-
-    // Build chat history in SDK format
-    /** @type {Array<{role: string, parts: Array<{text: string}>}>} */
-    const chatHistory = Array.isArray(history)
-      ? history.map((msg) => ({
-          role: msg.role === "user" ? "user" : "model",
-          parts: [{ text: msg.content }],
-        }))
-      : [];
-
-    console.log("History turns:", chatHistory.length);
 
     // Create chat session
     const chat = ai.chats.create({
       model: MODEL_NAME,
-      history: chatHistory,
       config: {
         systemInstruction: systemPrompt,
-        maxOutputTokens: MAX_OUTPUT_TOKENS,
-        temperature: TEMPERATURE,
       },
     });
 
     // Send message
-    console.log("Sending message to Gemini...");
-    const result = await chat.sendMessage({ message });
+    console.log("Testing simple message...");
+    const result = await chat.sendMessage({ message: "Hello, reply 'Fixed' if you see this." });
     const responseText = result.text;
-    console.log("Received response successfully");
+    console.log("Simple test successful");
 
     res.status(200).json({
       reply: responseText,
       success: true,
+      test: true
     });
   } catch (error) {
     console.error("Chat API Fatal Error:", error.message || error);
