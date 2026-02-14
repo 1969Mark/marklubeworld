@@ -46,7 +46,8 @@ const CATEGORY_MAP = new Map([
   ['dos', '船舶潤滑油'],
   ['egr', '船舶潤滑油'],
   ['bnperformance', '船舶潤滑油'],
-  ['stern_tube', '機械設備']
+  ['stern_tube', '機械設備'],
+  ['everllence_engine', '機械設備']
 ]);
 
 // ==========================================================
