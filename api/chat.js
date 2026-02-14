@@ -143,6 +143,7 @@ module.exports = async function handler(req, res) {
     // Load knowledge base
     const knowledgeBase = loadKnowledgeBase();
     const systemPrompt = buildSystemPrompt(knowledgeBase);
+    console.log("System prompt length:", systemPrompt.length);
 
     // Dynamic import for ESM-only @google/genai package
     const { GoogleGenAI } = await import("@google/genai");
@@ -183,7 +184,8 @@ module.exports = async function handler(req, res) {
     console.error("Stack:", error.stack);
     res.status(500).json({
       error: "AI 助理暫時無法回應，請稍後再試。",
-      detail: process.env.NODE_ENV !== "production" ? error.message : undefined,
+      detail: error.message,
+      stack: error.stack,
       success: false,
     });
   }
