@@ -141,51 +141,44 @@ module.exports = async function handler(req, res) {
     }
 
     // Load knowledge base (TEMPORARILY DISABLED FOR TESTING)
-    /*
-    let knowledgeBase;
-    try {
-      knowledgeBase = loadKnowledgeBase();
-    } catch (e) {
-      res.status(500).json({ error: "知識庫加載失敗", detail: e.message, success: false });
-      return;
-    }
-    const systemPrompt = buildSystemPrompt(knowledgeBase);
-    */
     const systemPrompt = "You are a helpful assistant. Keep answers brief.";
-    console.log("Using simplified system prompt");
 
-    // Dynamic import for ESM-only @google/genai package
-    const { GoogleGenAI } = await import("@google/genai");
-
-    // Initialize Google GenAI SDK
-    const ai = new GoogleGenAI({ apiKey });
-
-    // Create chat session
-    const chat = ai.chats.create({
-      model: MODEL_NAME,
-      config: {
-        systemInstruction: systemPrompt,
-      },
+    console.log("Calling Gemini API directly via fetch...");
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL_NAME}:generateContent?key=${apiKey}`;
+    
+    const apiResponse = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{ role: 'user', parts: [{ text: message }] }],
+        system_instruction: { parts: [{ text: systemPrompt }] },
+        generationConfig: {
+          maxOutputTokens: MAX_OUTPUT_TOKENS,
+          temperature: TEMPERATURE
+        }
+      })
     });
 
-    // Send message
-    console.log("Testing simple message...");
-    const result = await chat.sendMessage({ message: "Hello, reply 'Fixed' if you see this." });
-    const responseText = result.text;
-    console.log("Simple test successful");
+    const data = await apiResponse.json();
+    
+    if (!apiResponse.ok) {
+      console.error("Gemini API Error:", data);
+      throw new Error(data.error?.message || `Gemini API responded with status ${apiResponse.status}`);
+    }
+
+    const responseText = data.candidates?.[0]?.content?.parts?.[0]?.text || "No response";
+    console.log("Direct fetch successful");
 
     res.status(200).json({
       reply: responseText,
       success: true,
-      test: true
+      direct: true
     });
   } catch (error) {
     console.error("Chat API Fatal Error:", error.message || error);
-    console.error("Stack:", error.stack);
     res.status(500).json({
       error: "AI 助理暫時無法回應，請稍後再試。",
       detail: error.message,
-      stack: error.stack,
       success: false,
     });
   }
