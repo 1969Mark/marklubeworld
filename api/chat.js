@@ -17,8 +17,8 @@ function loadKnowledgeBase() {
   }
   if (!rawData) return "KNOWLDGE_BASE_NOT_FOUND";
   const articles = JSON.parse(rawData);
-  // USE FULL KB
-  return articles.map((a, i) => `[${a.title}]\n${a.content}`).join("\n\n");
+  // TEST WITH 10 ARTICLES (~30-40KB)
+  return articles.slice(0, 10).map((a, i) => `[${a.title}]\n${a.content}`).join("\n\n");
 }
 
 module.exports = async function handler(req, res) {
