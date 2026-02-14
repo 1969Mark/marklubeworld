@@ -1,46 +1,36 @@
-// ==========================================================
-// 1. Dependencies & Configuration
-// ==========================================================
 const fs = require("fs");
 const path = require("path");
 
-/** @type {string} Gemini model identifier */
-const MODEL_NAME = "gemini-2.5-flash";
-
-/** @type {number} Maximum tokens for response */
+const MODEL_NAME = "gemini-1.5-flash"; // Use the most stable fallback
 const MAX_OUTPUT_TOKENS = 2048;
-
-/** @type {number} Temperature for response creativity */
 const TEMPERATURE = 0.7;
 
-// ==========================================================
-// 2. Knowledge Base Loader
-// ==========================================================
-
-function loadKnowledgeBaseRaw() {
+function loadKnowledgeBase() {
   const possiblePaths = [
     path.join(__dirname, "..", "knowledge_base.json"),
     path.join(process.cwd(), "knowledge_base.json"),
   ];
 
+  let rawData = null;
   for (const kbPath of possiblePaths) {
     try {
       if (fs.existsSync(kbPath)) {
-        return fs.readFileSync(kbPath, "utf-8");
+        rawData = fs.readFileSync(kbPath, "utf-8");
+        break;
       }
-    } catch (e) {
-      console.error("Read error at", kbPath, e.message);
-    }
+    } catch (e) {}
   }
-  throw new Error("知識庫檔案不存在");
+  if (!rawData) throw new Error("知識庫不存在");
+  
+  const articles = JSON.parse(rawData);
+  return articles.map((a, i) => `--- Article ${i+1}: ${a.title} ---\nCategory: ${a.category}\nURL: ${a.url}\nContent:\n${a.content}\n`).join("\n");
 }
 
-// ==========================================================
-// 4. API Handler
-// ==========================================================
+function buildSystemPrompt(kb) {
+  return `你是「Mark's Lubricant World」網站的 AI 助理。請用繁體中文回答，基於以下知識庫內容：\n\n${kb}`;
+}
 
 module.exports = async function handler(req, res) {
-  // Handle CORS preflight
   if (req.method === "OPTIONS") {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
@@ -50,33 +40,45 @@ module.exports = async function handler(req, res) {
   }
 
   try {
-    // Stage 1: Load Knowledge Base
-    let articles;
-    try {
-      const rawData = loadKnowledgeBaseRaw();
-      articles = JSON.parse(rawData);
-    } catch (e) {
-      res.status(500).json({ 
-        error: "知識庫加載或解析失敗", 
-        detail: e.message, 
-        success: false 
-      });
-      return;
-    }
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) throw new Error("API Key missing");
 
-    // Return KB stats for diagnosis
+    const { message, history } = req.body || {};
+    if (!message) throw new Error("Message missing");
+
+    const kbContent = loadKnowledgeBase();
+    const systemPrompt = buildSystemPrompt(kbContent);
+
+    const { GoogleGenAI } = await import("@google/genai");
+    const ai = new GoogleGenAI({ apiKey });
+    
+    const chatHistory = (history || []).map(m => ({
+      role: m.role === "user" ? "user" : "model",
+      parts: [{ text: m.content }]
+    }));
+
+    const chat = ai.chats.create({
+      model: MODEL_NAME,
+      history: chatHistory,
+      config: {
+        systemInstruction: systemPrompt,
+        maxOutputTokens: MAX_OUTPUT_TOKENS,
+        temperature: TEMPERATURE,
+      },
+    });
+
+    const result = await chat.sendMessage({ message });
+    
     res.status(200).json({
-      articleCount: articles.length,
-      lastArticle: articles[articles.length - 1]?.title,
-      envKeySet: !!process.env.GEMINI_API_KEY,
-      success: true,
-      debug: "KB_DIAGNOSTICS"
+      reply: result.text,
+      success: true
     });
 
   } catch (error) {
+    console.error("CRITICAL ERROR:", error);
     res.status(500).json({
-      error: "致命錯誤",
-      detail: error.message,
+      error: "連線失敗：" + error.message,
+      stack: error.stack,
       success: false
     });
   }
