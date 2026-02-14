@@ -29,7 +29,10 @@ function loadKnowledgeBase() {
 
   if (!rawData) throw new Error("知識庫加載失敗");
   
-  const articles = JSON.parse(rawData);
+  let articles = JSON.parse(rawData);
+  // REDUCE TO 2 ARTICLES FOR TESTING
+  articles = articles.slice(0, 2);
+  
   return articles.map((a, i) => `--- 文章 ${i+1}: ${a.title} ---\n分類: ${a.category}\n內容: ${a.content}\n`).join("\n");
 }
 
@@ -72,8 +75,7 @@ module.exports = async function handler(req, res) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         contents: contents,
-        system_instruction: { 
-          role: "user", // Some API versions require role for system_instruction
+        systemInstruction: { 
           parts: [{ text: systemPrompt }] 
         },
         generationConfig: {
