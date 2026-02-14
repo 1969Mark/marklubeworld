@@ -1,16 +1,17 @@
 const fs = require("fs");
 const path = require("path");
 
-const MODEL_NAME = "gemini-2.0-flash";
+// Switch to Flash-Lite which often has separate or larger free tier quota
+const MODEL_NAME = "gemini-2.0-flash-lite-001";
 
-function loadKB() {
+function loadKnowledgeBase() {
   try {
     const kbPath = path.join(process.cwd(), "knowledge_base.json");
-    if (!fs.existsSync(kbPath)) return "知識庫不存在";
+    if (!fs.existsSync(kbPath)) return "知識庫檔案缺失。";
     const data = fs.readFileSync(kbPath, "utf-8");
     const articles = JSON.parse(data);
-    // Limit to 10 articles for stability
-    return articles.slice(0, 10).map(a => `[${a.title}]\n${a.content}`).join("\n\n");
+    // Restore full knowledge base
+    return articles.map((a, i) => `--- 文章 ${i+1}: ${a.title} ---\n分類: ${a.category}\n內容: ${a.content}\n`).join("\n");
   } catch (e) {
     return "KB_LOAD_ERROR: " + e.message;
   }
@@ -27,11 +28,11 @@ module.exports = async function handler(req, res) {
     const apiKey = process.env.GEMINI_API_KEY;
     const { message, history } = req.body || {};
     
-    if (!apiKey) throw new Error("GEMINI_API_KEY 未設定");
-    if (!message) throw new Error("請輸入問題");
+    if (!apiKey) throw new Error("GEMINI_API_KEY 未設定，請檢查 Vercel 環境變數。");
+    if (!message) throw new Error("請輸入訊息內容。");
 
-    const kb = loadKB();
-    const systemPrompt = `你是「Mark's Lubricant World」網站 AI 助理。請用繁體中文回答，基於以下知識庫：\n\n${kb}`;
+    const kb = loadKnowledgeBase();
+    const systemPrompt = `你是「Mark's Lubricant World」網站 AI 助理。請用繁體中文回答技術問題。請根據以下知識庫提供專業回覆，並引用標題與連結。\n\n[知識庫開始]\n${kb}\n[知識庫結束]`;
 
     const contents = (history || []).map(m => ({
       role: m.role === "user" ? "user" : "model",
@@ -41,38 +42,39 @@ module.exports = async function handler(req, res) {
 
     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL_NAME}:generateContent?key=${apiKey}`;
     
-    // Set a 25s timeout
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 25000);
-
     const apiRes = await fetch(apiUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         contents: contents,
         system_instruction: { parts: [{ text: systemPrompt }] }
-      }),
-      signal: controller.signal
+      })
     });
 
-    clearTimeout(timeout);
     const data = await apiRes.json();
 
     if (!apiRes.ok) {
-      // Return 200 so we can see the error in UI instead of a generic connection error
-      return res.status(200).json({
-        error: data.error?.message || `Google API Error (${apiRes.status})`,
-        success: false
-      });
+      const errMsg = data.error?.message || "Google API 未知錯誤";
+      
+      // Special handling for Quota issues
+      if (errMsg.includes("quota") || errMsg.includes("limit")) {
+        return res.status(200).json({
+          error: "⚠️ AI 助理目前今日額度已用盡，請稍後或明日再試。若您是站長，請檢查 Google AI Studio 配額限制。",
+          detail: errMsg,
+          success: false
+        });
+      }
+      
+      throw new Error(errMsg);
     }
 
-    const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "無回應";
-    res.status(200).json({ reply, success: true });
+    const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "抱歉，我暫時無法產生內容，請換個方式詢問。";
+    res.status(200).json({ reply: reply, success: true });
 
   } catch (error) {
-    console.error("API Handler Error:", error);
+    console.error("Chat API Handler Error:", error.message);
     res.status(200).json({
-      error: error.name === "AbortError" ? "請求連線超時，請稍後再試。" : error.message,
+      error: error.message || "發生連線錯誤，請稍後再試。",
       success: false
     });
   }
