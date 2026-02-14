@@ -4,7 +4,7 @@
 const fs = require("fs");
 const path = require("path");
 
-/** @type {string} Gemini model identifier (stable version) */
+/** @type {string} Gemini model identifier */
 const MODEL_NAME = "gemini-2.5-flash";
 
 /** @type {number} Maximum tokens for response */
@@ -14,100 +14,31 @@ const MAX_OUTPUT_TOKENS = 2048;
 const TEMPERATURE = 0.7;
 
 // ==========================================================
-// 2. Knowledge Base Loader (Cached)
+// 2. Knowledge Base Loader
 // ==========================================================
 
-/** @type {string|null} Cached knowledge base content */
-let cachedKnowledgeBase = null;
-
-/**
- * Load and cache the knowledge base JSON file
- * @returns {string} Formatted knowledge base text
- */
-function loadKnowledgeBase() {
-  if (cachedKnowledgeBase) {
-    return cachedKnowledgeBase;
-  }
-
-  // Try multiple paths for Vercel compatibility
+function loadKnowledgeBaseRaw() {
   const possiblePaths = [
     path.join(__dirname, "..", "knowledge_base.json"),
     path.join(process.cwd(), "knowledge_base.json"),
   ];
 
-  let rawData = null;
   for (const kbPath of possiblePaths) {
     try {
-      rawData = fs.readFileSync(kbPath, "utf-8");
-      console.log("Knowledge base loaded from:", kbPath);
-      break;
+      if (fs.existsSync(kbPath)) {
+        return fs.readFileSync(kbPath, "utf-8");
+      }
     } catch (e) {
-      console.log("KB not found at:", kbPath);
+      console.error("Read error at", kbPath, e.message);
     }
   }
-
-  if (!rawData) {
-    throw new Error("Knowledge base file not found in any expected location");
-  }
-
-  /** @type {Array<{title: string, url: string, category: string, content: string}>} */
-  const articles = JSON.parse(rawData);
-
-  // Format articles into a structured text block for the prompt
-  const formattedArticles = articles
-    .map(
-      (article, index) =>
-        `--- Article ${index + 1}: ${article.title} ---\n` +
-        `Category: ${article.category}\n` +
-        `URL: ${article.url}\n` +
-        `Content:\n${article.content}\n`
-    )
-    .join("\n");
-
-  cachedKnowledgeBase = formattedArticles;
-  return cachedKnowledgeBase;
+  throw new Error("知識庫檔案不存在");
 }
 
 // ==========================================================
-// 3. System Prompt Builder
+// 4. API Handler
 // ==========================================================
 
-/**
- * Build the system instruction for Gemini
- * @param {string} knowledgeBase - Formatted knowledge base content
- * @returns {string} System prompt
- */
-function buildSystemPrompt(knowledgeBase) {
-  return `你是「Mark's Lubricant World」網站的 AI 助理，專門回答關於潤滑油、船舶引擎潤滑、油品化驗分析等技術問題。
-
-## 你的角色
-- 你是一位專業且友善的潤滑油技術顧問
-- 使用繁體中文回答問題
-- 回答時引用網站上的相關文章，並提供文章連結
-- 若問題超出知識庫範圍，請誠實告知並建議使用者參考其他資源
-
-## 回答規則
-1. **基於知識庫**: 僅根據以下知識庫內容回答問題，不要編造資訊
-2. **引用來源**: 回答時提及相關文章標題，並附上連結格式如 [文章名稱](網址)
-3. **結構清晰**: 使用標題、列表、粗體等 Markdown 格式讓回答易讀
-4. **語言**: 使用繁體中文回答，技術術語可附英文原文
-5. **簡潔專業**: 回答應簡潔但完整，避免冗長
-
-## 知識庫內容
-以下是網站上所有文章的內容，請基於這些內容回答使用者的問題：
-
-${knowledgeBase}`;
-}
-
-// ==========================================================
-// 4. API Handler (using dynamic import for ESM @google/genai)
-// ==========================================================
-
-/**
- * Vercel Serverless Function handler
- * @param {import('http').IncomingMessage} req
- * @param {import('http').ServerResponse} res
- */
 module.exports = async function handler(req, res) {
   // Handle CORS preflight
   if (req.method === "OPTIONS") {
@@ -118,9 +49,35 @@ module.exports = async function handler(req, res) {
     return;
   }
 
-  res.status(200).json({
-    hello: "world",
-    method: req.method,
-    time: new Date().toISOString()
-  });
+  try {
+    // Stage 1: Load Knowledge Base
+    let articles;
+    try {
+      const rawData = loadKnowledgeBaseRaw();
+      articles = JSON.parse(rawData);
+    } catch (e) {
+      res.status(500).json({ 
+        error: "知識庫加載或解析失敗", 
+        detail: e.message, 
+        success: false 
+      });
+      return;
+    }
+
+    // Return KB stats for diagnosis
+    res.status(200).json({
+      articleCount: articles.length,
+      lastArticle: articles[articles.length - 1]?.title,
+      envKeySet: !!process.env.GEMINI_API_KEY,
+      success: true,
+      debug: "KB_DIAGNOSTICS"
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      error: "致命錯誤",
+      detail: error.message,
+      success: false
+    });
+  }
 };
