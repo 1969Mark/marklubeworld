@@ -4,8 +4,8 @@
 const fs = require("fs");
 const path = require("path");
 
-/** @type {string} Gemini model identifier (latest Flash, released Dec 2025) */
-const MODEL_NAME = "gemini-3-flash";
+/** @type {string} Gemini model identifier (stable version) */
+const MODEL_NAME = "gemini-2.5-flash";
 
 /** @type {number} Maximum tokens for response */
 const MAX_OUTPUT_TOKENS = 2048;
