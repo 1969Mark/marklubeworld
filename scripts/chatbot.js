@@ -207,7 +207,7 @@ async function handleSendMessage() {
     } else {
       appendMessage(
         "bot",
-        "⚠️ 抱歉，我暫時無法回應。請稍後再試。"
+        response.error || "⚠️ 抱歉，我暫時無法回應。請稍後再試。"
       );
     }
   } catch (error) {
