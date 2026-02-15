@@ -25,8 +25,8 @@ module.exports = async function handler(req, res) {
   if (req.method === "OPTIONS") return res.status(200).end();
 
   try {
-    // Using the new API Key provided by the user
-    const apiKey = "AIzaSyCG8nIgzPLwu40oqs8H2zeNBmCYhF9Lp4g";
+    // Using API Key from environment variable to prevent leaks
+    const apiKey = process.env.GEMINI_API_KEY;
     const { message, history } = req.body || {};
     
     if (!apiKey) throw new Error("GEMINI_API_KEY 未設定，請檢查 Vercel 環境變數。");
