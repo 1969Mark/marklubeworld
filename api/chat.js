@@ -1,8 +1,8 @@
 const fs = require("fs");
 const path = require("path");
 
-// Switch to Flash-Lite which often has separate or larger free tier quota
-const MODEL_NAME = "gemini-2.0-flash-lite-001";
+// Verified model for the new API Key
+const MODEL_NAME = "gemini-2.5-flash";
 
 function loadKnowledgeBase() {
   try {
