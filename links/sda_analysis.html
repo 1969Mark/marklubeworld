@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="汽缸殘油, SDA, Scavenge Drain Oil Analysis, 主機, 二衝程, MAN ES, WinGD, 活塞環, 缸套, 磨損, 鹼值, BN, 潤滑油化驗">
+    <meta name="description" content="汽缸殘油分析（SDA）完整技術指南，涵蓋MAN ES與WinGD判斷標準、磨損參數解析、採樣流程及餵油率優化策略。">
+    <link rel="icon" type="image/png" href="../images/mark_small.png">
+    <title>2026_主機汽缸殘油化驗解析</title>
+    <link rel="stylesheet" href="../styles/web.css">
+    <link rel="stylesheet" href="../styles/chatbot.css">
+    <style>
+        /* ============================
+           頁面專屬樣式
+        ============================ */
+        .section-title {
+            color: var(--ocean-deep);
+            border-left: 5px solid var(--sun-gold);
+            padding-left: 14px;
+            margin: 2.5rem 0 1rem;
+        }
+
+        .info-box {
+            background: rgba(22, 101, 152, 0.08);
+            border-left: 4px solid var(--ocean-mid);
+            border-radius: 0 8px 8px 0;
+            padding: 1.2rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .info-box.warning {
+            background: rgba(220, 150, 30, 0.1);
+            border-left-color: var(--sun-gold);
+        }
+
+        .info-box.danger {
+            background: rgba(200, 50, 50, 0.08);
+            border-left-color: #c83232;
+        }
+
+        .step-list {
+            counter-reset: step-counter;
+            list-style: none;
+            padding: 0;
+        }
+
+        .step-list li {
+            counter-increment: step-counter;
+            padding: 0.7rem 0.5rem 0.7rem 3.2rem;
+            position: relative;
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+        }
+
+        .step-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0.5rem;
+            top: 0.7rem;
+            background: var(--ocean-mid);
+            color: white;
+            width: 1.8rem;
+            height: 1.8rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .badge-normal  { background: #d4edda; color: #155724; }
+        .badge-raised  { background: #fff3cd; color: #856404; }
+        .badge-abnormal{ background: #ffe5d0; color: #7d3c00; }
+        .badge-alert   { background: #f8d7da; color: #721c24; }
+        .badge-safe    { background: #d4edda; color: #155724; }
+        .badge-danger  { background: #f8d7da; color: #721c24; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.92rem;
+        }
+
+        th {
+            background: var(--ocean-mid);
+            color: white;
+            padding: 0.75rem 1rem;
+            text-align: left;
+        }
+
+        td {
+            padding: 0.65rem 1rem;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            vertical-align: top;
+        }
+
+        tr:nth-child(even) td { background: rgba(0,0,0,0.03); }
+
+        .ref-box {
+            margin-top: 2.5rem;
+            padding: 1.2rem 1.5rem;
+            background: rgba(255,255,255,0.5);
+            border-radius: 8px;
+            border-left: 5px solid var(--ocean-mid);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ============================
+         1. Header
+    ============================ -->
+    <div class="top_main">
+        <h1 style="font-size:28px;">2026_主機汽缸殘油化驗解析</h1>
+        <a href="../index.html">回首頁</a>
+        <img src="../images/mark_small.png" height="100px" />
+    </div>
+
+    <hr>
+
+    <main>
+        <div class="container">
+
+            <!-- ============================
+                 2. 前言
+            ============================ -->
+            <div>
+                <h2 class="section-title">汽缸殘油分析在現代船舶動力系統中的戰略地位</h2>
+                <p>
+                    在當前全球航運業追求脫碳化與營運效率極大化的背景下，二衝程低速跨頭式主機的潤滑管理已從傳統的經驗導向轉型為基於精準數據的狀態監測。<strong>汽缸殘油分析（Scavenge Drain Oil Analysis，亦稱作 Piston Underside Drain Oil Analysis 或 Scrape-down Oil Analysis，簡稱 SDA）</strong>不僅是評估汽缸潤滑效率的核心工具，更是預防關鍵摩擦副——活塞環與汽缸套——發生突發性失效的預警系統。
+                </p>
+                <p>
+                    隨著國際海事組織（IMO）針對燃油硫含量限制（IMO 2020）的實施，主機面臨著極低硫燃油（VLSFO）、超低硫燃油（ULSFO）以及多種新型替代燃料（如 LNG、甲醇、氨氣）的挑戰。這些燃料的多樣化直接改變了燃燒室內的化學環境，使得汽缸油的鹼值（Base Number, BN）管理與磨損監測變得空前複雜。
+                </p>
+                <p>
+                    主機設計兩大巨頭 <strong>MAN Energy Solutions (MAN ES)</strong> 與 <strong>WinGD</strong>，協同國際內燃機委員會（CIMAC），針對殘油化驗建立了一套詳盡的參數解釋框架。透過 SDA，輪機管理人員得以在不拆卸缸頭的情況下，洞察掃氣空間內的運行實況，從而優化餵油率（Feed Rate），在降低營運成本（OPEX）的同時，確保主機的長期結構完整性。
+                </p>
+            </div>
+
+            <!-- ============================
+                 3. 採樣標準化
+            ============================ -->
+            <div>
+                <h2 class="section-title">採樣標準化：數據真實性的物理前提</h2>
+                <p>
+                    任何精密化驗的價值皆建立在樣本的代表性之上。汽缸殘油是由活塞環從缸套壁刮下，匯集於掃氣箱底部排水管的廢棄潤滑油。然而，由於掃氣空間常態性地積累了燃燒殘渣、未燃燃料以及可能的系統油洩漏，若採樣程序不當，極易引入外部干擾，導致錯誤的診斷結論。
+                </p>
+
+                <h3 style="margin-top:1.5rem; color: var(--ocean-deep);">標準化採樣流程</h3>
+                <p>根據 MAN ES 和 WinGD 的技術指引，採樣過程必須強調「新鮮度」與「純淨度」：</p>
+                <ol class="step-list">
+                    <li>關閉常開的排水截止閥，開啟採樣閥以<strong>沖洗</strong>管道內積存的陳舊油脂與雜質。</li>
+                    <li>沖洗後關閉採樣閥，<strong>等待 30 至 300 分鐘</strong>（累積採樣法），確保收集到的是即時從缸壁刮下的活性樣品。</li>
+                    <li>實施<strong>「三樣對比法」</strong>：同時採集各缸殘油、正在使用的系統油以及新鮮汽缸油，建立基線數據以精確計算系統油稀釋率。</li>
+                    <li>密封並標記樣本瓶，記錄採樣時間、負荷、燃油硫分與餵油率。</li>
+                </ol>
+
+                <div class="info-box">
+                    <strong>📅 採樣頻率建議</strong><br>
+                    岸基實驗室分析：每 <strong>1,500 運轉小時</strong>或三個月進行一次。<br>
+                    船端自測：維持在 <strong>100 至 200 小時</strong>的短週期，以應對燃油切換或氣候變化帶來的瞬時影響。
+                </div>
+            </div>
+
+            <!-- ============================
+                 4. 物理與化學參數
+            ============================ -->
+            <div>
+                <h2 class="section-title">物理與化學參數：潤滑狀態的機能特徵</h2>
+                <p>汽缸油的核心職能包括：中和燃燒產生的硫酸（防止冷腐蝕）、建立承載油膜（減少摩擦），以及清潔活塞組件（防止積碳沉積）。</p>
+
+                <h3 style="margin-top:1.5rem; color: var(--ocean-deep);">鹼值（Base Number）與酸中和機制</h3>
+                <p>
+                    鹼值是衡量汽缸油中鹼性添加劑殘留量的指標，其化學本質通常是分散在油中的超鹼化碳酸鈣粒子。當燃油中的硫分燃燒生成 SO₂ 並進一步氧化為 SO₃，在低於露點的溫度下會與水蒸氣結合生成硫酸（H₂SO₄）。鹼值的作用即是透過中和反應將硫酸轉化為無害的硫酸鈣鹽類。
+                </p>
+
+                <div class="info-box warning">
+                    <strong>⚠️ BN 過低的風險</strong>：殘油 BN 過低意味著汽缸油鹼值等級或餵油率無法有效抵禦酸性攻擊，主機正處於嚴重的<strong>冷腐蝕</strong>風險中。
+                </div>
+                <div class="info-box danger">
+                    <strong>❌ BN 過高的陷阱</strong>（特別是 VLSFO 低硫環境）：過剩鈣鹽積聚在活塞環岸（Ring Land）與頂岸（Top Land），形成堅硬沉積物，引起「缸套拋光」（Liner Polishing），導致拉缸（Scuffing）風險。
+                </div>
+
+                <h3 style="margin-top:1.5rem; color: var(--ocean-deep);">其他關鍵物理化學參數</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width:18%">參數</th>
+                            <th style="width:20%">正常範圍/閾值</th>
+                            <th>異常原因與風險</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>運動粘度（100°C）</strong></td>
+                            <td>≥ 18.5 cSt（SAE 50）</td>
+                            <td>粘度下降通常為填料函密封環磨損，系統油（SAE 30）向上滲透所致，同時導致觀測 BN 虛低，誤導增油決策。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>閃點</strong></td>
+                            <td>≥ 180°C</td>
+                            <td>閃點顯著降低預示未燃燃料或系統油大量滲入，常見於噴油嘴滴漏或活塞環密封不良。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>水含量</strong></td>
+                            <td>越低越好</td>
+                            <td>水含量上升需警惕掃氣空氣冷卻器（SAC）除濕效率不足或缸頭冷卻水洩漏；過量水分導致潤滑油乳化，加劇腐蝕。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>不溶物（Soot）</strong></td>
+                            <td>越低越好</td>
+                            <td>高碳煙含量意味著燃燒不完全；增加油泥生成機率，阻礙活塞環在環槽內的自由浮動。</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ============================
+                 5. 金屬磨損參數
+            ============================ -->
+            <div>
+                <h2 class="section-title">金屬磨損參數：內部組件健康度的指紋</h2>
+                <p>金屬參數分析是 SDA 的靈魂。透過對鐵（Fe）及其合金元素的監測，可以將磨損精確定位到特定機械部位，並區分磨損的本質（腐蝕性 vs 機械性）。</p>
+
+                <h3 style="margin-top:1.5rem; color: var(--ocean-deep);">鐵含量（Total Iron vs. Magnetic Iron）</h3>
+                <p>MAN ES 強調區分<strong>總鐵</strong>與<strong>磁性鐵</strong>的重要性。總鐵包括溶解在油中的鐵鹽（腐蝕產物）以及固態金屬鐵顆粒（機械磨損產物）。</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>磨損機制</th>
+                            <th>主導鐵形態</th>
+                            <th>物理表現與成因</th>
+                            <th>應對建議</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>化學腐蝕</strong></td>
+                            <td>非磁性鐵鹽</td>
+                            <td>缸壁溫度低於露點，燃油硫分偏高，發生低溫腐蝕。</td>
+                            <td>提升掃氣溫度，增加餵油率或換用高 BN 油品。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>機械磨料磨損</strong></td>
+                            <td>磁性顆粒（PQ 指數高）</td>
+                            <td>燃油中含催化微粒（Cat Fines）或外來硬質顆粒。</td>
+                            <td>加強燃油淨化，檢查掃氣濾網。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>粘著磨損（Scuffing）</strong></td>
+                            <td>較大金屬碎片</td>
+                            <td>潤滑油膜斷裂導致金屬直接接觸，局部產生高溫焊接。</td>
+                            <td>立即大幅增加餵油率，降低負荷運轉。</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 style="margin-top:1.5rem; color: var(--ocean-deep);">合金元素與特定部位關聯性</h3>
+                <p>根據 MAN ES SL2023-738 附錄 I，各元素的典型起源如下：</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width:10%">元素</th>
+                            <th style="width:12%">名稱</th>
+                            <th>典型起源與診斷價值</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Cr</strong></td>
+                            <td>鉻</td>
+                            <td>主要來源於活塞環槽的電鍍層或活塞環本身的耐磨層磨損。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cu</strong></td>
+                            <td>銅</td>
+                            <td>來源於鋁塗層活塞環的初期跑合磨損，或填料函內部的青銅密封部件。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mo</strong></td>
+                            <td>鉬</td>
+                            <td>陶瓷塗層活塞環（Cermet Coated）或特殊活塞裙噴塗層的磨損信號。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pb / Sn</strong></td>
+                            <td>鉛 / 錫</td>
+                            <td>典型來源為系統油稀釋後的軸承合金殘留，用於確認系統油滲入路徑。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Al + Si</strong></td>
+                            <td>鋁 + 矽</td>
+                            <td>硬質催化微粒（Cat Fines）的標誌；矽亦可能作為消泡劑存在於某些潤滑油中。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>V</strong></td>
+                            <td>釩</td>
+                            <td>殘渣燃油（Residual Fuel）燃燒後留下的微量元素，反映燃料與潤滑油的混合程度。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Na</strong></td>
+                            <td>鈉</td>
+                            <td>海水污染的絕對指標，通常經由掃氣系統或燃油櫃滲透進缸。</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ============================
+                 6. 廠家判斷標準
+            ============================ -->
+            <div>
+                <h2 class="section-title">廠家判斷標準與邏輯框架</h2>
+                <p>MAN ES 與 WinGD 在處理 SDA 數據時採用了不同的判斷邏輯，反映了兩大設計者對缸內摩擦學不同的理解重點。</p>
+
+                <h3 style="margin-top:1.5rem; color: var(--ocean-deep);">MAN Energy Solutions：基於性能分類的動態監測</h3>
+                <p>
+                    MAN ES 近年將汽缸油重新定義為 <strong>Category I (Cat. I)</strong> 與 <strong>Category II (Cat. II)</strong>。針對 Mark 9 及之後的新型引擎，MAN 強烈建議全面採用 Cat. II 油品，即便 BN 值較低（如 40 BN），也具備極強的分散與清潔能力，能有效對抗 VLSFO 生成的膠質積碳。
+                </p>
+
+                <p><strong>MAN ES 磁性鐵磨損類別判斷表（參考 SL2023-738）</strong></p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>磨損等級</th>
+                            <th>VLSFO（≤0.50% S）</th>
+                            <th>HSFO（0.50–3.5% S）</th>
+                            <th>運維含義與處置建議</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="badge badge-normal">正常</span></td>
+                            <td>≤ 30 mg/kg</td>
+                            <td>≤ 40 mg/kg</td>
+                            <td>狀態良好。可嘗試小幅優化餵油率。</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-raised">偏高</span></td>
+                            <td>30–70 mg/kg</td>
+                            <td>40–100 mg/kg</td>
+                            <td>屬於可接受範圍，但需關注趨勢變化。</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-abnormal">異常</span></td>
+                            <td>&gt; 70 mg/kg</td>
+                            <td>&gt; 100 mg/kg</td>
+                            <td>短期可接受，應增加採樣頻次並核對燃油品質。</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-alert">警報</span></td>
+                            <td>&gt; 300 mg/kg</td>
+                            <td>&gt; 600 mg/kg</td>
+                            <td>發生高磨損狀況。應立即檢查餵油器功能與環況。</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 style="margin-top:1.5rem; color: var(--ocean-deep);">WinGD：BN 與 Fe 的二維區域控制法</h3>
+                <p>
+                    WinGD 的方法更強調 BN 與鐵含量的平衡關係，將分析結果繪製在一個二維圖表上，根據不同的油品鹼值設定不同的安全閾值。WinGD 邏輯中一個獨特的洞察是：<strong>若殘油 BN 超過 50，即便鐵含量低，也屬於警報狀態</strong>，因為過剩的鹼性灰分會破壞油膜穩定性。
+                </p>
+
+                <p><strong>WinGD 化驗解釋矩陣</strong></p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>油品與區域</th>
+                            <th><span class="badge badge-safe">安全區</span></th>
+                            <th><span class="badge badge-raised">警報區</span></th>
+                            <th><span class="badge badge-danger">危險區</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>低 BN 油品（≤25 BN）</strong></td>
+                            <td>BN ≥ 10；Fe &lt; 200 mg/kg</td>
+                            <td>Fe 200–500 mg/kg</td>
+                            <td>BN &lt; 10 或 Fe &gt; 500 mg/kg</td>
+                        </tr>
+                        <tr>
+                            <td><strong>高 BN 油品（≥40 BN）</strong></td>
+                            <td>BN 25–50；Fe &lt; 200 mg/kg</td>
+                            <td>BN &lt; 25 或 &gt; 50；Fe 200–500</td>
+                            <td>BN &lt; 10 或 Fe &gt; 500 mg/kg</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ============================
+                 7. 餵油率優化—掃描測試
+            ============================ -->
+            <div>
+                <h2 class="section-title">餵油率優化技術：掃描測試（Sweep Test）的實踐</h2>
+                <p>殘油分析的最直接經濟價值在於實現汽缸油的「按需供給」。盲目維持高餵油率不僅增加預算，還會損害引擎清潔度；而過度降低則面臨拉缸風險。</p>
+
+                <h3 style="margin-top:1.5rem; color: var(--ocean-deep);">掃描測試技術程序</h3>
+                <p>掃描測試（在 WinGD 中稱為 Quick Test 或 Engine Screening）是一項系統性的壓力測試，旨在找出特定主機的「最低安全餵油率」：</p>
+
+                <ol class="step-list">
+                    <li><strong>穩定工況選擇</strong>：選擇主機負荷穩定、燃油成分均勻的海象環境。</li>
+                    <li><strong>階梯降量</strong>：以目前餵油率為起點，每隔 24 小時降低 0.05 至 0.10 g/kWh。</li>
+                    <li><strong>數據捕捉</strong>：在每個階梯點採集殘油，分析磁性鐵含量的變化率（△Fe）。</li>
+                    <li><strong>臨界點識別</strong>：當磁性鐵含量出現非線性的階躍式上升時，該點前一個階梯即為「臨界磨損點」。</li>
+                    <li><strong>安全餘量設定</strong>：在臨界點基礎上增加 <strong>0.10 g/kWh</strong> 的冗餘量，作為長期運行的基準餵油率。</li>
+                </ol>
+
+                <div class="info-box warning">
+                    <strong>⚠️ 注意</strong>：在實施優化過程中，必須配合掃氣口檢查（Scavenge Port Inspection）。任何餵油率的下調，若伴隨活塞環出現微小的「微熔焊」（Micro-seizures）或環岸沉積物顏色加深，皆應立即中止優化程序。
+                </div>
+            </div>
+
+            <!-- ============================
+                 8. 多元燃料特殊工況
+            ============================ -->
+            <div>
+                <h2 class="section-title">多元燃料與特殊工況下的變異應對</h2>
+
+                <h3 style="margin-top:1rem; color: var(--ocean-deep);">① 跑合期（Running-in）的特殊處理</h3>
+                <p>
+                    在新組件（如新缸套或 cermet 塗層環）安裝後的最初 500 小時內，殘油化驗顯示高鐵含量（可能達 300–500 mg/kg）是正常的物理現象。管理建議是將餵油率設定在 <strong>1.5–1.7 g/kWh</strong> 的上限，並根據殘油中鐵含量隨時間下降的趨勢，分階段逐步調回正常值。若鐵含量在 500 小時後仍未下降，則需檢查是否存在組件幾何尺寸超差或初期潤滑失效。
+                </p>
+
+                <h3 style="margin-top:1.5rem; color: var(--ocean-deep);">② VLSFO 環境下的「膠質積碳」陷阱</h3>
+                <p>許多船舶在切換至 0.50% S VLSFO 後發現，儘管殘油 BN 與 Fe 數值極佳，但活塞環槽內卻充滿了黏稠的碳質膠塊。</p>
+                <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+                    <li><strong>成因</strong>：部分低質 VLSFO 含有高濃度的不飽和烴，在燃燒後生成的聚合物需要極強的分散劑才能清除。</li>
+                    <li><strong>對策</strong>：換用 MAN ES Cat. II 40 BN 油品，或採取「間歇性衝刷法」——即每運行 168 小時切換至 100 BN 油品運作 24 小時，利用高鹼值油品自帶的強效洗滌添加劑清潔環槽。</li>
+                </ul>
+
+                <h3 style="margin-top:1.5rem; color: var(--ocean-deep);">③ 雙燃料（Dual-Fuel）引擎的挑戰</h3>
+                <p>在使用 LNG 作為主要燃料時，由於氣體燃燒接近零硫排放，傳統的 BN 中和邏輯不再完全適用：</p>
+                <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+                    <li>WinGD X-DF 引擎上，BN 的消耗極小，殘油化驗應側重於監測<strong>鐵含量</strong>。</li>
+                    <li>DF 引擎燃燒溫度分佈與柴油模式不同，活塞頂岸容易產生熱負荷積碳。</li>
+                    <li>管理邏輯：建議使用專門開發的<strong>低灰分（Low Ash）15–25 BN 汽缸油</strong>，監測重點放在熱降解產物與磁性鐵顆粒上。</li>
+                </ul>
+            </div>
+
+            <!-- ============================
+                 9. 結論與運維行動指南
+            ============================ -->
+            <div>
+                <h2 class="section-title">結論與運維行動指南</h2>
+                <p>透過整合 MAN ES、WinGD 與 CIMAC 的全球共識，可以總結出一套<strong>閉環式潤滑管理流程</strong>：</p>
+                <ol style="margin-left: 1.5rem; line-height: 2;">
+                    <li><strong>確保採樣精確</strong>：嚴格執行累積採樣與三樣對比，排除系統油稀釋干擾。</li>
+                    <li><strong>建立基準趨勢</strong>：不應只看單次化驗數值，更應觀察各參數隨時間、負荷、燃油變化的<strong>趨勢線（Trending）</strong>。</li>
+                    <li>
+                        <strong>精準匹配油品與餵油率</strong>：
+                        <ul style="margin-left: 1.5rem;">
+                            <li>低硫環境（VLSFO）：優先選擇 Cat. II 油品，監測重點為 BN 剩餘量與活塞清潔度。</li>
+                            <li>高硫環境（HSFO）：監測重點為磁性鐵與腐蝕性鐵鹽比例，防止冷腐蝕。</li>
+                        </ul>
+                    </li>
+                    <li><strong>動態優化</strong>：定期進行掃描測試與掃氣口檢查，在確保安全的前提下追求最低經濟餵油率。</li>
+                </ol>
+
+                <div class="info-box">
+                    <strong>💡 整合觀點</strong>：SDA 數據不應孤立存在。它必須與<strong>排氣溫度、掃氣壓力、活塞環磨損測量</strong>以及輪機員的直觀觀察相結合，共同構建主機全生命週期的預防性維護體系。在數位化時代，利用廠家提供的數位工具（如 SDA 分析軟體）進行實時追蹤，將能更有效地應對未來多燃料時代帶來的潤滑不確定性。
+                </div>
+            </div>
+
+            <!-- ============================
+                 10. 參考資料
+            ============================ -->
+            <div class="ref-box">
+                <h3>參考資料來源</h3>
+                <ul style="margin-left: 1rem; line-height: 2;">
+                    <li>MAN Energy Solutions – Service Letter SL2023-738 及附錄 I</li>
+                    <li>WinGD – Piston Underside Drain Oil Analysis Technical Guidelines</li>
+                    <li>WinGD – Piston Underside Drain Oil Analysis Tool V3</li>
+                    <li>CIMAC – Guideline Used Engine Oil Analysis (最新版)</li>
+                    <li>IMO MEPC – IMO 2020 Sulphur Regulations</li>
+                </ul>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <div style="text-align: center; padding: 2rem;">
+            <h5>
+                <p>如果對文章內容有疑慮，歡迎來信討論指教</p>
+                <a href="mailto:mark.chuangjj@gmail.com">email to me (Mark CHUANG)</a>
+            </h5>
+        </div>
+    </footer>
+
+    <!-- AI Chatbot -->
+    <script src="../scripts/chatbot.js"></script>
+</body>
+
+</html>
