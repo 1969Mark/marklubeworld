@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="潤滑油命名, 基礎油, SN150, SN500, BS150, API Group, SAE J300, ISO VG, 賽氏黏度, 流變學, 摩擦學">
+    <link rel="icon" type="image/png" href="../images/mark_small.png">
+    <title>2026_潤滑成品油與基礎油命名</title>
+    <link rel="stylesheet" href="../styles/web.css">
+    <link rel="stylesheet" href="../styles/chatbot.css">
+    <style>
+        /* ========== 1. 表格樣式 ========== */
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 8px;
+            overflow: hidden;
+            font-size: 0.9rem;
+        }
+        .info-table th, .info-table td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        .info-table th {
+            background: var(--ocean-deep);
+            color: white;
+            font-weight: 600;
+        }
+        .info-table tr:hover { background: rgba(100, 150, 200, 0.1); }
+
+        /* ========== 2. 強調框樣式 ========== */
+        .highlight-box {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(100, 150, 200, 0.15), rgba(255, 200, 100, 0.1));
+            border-radius: 12px;
+            border-left: 5px solid var(--ocean-mid);
+            margin: 1.5rem 0;
+        }
+        .warning-box {
+            padding: 1rem;
+            background: rgba(255, 200, 100, 0.2);
+            border-radius: 8px;
+            border-left: 4px solid #f0ad4e;
+            margin: 1rem 0;
+        }
+        .success-box {
+            padding: 1rem;
+            background: rgba(200, 255, 200, 0.2);
+            border-radius: 8px;
+            border-left: 4px solid #5cb85c;
+            margin: 1rem 0;
+        }
+
+        /* ========== 3. 標題樣式 ========== */
+        .section-title {
+            color: var(--ocean-deep);
+            margin: 2.5rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--sun-gold);
+        }
+        .sub-section {
+            color: var(--ocean-mid);
+            margin: 1.5rem 0 0.5rem;
+        }
+
+        /* ========== 4. 圖表標籤 ========== */
+        .table-caption {
+            font-size: 0.82rem;
+            color: #777;
+            text-align: right;
+            margin-top: -1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* ========== 5. 回應式表格容器 ========== */
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <div class="top_main">
+        <h1 style="font-size:26px;">2026_潤滑成品油與基礎油命名</h1>
+        <a href="../index.html">回首頁</a>
+        <img src="../images/mark_small.png" height="100px" />
+    </div>
+
+    <hr>
+
+    <main>
+        <div class="container">
+
+            <!-- 摘要 -->
+            <div class="highlight-box">
+                <p>在現代工業與交通運輸的精密機械運作中，摩擦學（Tribology）與潤滑科學扮演著維持設備運轉、減少磨損與提升能源效率的核心角色。任何一部運轉順暢的內燃機引擎、高壓液壓系統或重型齒輪傳動裝置背後，皆仰賴經過精確流變學計算與化學配製的潤滑油品。潤滑油成品主要由 70%～95% 的基礎油（Base Oil）與多種化學添加劑混合調配而成。基礎油決定了潤滑油的本質物理與化學特性，包含基礎黏度、熱氧化穩定性、揮發度、傾點以及承載極端負荷的能力。</p>
+                <p>本報告深入剖析原油提煉製程如何決定基礎油的微觀分子結構，詳述依據賽氏黏度衍生的傳統基礎油命名法（SN150、SN500、BS150），探討 API 的基礎油化學分類系統，並全面解析 SAE 與 ISO 針對成品潤滑油建立的嚴格規範，同時透過國際配方案例實證這些標準在現代潤滑工程中的具體應用。</p>
+            </div>
+
+            <!-- ========== 第1章 ========== -->
+            <h2 class="section-title">1. 原油提煉製程與餾分對基礎油特性的影響</h2>
+            <p>潤滑基礎油的物理與化學性質，最根本地取決於原油的種類（如石蠟基、環烷基或芳香基原油）以及提煉過程中的分餾（Fractionation）與精煉技術。原油中含有數以萬計不同鏈長與結構的碳氫化合物分子，透過精密的煉油手段，將決定最終基礎油的純淨度、飽和度、黏度指數與低溫流動性。</p>
+
+            <h3 class="sub-section">1.1 常壓與減壓蒸餾製程的物質分離</h3>
+            <p>原油的提煉始於常壓蒸餾塔（Atmospheric Distillation）。原油被加熱後進入高塔，依據不同分子的沸點差異進行物理分離，沸點較低、分子量較小的輕質餾分（Fraction）會首先在塔頂凝結，產出如航空燃油、汽油、柴油與煤油等燃料。經過常壓蒸餾後殘留在塔底的重質油料被稱為常壓塔底油（Atmospheric Residue）。</p>
+            <p>由於這些重質碳氫化合物的沸點極高，若在常壓下繼續加溫以求沸騰，將導致碳氫分子發生熱裂解（Thermal Cracking），破壞其作為潤滑油所需的分子鏈結構。因此，常壓塔底油必須被送入減壓蒸餾塔（Vacuum Distillation Unit, VDU）。在大幅降低壓力的環境下，重質油的沸點隨之降低，使得分餾得以在不發生熱裂解的安全溫度下進行。減壓蒸餾會從不同的塔層側線抽出不同黏度等級的「真空粗餾油」（Vacuum Gas Oils, VGO），而塔底最後殘留的黏稠物質則稱為「減壓渣油」（Vacuum Residue）或瀝青。</p>
+
+            <h3 class="sub-section">1.2 從溶劑精煉到氫化處理的技術演進</h3>
+            <p>早期的基礎油製程主要依賴「溶劑精煉」（Solvent Refining）。此技術利用糠醛（Furfural）或酚類等高極性溶劑，將真空粗餾油中容易發生氧化反應且黏溫特性極差的芳香烴、硫化物與氮化物萃取出來。隨後，透過溶劑脫蠟（Solvent Dewaxing）製程，將油品中容易在低溫下結晶的直鏈石蠟結晶析出並過濾，以降低基礎油的傾點（Pour Point），最終製成傳統的礦物基礎油。這類製程產出的基礎油構成了傳統分類中的第一類（Group I）基礎油。</p>
+            <p>現代煉油廠轉向採用化學反應本質的「氫化處理」（Hydroprocessing）技術，包含氫化裂解（Hydrocracking）與氫化異構化（Hydroisomerization）。在攝氏數百度的高溫與極高的氫氣壓力下，並輔以特殊催化劑，油品中的碳氫雙鍵被強行打破並飽和化，硫、氮與氧等雜質被轉化為氣體移除，而原本會導致低溫結凍的直鏈蠟分子，則被重組轉化為具有優異低溫流動性與高黏度指數的支鏈異構物。此製程能產出純度極高的第二類（Group II）與第三類（Group III）基礎油，徹底改變了全球潤滑油配方的基礎格局。</p>
+
+            <!-- ========== 第2章 ========== -->
+            <h2 class="section-title">2. 基礎油的傳統命名法則：賽氏黏度與 SN/BS 體系</h2>
+            <p>儘管現代物理學與摩擦學界已全面採用運動黏度（Kinematic Viscosity，單位為 cSt 或 mm²/s）作為流體阻力的標準測量單位，但在全球基礎油的商業交易、散裝船運以及煉油廠的生產命名上，至今仍廣泛保留了基於「賽氏通用秒數」（Saybolt Universal Seconds, SUS 或 SSU）的歷史命名法則。這種命名方式將提煉製程的特徵與流體黏度指標緊密結合，形成了 SN 與 BS 兩大核心體系。</p>
+
+            <h3 class="sub-section">2.1 賽氏黏度測試原理與轉換數學模型</h3>
+            <p>賽氏黏度計是早期北美石油工業的標準測試儀器。其測試原理是將固定體積（60 毫升）的待測油品加熱至特定溫度，測量其在重力作用下流經特定尺寸標準孔徑所需的時間，單位為秒（Seconds）。對於一般潤滑油，採用賽氏通用孔徑（Saybolt Universal），測試溫度通常設定在 100°F（約 37.8°C）或 210°F（約 98.9°C）。</p>
+            <p>美國材料與試驗協會（ASTM）制定了 ASTM D2161 標準規範，用於 SUS 與 cSt 之間的數學轉換。在線性區間（>75 cSt）：將 40°C 下的運動黏度轉換為 100°F 下的賽氏黏度，需乘以 4.632 的係數；將 100°C 下的運動黏度轉換為 210°F 下的賽氏黏度，則需乘以 4.664 的係數。這套轉換系統確保了現代實驗室數據能夠與傳統煉油廠的生產規格無縫接軌。</p>
+
+            <h3 class="sub-section">2.2 SN (Solvent Neutral) 溶劑中性油系列</h3>
+            <p>「SN」代表 Solvent Neutral（溶劑中性），揭示了透過溶劑精煉製程產出、化學酸鹼度呈中性的純淨礦物基礎油。SN 後方的數字，標示了該油品在 100°F 時的賽氏通用秒數黏度（SUS）。</p>
+            <ul>
+                <li><strong>SN150 輕質基礎油</strong>：在 100°F 下，賽氏黏度約為 150 SUS，40°C 運動黏度約 30 cSt，100°C 運動黏度約 5.0～5.5 cSt。傾點通常可達 -6°C 至 -9°C，具有優異的低溫流動性。常用於低黏度乘用車機油（5W-30、10W-30）、輕負荷液壓油、紡織機錠子油與變壓器絕緣油。</li>
+                <li><strong>SN500 中重質基礎油</strong>：在 100°F 下，賽氏黏度約為 500 SUS，40°C 運動黏度約 90 cSt，100°C 運動黏度約 10.5～11.5 cSt，閃火點通常高於 235°C。展現出優越的熱穩定性與較低的揮發度，是製造重型柴油機油、手排變速箱齒輪油及重負荷工業潤滑脂的關鍵成分。</li>
+            </ul>
+
+            <h3 class="sub-section">2.3 BS (Bright Stock) 光亮油與重質殘渣基礎油</h3>
+            <p>「BS」代表 Bright Stock（光亮油）。與 SN 系列來自真空粗餾油不同，BS 的原料來源是減壓蒸餾塔最底部的「減壓渣油」（Vacuum Residue）。渣油必須先經過丙烷脫瀝青（Propane Deasphalting）製程去除瀝青質，接著再進行溶劑萃取與溶劑脫蠟，形成黏度極高、油膜強韌的重質基礎油。由於其成品在光線下呈現清澈透亮的深色光澤，故得名「光亮油」。</p>
+            <p><strong>BS150 規格解析</strong>：BS 後方的數字通常代表其在 210°F（約 98.9°C）下的賽氏黏度（約 150 SUS），這與 SN 系列採用 100°F 為基準不同。BS150 的 100°C 運動黏度通常介於 28.0～35.0 cSt，40°C 運動黏度更是高達 440～490 cSt。因其極強的彈性流體動力潤滑（EHL）特性與邊界潤滑抗壓能力，是製造極端重負荷工業閉式齒輪油、船舶二行程低速主機汽缸油與高溫潤滑脂絕對不可或缺的核心原料。</p>
+
+            <h3 class="sub-section">2.4 API Group I 基礎油核心理化特性比較</h3>
+            <div class="table-wrapper">
+                <table class="info-table">
+                    <thead>
+                        <tr>
+                            <th>物理特性參數</th>
+                            <th>測試方法 (ASTM)</th>
+                            <th>SN150 (輕質基礎油)</th>
+                            <th>SN500 (中重質基礎油)</th>
+                            <th>BS150 (光亮油)</th>
+                            <th>流變學與應用洞察</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>賽氏黏度命名基準</td>
+                            <td>ASTM D2161</td>
+                            <td>~150 SUS @ 100°F</td>
+                            <td>~500 SUS @ 100°F</td>
+                            <td>~150 SUS @ 210°F</td>
+                            <td>展現從低溫到高溫測量基準的轉換。</td>
+                        </tr>
+                        <tr>
+                            <td>運動黏度 @ 100°C (cSt)</td>
+                            <td>ASTM D445</td>
+                            <td>5.0 - 5.5</td>
+                            <td>10.5 - 11.5</td>
+                            <td>28.0 - 35.0</td>
+                            <td>高溫下的油膜厚度指標。</td>
+                        </tr>
+                        <tr>
+                            <td>運動黏度 @ 40°C (cSt)</td>
+                            <td>ASTM D445</td>
+                            <td>~30</td>
+                            <td>~90</td>
+                            <td>440 - 490</td>
+                            <td>常溫流動性指標，影響啟動阻力。</td>
+                        </tr>
+                        <tr>
+                            <td>黏度指數 (VI)</td>
+                            <td>ASTM D2270</td>
+                            <td>90 - 105</td>
+                            <td>87 - 105</td>
+                            <td>≥ 95</td>
+                            <td>黏度隨溫度變化的敏感度。</td>
+                        </tr>
+                        <tr>
+                            <td>閃火點 (Flash Point, °C)</td>
+                            <td>ASTM D92</td>
+                            <td>200 - 205</td>
+                            <td>235 - 240</td>
+                            <td>280 - 315</td>
+                            <td>分子量越大，揮發度越低，耐熱性越高。</td>
+                        </tr>
+                        <tr>
+                            <td>傾點 (Pour Point, °C)</td>
+                            <td>ASTM D97</td>
+                            <td>-6 至 -9</td>
+                            <td>-3 至 -6</td>
+                            <td>-6 至 -9</td>
+                            <td>低溫結凍臨界點。</td>
+                        </tr>
+                        <tr>
+                            <td>密度 @ 15°C (kg/L)</td>
+                            <td>ASTM D4052</td>
+                            <td>~0.875</td>
+                            <td>~0.885</td>
+                            <td>0.897 - 0.910</td>
+                            <td>反映重質環烷烴與芳香烴的密集程度。</td>
+                        </tr>
+                        <tr>
+                            <td>主要應用領域</td>
+                            <td>綜合評估</td>
+                            <td>乘用車機油、輕液壓油</td>
+                            <td>重車機油、變速箱油、重載液壓系統</td>
+                            <td>船舶汽缸油、重負荷齒輪油、金屬加工液</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="table-caption">數據來源：業界技術資料與 ASTM 標準測試報告</p>
+
+            <div class="success-box">
+                <p><strong>📊 流變學洞察</strong>：隨著基礎油中碳氫化合物分子鏈的增加（從 SN150 到 BS150），40°C 黏度從 30 cSt 劇增至 490 cSt，呈現非線性的指數級飆升。然而，高黏度帶來的是揮發性的急遽降低（閃火點從 200°C 提升至 315°C）以及極端抗壓能力的提升，完美解釋了為何極端工況下必須依賴 BS150 的巨型分子結構。</p>
+            </div>
+
+            <!-- ========== 第3章 ========== -->
+            <h2 class="section-title">3. API 基礎油分類系統：化學組成的現代典範</h2>
+            <p>美國石油學會（API）於 API 1509 Appendix E 規範中，建立了一套純粹基於化學組成的基礎油分類系統，同時也成為歐洲潤滑油工業技術協會（ATIEL）與台灣的 CNS 14936 國家標準所採納的全球通用語彙。</p>
+            <p>API 分類系統以「飽和物含量」（Saturates）、「硫含量」（Sulfur）與「黏度指數」（Viscosity Index, VI）作為三大分級科學支柱：飽和物含量反映分子中雙鍵被消除的程度，直接關乎抗氧化穩定性；硫含量是天然原油雜質的指標；黏度指數則代表油品黏度對溫度變化的抵抗能力。</p>
+
+            <h3 class="sub-section">3.1 API 基礎油五大類別解析</h3>
+            <div class="table-wrapper">
+                <table class="info-table">
+                    <thead>
+                        <tr>
+                            <th>API 類別</th>
+                            <th>飽和物含量 (%)</th>
+                            <th>硫含量 (%)</th>
+                            <th>黏度指數 (VI)</th>
+                            <th>製造工藝、化學本質與摩擦學特性解析</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Group I（第一類）</strong></td>
+                            <td>&lt; 90%</td>
+                            <td>&gt; 0.03%</td>
+                            <td>80 - 120</td>
+                            <td>傳統溶劑精煉礦物油：保留了較多芳香烴與硫化物雜質。熱氧化穩定性較弱，但微極性賦予了極佳的添加劑溶解度與橡膠油封膨潤性。傳統的 SN 與 BS 系列多屬此類。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Group II（第二類）</strong></td>
+                            <td>≥ 90%</td>
+                            <td>≤ 0.03%</td>
+                            <td>80 - 120</td>
+                            <td>加氫裂解礦物油：透過高壓氫氣將雙鍵飽和化，清除了絕大部分的硫與氮雜質。顏色清澈透明，抗氧化特性大幅超越第一類，已成為現代多數標準車用機油的主流基底。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Group III（第三類）</strong></td>
+                            <td>≥ 90%</td>
+                            <td>≤ 0.03%</td>
+                            <td>≥ 120</td>
+                            <td>深度加氫裂解與加氫異構化脫蠟：分子結構極度純淨，具備極高的黏度指數與優異的低溫流動性。在商業與法理實務上，已被廣泛允許標示為「合成機油」，是調配現代高階低黏度機油的核心原料。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Group IV（第四類）</strong></td>
+                            <td>100%</td>
+                            <td>0%</td>
+                            <td>通常 &gt; 130</td>
+                            <td>聚α-烯烴（PAO）：透過純化學合成的人造基礎油，完全不含天然原油雜質。具備極致的低溫流動性（傾點可達 -50°C 以下）、極低的揮發度與無可匹敵的高溫抗剪切穩定性，是頂級賽車油與航太潤滑油的首選。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Group V（第五類）</strong></td>
+                            <td colspan="3">不適用上述分類</td>
+                            <td>其他合成油：包含酯類（Esters）、聚乙二醇（PAG）、烷基萘（AN）、矽油等。PAO 缺乏極性，無法有效溶解某些抗磨添加劑，因此第五類合成油常作為高階配方中的輔助基礎油，用以提升極性、潤滑性與清淨性。</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="table-caption">數據來源：API 1509 Appendix E 與相關技術文件</p>
+
+            <h3 class="sub-section">3.2 Group II+、Group III+ 與 GTL 技術延伸</h3>
+            <p>天然氣合成油（Gas-to-Liquids, GTL）是將天然氣分子撕裂後重新聚合成長鏈碳氫化合物的產物，廣義上屬於 Group III，但黏度指數往往高達 140 以上，業界俗稱 Group III+，具備極低的揮發度，是調配 0W-20 等超低黏度機油的理想選擇。</p>
+            <p>同樣地，改良氫化技術產出的 Group II+，其諾亞克揮發度（NOACK Volatility）與冷啟動模擬器（CCS）表現顯著優於標準的 Group II。雖然 API 官方並未正式定義「Plus」後綴類別，但潤滑油配方師會利用這些物理特性的優勢，以較低的成本取代部分 Group III 的使用量。</p>
+
+            <!-- ========== 第4章 ========== -->
+            <h2 class="section-title">4. 基礎油互換性準則（BOI）：法規與經濟的動態平衡</h2>
+            <p>配製一款能夠通過最新 API 引擎測試序列的機油配方，需要耗費數以千計的測試小時與動輒數百萬美元的認證成本。為了增加全球潤滑油供應鏈的彈性並避免重複測試的巨大浪費，API 在其 1509 Appendix E 規範中，制定了「基礎油互換性準則」（Base Oil Interchangeability Guidelines, BOI）。</p>
+
+            <h3 class="sub-section">4.1 BOI 互換規則矩陣解析</h3>
+            <ul>
+                <li><strong>Group I 為原始配方</strong>：可直接使用 Group II、Group III 或 Group IV (PAO) 進行最高達 100% 的替代，前提是替代用基礎油的飽和物含量必須等於或大於原配方，且硫含量必須小於或等於原配方。這反映了純度提升對引擎保護只有正面效益。</li>
+                <li><strong>Group III 為原始配方</strong>：絕對不可直接降級替換為 Group I 或 Group II，否則必須重新進行所有引擎高溫沉積物與磨損測試；但可以與同級別的 Group III 或 Group IV 進行有限度互換。</li>
+                <li><strong>Group IV (PAO) 的高度通用性</strong>：由於 PAO 分子結構高度單一且預測性極強，不同供應商生產的 PAO 之間的互換幾乎無需重新測試，只要替代的 PAO 產品符合物理與化學規格即可。</li>
+            </ul>
+            <div class="warning-box">
+                <p>⚠️ <strong>重要提醒</strong>：BOI 準則的核心邏輯建立在「高純度、高穩定性基礎油可向下兼容替代低純度基礎油」的單向降維打擊原則上，嚴格限制逆向降級使用。</p>
+            </div>
+
+            <h3 class="sub-section">4.2 互換性案例探討</h3>
+            <p><strong>案例 — 無痛升級</strong>：某機油原本配方為 15% Group IV 與 65% Group II。若為了提升高溫性能，油商希望將 Group IV 提升至 30% 並將 Group II 降至 50%。根據 BOI 規定，在成品油配方中添加不超過 30% 的 Group IV 基礎油以取代較低階基礎油，完全無需進行額外的引擎硬體測試（除非涉及需要重測 Sequence VIA 燃油經濟性評估的節能型機油）。這種法規機制大力推動了潤滑油產業向更高純度的合成基礎油轉型。</p>
+
+            <!-- ========== 第5章 ========== -->
+            <h2 class="section-title">5. 成品潤滑油分類體系：SAE 汽車工業標準</h2>
+            <p>當基礎油被加入抗氧化劑、清淨分散劑、抗磨損劑以及高分子聚合物（黏度指數向上劑，VI Improvers）後，即成為終端機械設備使用的「成品潤滑油」。成品油的分類規範完全聚焦於終端應用場景下的巨觀流變學表現，其中 SAE J300 與 SAE J306 是全球最具權威性的標準。</p>
+
+            <h3 class="sub-section">5.1 SAE J300 車用引擎機油黏度分類</h3>
+            <p>SAE J300 是專為內燃機引擎開發的黏度分類標準，純粹從流變學的角度定義引擎機油的極限物理特性。引擎機油面臨的工作環境極度嚴苛，必須在零下數十度的嚴冬中保持足夠的流動性以利引擎啟動，又必須在沙漠高速行駛中維持強韌的油膜保護曲軸軸承。因此，SAE J300 將機油分類分為「低溫啟動性能」（帶有 W 字樣的冬季等級）與「高溫操作性能」兩大維度。</p>
+
+            <h4 style="color: var(--ocean-mid); margin: 1rem 0 0.5rem;">5.1.1 低溫流變學要求 (Winter Grades)</h4>
+            <ul>
+                <li><strong>冷啟動模擬器 (CCS)</strong>：模擬低溫狀態下啟動馬達帶動曲軸時，機油在軸承處所產生的流體阻力（動態黏度，單位 cP）。例如，0W 等級要求在 -35°C 下，CCS 黏度絕對不得超過 6,200 cP；5W 則要求在 -30°C 下不得超過 6,600 cP。</li>
+                <li><strong>微型旋轉黏度計 (MRV)</strong>：模擬機油在油底殼靜置結凍後，被機油泵浦吸入並泵送至汽缸蓋凸輪軸的流動能力。所有 W 級別的 MRV 泵送黏度上限被嚴格限制為 60,000 cP。</li>
+            </ul>
+
+            <h4 style="color: var(--ocean-mid); margin: 1rem 0 0.5rem;">5.1.2 高溫流變學要求與最新趨勢</h4>
+            <p>現代機油中常添加高分子黏度指數向上劑以達成多黏度等級。這些聚合物在汽缸壁與活塞環之間的高溫（150°C）與高剪切速率（10<sup>6</sup> s<sup>-1</sup>）環境下，會被暫時拉伸甚至永久切斷，表現出非牛頓流體（Non-Newtonian Fluid）的特性。HTHS 測試（High-Temperature High-Shear，使用錐形軸承模擬器，ASTM D4683）正是為了測量這種極端狀態下的真實油膜厚度（單位 cP）。</p>
+            <p>全球減少溫室氣體排放的法規壓力迫使 OEM 車廠致力於降低引擎內部的流體動力摩擦損失。SAE J300 進行了重大修訂：2013～2015 年引入了極低黏度的 SAE 16、12 與 8，特意採用以「4」遞減的命名法（16, 12, 8）以避免消費者與冬季等級（5W, 10W）產生混淆；2021 年正式將 ASTM D7042 列為測定低剪切率運動黏度的認可方法。</p>
+
+            <div class="table-wrapper">
+                <table class="info-table">
+                    <thead>
+                        <tr>
+                            <th>SAE 黏度等級</th>
+                            <th>運動黏度範圍 @ 100°C (cSt)</th>
+                            <th>HTHS 黏度最低限制 @ 150°C (cP)</th>
+                            <th>流變學與動力機械應用洞察</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>8</td><td>4.0 - &lt; 6.1</td><td>1.70</td><td>油膜極薄，專為油電混合動力與特殊設計內燃機開發，追求極致省油降阻。</td></tr>
+                        <tr><td>12</td><td>5.0 - &lt; 7.1</td><td>2.0</td><td>突破傳統邊界潤滑極限的超低黏度規格。</td></tr>
+                        <tr><td>16</td><td>6.1 - &lt; 8.2</td><td>2.3</td><td>日系車廠為提升燃油經濟性主導開發的新世代規格。</td></tr>
+                        <tr><td>20</td><td>6.9 - &lt; 9.3</td><td>2.6</td><td>目前多數新款汽油引擎（如 0W-20）的標準出廠配置。</td></tr>
+                        <tr><td>30</td><td>9.3 - &lt; 12.5</td><td>2.9</td><td>廣泛應用於傳統車輛與高溫環境（如 5W-30, 10W-30）。</td></tr>
+                        <tr><td>40</td><td>12.5 - &lt; 16.3</td><td>2.9 (輕型) / 3.7 (重型)</td><td>針對高負荷汽油引擎與重型柴油車（15W-40 強制要求 HTHS 達 3.7）。</td></tr>
+                        <tr><td>50</td><td>16.3 - &lt; 21.9</td><td>3.7</td><td>賽車競技、極端高溫或老舊引擎密封間隙過大時使用。</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="table-caption">數據來源：SAE J300 標準文獻（2021 年版）</p>
+
+            <h3 class="sub-section">5.2 SAE J306 車用齒輪油黏度分類</h3>
+            <p>車輛的手排變速箱、差速器與傳動輪軸承受的剪切力道與極壓（Extreme Pressure）遠高於引擎內部，且含有對極壓添加劑敏感的黃色金屬（如銅合金同步齒環）。SAE J306 的發展歷史中有兩次關鍵修訂：</p>
+            <ul>
+                <li><strong>2005 年修訂</strong>：新增了 SAE 110 與 SAE 190 兩個等級，有效縮小了 SAE 90 原本跨度極大的黏度區間（13.5～24.0 cSt），賦予了 OEM 廠更精確的硬體保護能力，避免因黏度跨度過大而導致的應用盲區。</li>
+                <li><strong>2019 年修訂</strong>：為了減少齒輪攪拌的動力流失並對應電動車高轉速減速機構的需求，新增了 65 號極低黏度等級，同時明確定義了 70W、75W、80W 達到 150,000 cP 絕對黏度的最高溫度上限（分別為 -55°C, -40°C, -26°C）。</li>
+            </ul>
+
+            <!-- ========== 第6章 ========== -->
+            <h2 class="section-title">6. 工業用潤滑油分類體系：ISO 3448 與生質潤滑油規範</h2>
+            <p>工業設備（如液壓系統、往復式空壓機、工業大型閉式齒輪箱）通常在相對穩定受控的廠房溫度下，進行數千小時甚至不間斷的長時間運轉。在 1970 年代之前，全球工業潤滑油的命名極度混亂，各種自創的黏度指標充斥市場。</p>
+
+            <h3 class="sub-section">6.1 ISO 3448 (ISO VG) 工業黏度等級系統</h3>
+            <p>1975 年，國際標準化組織（ISO）聯合 ASTM、DIN 等機構確立了 ISO 3448 黏度等級（ISO VG）系統。ISO VG 完全以 <strong>40°C 下的運動黏度（cSt）</strong>作為分類基礎，因為這最接近多數工業設備的穩態運行溫度。每一個等級的標稱中心黏度值約為前一個等級的 1.5 倍增幅，且每個等級的容許黏度範圍被嚴格設定為標稱黏度的 ±10%。</p>
+
+            <div class="table-wrapper">
+                <table class="info-table">
+                    <thead>
+                        <tr>
+                            <th>ISO 黏度等級 (ISO VG)</th>
+                            <th>運動黏度中心值 @ 40°C (cSt)</th>
+                            <th>容許黏度範圍 (最小值 - 最大值)</th>
+                            <th>流變學特徵與常見工業應用</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>ISO VG 32</td><td>32</td><td>28.8 - 35.2</td><td>阻力極小。適用於輕負荷、高轉速機床主軸、寒帶戶外設備液壓系統及高轉速旋轉式空壓機。</td></tr>
+                        <tr><td>ISO VG 46</td><td>46</td><td>41.4 - 50.6</td><td>工業界最通用的標準液壓系統流體，也廣泛應用於常溫環境下的往復式空壓機與循環潤滑系統。</td></tr>
+                        <tr><td>ISO VG 68</td><td>68</td><td>61.2 - 74.8</td><td>油膜較厚。適用於高溫環境作業設備、重負荷油壓沖床系統，能有效減少內漏與維持系統壓力。</td></tr>
+                        <tr><td>ISO VG 150</td><td>150</td><td>135 - 165</td><td>高黏度區間起點。主要應用於中型工業閉式齒輪箱、重型往復式空壓機的汽缸潤滑。</td></tr>
+                        <tr><td>ISO VG 220</td><td>220</td><td>198 - 242</td><td>高負載、低轉速設備標準配備，如重型工業齒輪箱、造紙機高溫滾筒軸承、塑膠押出機減速機。</td></tr>
+                        <tr><td>ISO VG 460 / 680</td><td>460 / 680</td><td>414 - 748</td><td>極端重載區間。專門應對極端低速、震動負載極大的礦場碎石機設備與重型天車齒輪。</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="table-caption">數據來源：ISO 3448-1992 標準文件</p>
+
+            <h3 class="sub-section">6.2 ISO 15380 生質潤滑油（Bio-lubricants）規範</h3>
+            <p>隨著全球對環境保護與永續發展的重視，ISO 15380 標準將生質流體依據分子結構分為四大類：</p>
+            <ul>
+                <li><strong>HETG (Triglycerides)</strong>：以油菜籽、向日葵等植物油提煉的三酸甘油酯。具有絕佳的潤滑性與生物降解性，但熱氧化穩定性較差。</li>
+                <li><strong>HEES (Synthetic Esters)</strong>：合成酯類。不僅具備極佳的生物相容性，其優越的氧化穩定性與高溫極端性能，使其成為高性能環保液壓系統的標竿。</li>
+                <li><strong>HEPG (Polyglycols)</strong>：聚乙二醇類。具備水溶性與優異的抗燃特性（Fire Resistance），常用於高溫爐旁的液壓設備。</li>
+                <li><strong>HEPR (Polyalphaolefins/Related)</strong>：特殊的合成碳氫化合物，模擬礦物油的物理特性，同時大幅改善了毒性與生物降解度。</li>
+            </ul>
+
+            <!-- ========== 第7章 ========== -->
+            <h2 class="section-title">7. 國家標準的在地化實踐：以台灣 CNS 規範為例</h2>
+            <ul>
+                <li><strong>CNS 14936 基礎油分類標準</strong>：嚴格對齊國際 API 的分類邏輯，將基礎油分為第一類（傳統溶劑精煉礦物油）、第二類（加氫裂解礦物油）、第三類（高度加氫裂解礦物油）、第三類+（天然氣合成油 GTL）、第四類（PAO）與第五類（其他合成油如酯類）。這確保了台灣潤滑油製造商在進口原料時，擁有與國際同步的品質評估基準。</li>
+                <li><strong>CNS 1217 潤滑油與機油產品標準</strong>：為了推行「正字標記」驗證制度，制定了嚴苛的檢驗規範。唯有工廠品管經評鑑符合國際規範的品質保證制度，且產品經物理與化學檢驗符合國家標準的廠商，方得申請並標示象徵高品質的「正字標記」。</li>
+                <li><strong>廢潤滑油再生與循環經濟法規</strong>：台灣環保法規明確規定，再生油品若以桶裝銷售，必須在產品品名前強制加註「再生」字樣，確保市場資訊透明與終端設備的安全。</li>
+            </ul>
+
+            <!-- ========== 第8章 ========== -->
+            <h2 class="section-title">8. 配方工程與國際案例實證研究</h2>
+
+            <h3 class="sub-section">8.1 案例一：利用 SN 系列調配 ISO VG 46 液壓油與 SAE 20W-50 機油</h3>
+            <p><strong>配方目標 1 — ISO VG 46 液壓油</strong>：手邊原料為 SN150（約 30 cSt @ 40°C）與 SN500（約 90 cSt @ 40°C）。不同黏度的油品混合後，最終黏度絕非線性算術平均，工程師必須採用 Refutas 方程式等混合黏度對數計算模型。根據實證流變學運算，要精準達成 46 cSt，需以約 59% SN150 混合 41% SN500。</p>
+            <p><strong>配方目標 2 — SAE 20W-50 引擎機油</strong>：100°C 運動黏度目標必須落在 16.3～21.9 cSt 之間。SN150（約 5.1 cSt @ 100°C）與 SN500（約 10.9 cSt @ 100°C）即使比例拉到極限，純基礎油混合也絕對無法達到 SAE 50 等級的要求。解決方案是添加約 10%～23% 的液態黏度指數向上劑（VI Improvers，等效 100°C 黏度可高達 1500 cSt），或加入 BS150 光亮油強行拉提整體高溫黏度。</p>
+
+            <h3 class="sub-section">8.2 案例二：現代乘用車機油 SAE 5W-30 的全合成配方演進</h3>
+            <p>在配製符合 API SP 或 ACEA A5/B5 規範的高階 SAE 5W-30 時，工程師面臨同時滿足極低的 -30°C CCS 動態黏度與足夠強韌的 150°C HTHS 黏度的物理極限挑戰。</p>
+            <p>在 ExxonMobil 公開發表的先進調配測試案例中，一款 SAE 5W-30 採用突破性的組態：</p>
+            <ul>
+                <li><strong>PAO 主結構（SpectraSyn™）</strong>：17% 的 PAO 4（極低黏度）+ 53% 的 PAO 6，構建出極度純淨、無雜質且耐高溫的碳氫化合物主結構。</li>
+                <li><strong>極性輔助基礎油（Group V - Synesstic™ 5）</strong>：佔 10%。由於 PAO 的化學極性極低，加入具備微極性的烷基萘（Alkylated Naphthalenes），完美解決了添加劑溶解度與油封膨脹相容性的致命缺陷。</li>
+                <li><strong>mPAO 高溫高剪切突破技術</strong>：加入 2%～5% 的茂金屬聚α-烯烴（mPAO, SpectraSyn Elite™ 150）。量測結果：加入 5% mPAO 後，100°C 運動黏度為 11.54 cSt（符合 5W-30 上限 &lt;12.5 cSt），HTHS 從 3.05 cP 顯著攀升至 3.28 cP，且低溫 MRV 泵送黏度僅 15,252 cP（遠低於上限 60,000 cP）。</li>
+            </ul>
+
+            <h3 class="sub-section">8.3 案例三：重型海運船舶汽缸油與 BS150 光亮油的應用</h3>
+            <p>遠洋巨輪搭載的低速二行程柴油主機燃燒含有高硫份的重質殘渣燃料油（HFO），燃燒後會產生大量強酸性硫氧化物，同時承受引擎領域中最極端的高溫與側向推力。船舶汽缸油通常被設計為 SAE 50 黏度等級，並具備極高的總鹼價（TBN 達 40～70）以中和酸性物質。</p>
+            <p>在這種極端邊界潤滑的狀態下，Group II 或 PAO 等輕質合成油的分子量與油膜厚度根本無法抵抗活塞環刮除與高溫極壓的破壞。根據 Bolnes 腐蝕與磨損矩陣測試的實證研究數據：在不使用 BS150 的基礎配方中，活塞環與汽缸套的磨損率被設定為基準值 100%；當配方中導入高達 31% 的 BS150 光亮油後，活塞環磨損（Ring Wear）與汽缸套磨損（Liner Wear）雙雙顯著下降至基準值的 94% 與 93%。這充分證明了古老製程產出的巨分子 BS150 依然佔據著無法被輕易取代的霸主地位。</p>
+
+            <!-- ========== 第9章（總結）========== -->
+            <h2 class="section-title">9. 總結與未來展望</h2>
+            <p>綜觀潤滑油科學的演進脈絡，基礎油與成品油的雙軌命名分類體系，猶如一部鮮活生動的工業技術發展史。從早期的常壓與減壓蒸餾、溶劑萃取技術，孕育出以儀器秒數（賽氏黏度）直觀命名的 SN 與 BS 傳統體系；到近代石油化學工業基於碳氫分子飽和度、硫含量與黏溫特性，建立起界線分明的 API Group I 至 V 化學分類標準，清晰展現了煉油技術向著極致純淨化、抗氧化與高黏溫特性不斷攀升的歷史軌跡。</p>
+
+            <div class="highlight-box">
+                <p><strong>🔍 兩大核心工業發展趨勢</strong></p>
+                <p><strong>趨勢一：超低黏度化與全合成化革命</strong>——為了追求極致的燃油經濟效能與降低溫室氣體排放，傳統含有天然雜質的 Group I 基礎油已全面退出主流先進乘用車市場。取而代之的是具有高度化學穩定性的 Group II+/III 氫化基礎油、GTL 產品，以及精密化學合成的 PAO 與特種酯類。</p>
+                <p><strong>趨勢二：重載工業仍倚賴高黏度礦物油</strong>——在承受極端負荷、高溫震動與邊界潤滑的惡劣操作環境下，BS150 光亮油與中重質的 SN500 基礎油，憑藉其強韌巨分子油膜承載力、優異的極壓添加劑感受性與極具競爭力的成本結構，依然在大型工業齒輪箱、遠洋船舶主機汽缸與重型壓鑄液壓系統中佔據絕對的統治地位。</p>
+            </div>
+
+            <p>展望未來，隨著全球汽車工業快速向純電動車（EV）轉型，基礎油的熱傳導率（Thermal Conductivity）、比熱容（Specific Heat）與電氣絕緣電阻性（Electrical Resistivity）勢必將超越傳統的流體黏度，成為衡量油品性能的最關鍵指標。這不僅將催生 SAE 與 ISO 等國際組織針對新能源流體訂定全新的規範標準，也將強力驅動基礎油與添加劑產業朝向更高純度的 GTL 技術、具備絕佳生物降解性的生質合成酯（Bio-based Esters），以及奈米級流變學設計邁進，正式開啟潤滑科學與摩擦工程學的下一個嶄新篇章。</p>
+
+        </div>
+    </main>
+
+    <footer>
+        <div style="text-align: center; padding: 2rem;">
+            <h5>
+                <p>如果對文章內容有疑慮，歡迎來信討論指教</p>
+                <a href="mailto:mark.chuangjj@gmail.com">email to me (Mark CHUANG)</a>
+            </h5>
+        </div>
+    </footer>
+
+    <!-- AI Chatbot -->
+    <script src="../scripts/chatbot.js"></script>
+</body>
+
+</html>
