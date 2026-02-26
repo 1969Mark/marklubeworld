@@ -12,6 +12,7 @@ description: 新增技術文章到 marklubeworld 網站並部署到 GitHub
 - **HTML 檔案名稱**：例如 `my_topic.html`
 - **卡片簡介**：顯示在首頁卡片的一兩句描述
 - **文章內容**：完整的技術文章內容（可分段提供）
+- **附件簡報 PDF**（選填）：若有提供 PDF 檔案名稱（例如 `2026_XXX.pdf`），需將 PDF 放入 `d:\AntiGravity\marklubeworld\links\` 目錄，並在文章頁面加入下載區塊
 
 ---
 
@@ -113,8 +114,21 @@ description: 新增技術文章到 marklubeworld 網站並部署到 GitHub
 
             <!-- 在此依需要擴充更多章節 -->
 
+            <!-- ========== 參考文件下載（選填，無 PDF 時刪除此區塊）========== -->
+            <!-- PDF 檔案須放在 d:\AntiGravity\marklubeworld\files\ 目錄，路徑前綴為 ../files/ -->
+            <div style="margin-top: 2rem; padding: 1rem; background: rgba(255,255,255,0.5); border-radius: 8px; border-left: 5px solid var(--sun-gold);">
+                <h3>參考文件</h3>
+                <p>
+                    <a href="../files/[PDF_FILENAME]" target="_blank"
+                        style="font-weight: bold; color: var(--ocean-mid);">
+                        下載簡報資料: [PDF_FILENAME]
+                    </a>
+                </p>
+            </div>
+
         </div>
     </main>
+
 
     <footer>
         <div style="text-align: center; padding: 2rem;">

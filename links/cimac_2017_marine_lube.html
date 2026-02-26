@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="CIMAC, 二衝程引擎, 十字頭引擎, 氣缸潤滑油, 系統潤滑油, Stribeck 曲線, 磨損機制, 冷腐蝕, 船舶潤滑油">
+    <link rel="icon" type="image/png" href="../images/mark_small.png">
+    <title>2026_CIMAC 2017_二衝程低速引擎潤滑油</title>
+    <link rel="stylesheet" href="../styles/web.css">
+    <link rel="stylesheet" href="../styles/chatbot.css">
+    <style>
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .info-table th,
+        .info-table td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .info-table th {
+            background: var(--ocean-deep);
+            color: white;
+            font-weight: 600;
+        }
+
+        .info-table tr:hover {
+            background: rgba(100, 150, 200, 0.1);
+        }
+
+        .highlight-box {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(100, 150, 200, 0.15), rgba(255, 200, 100, 0.1));
+            border-radius: 12px;
+            border-left: 5px solid var(--ocean-mid);
+            margin: 1.5rem 0;
+        }
+
+        .warning-box {
+            padding: 1rem;
+            background: rgba(255, 200, 100, 0.2);
+            border-radius: 8px;
+            border-left: 4px solid #f0ad4e;
+            margin: 1rem 0;
+        }
+
+        .success-box {
+            padding: 1rem;
+            background: rgba(200, 255, 200, 0.2);
+            border-radius: 8px;
+            border-left: 4px solid #5cb85c;
+            margin: 1rem 0;
+        }
+
+        .section-title {
+            color: var(--ocean-deep);
+            margin: 2rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--sun-gold);
+        }
+
+        .sub-section {
+            color: var(--ocean-mid);
+            margin: 1.5rem 0 0.5rem;
+        }
+
+        .note-card {
+            background: rgba(255, 255, 255, 0.5);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <div class="top_main">
+        <h1 style="font-size:24px;">2026_CIMAC 2017_二衝程低速引擎潤滑油</h1>
+        <a href="../index.html">回首頁</a>
+        <img src="../images/mark_small.png" height="100px" />
+    </div>
+
+    <hr>
+
+    <main>
+        <div class="container">
+
+            <!-- 摘要 -->
+            <div class="highlight-box">
+                <p><strong>潤滑油通常被稱為引擎的「血液」。</strong> 在大型二行程十字頭引擎中，它不僅是物理介質，更是保護數百噸鋼鐵巨人的生命線。本文深度解析氣缸潤滑與系統潤滑的本質差異、Stribeck 曲線下的摩擦學狀態，以及從視覺到化驗的專業診斷法則。</p>
+            </div>
+
+            <!-- ========== 1. 導論 ========== -->
+            <h2 class="section-title">1. 導論：主機的血液與獨特的十字頭結構</h2>
+            <p>在資深輪機員眼中，一具重達數百噸、出力高達 87 MW 的大型二行程十字頭引擎，不僅僅是鋼鐵堆砌的機器，更是一個有生命的巨人。誠如 CIMAC 主席 Klaus M. Heim 所言：「潤滑油通常被稱為引擎的『血液』。它在保護與維持引擎壽命方面發揮著關鍵作用。」</p>
+            
+            <p>這種低速（低於 300 rpm）主機之所以能穩定運轉 30 年，核心就在於其獨特的「十字頭（Crosshead）」結構。活塞不直接連動連桿，而是透過活塞桿連接到十字頭滑塊。這種設計誕生了一個至關重要的物理屏障——<strong>填料箱（Stuffing Box）</strong>。</p>
+            
+            <div class="note-card">
+                <p>填料箱將引擎物理性地切分為「上方燃燒室」與「下方曲軸箱」。這就是為什麼我們需要兩套完全獨立的潤滑系統。這種隔離設計允許我們在部使用「犧牲型」油品應對髒汙的劣質燃油，同時確保下部昂貴的循環油不受污染。</p>
+            </div>
+
+            <!-- ========== 2. 核心對決 ========== -->
+            <h2 class="section-title">2. 核心對決：氣缸潤滑 (Cylinder) vs. 系統潤滑 (System)</h2>
+            <p>身為輪機員，必須明白這兩者絕非通用。氣缸油在燃燒室內「視死如歸」，注入後便隨著燃燒排出；而系統油則是「循環不息」的生命線。</p>
+
+            <table class="info-table">
+                <thead>
+                    <tr>
+                        <th>對比維度</th>
+                        <th>氣缸潤滑油 (Cylinder Oil)</th>
+                        <th>系統潤滑油 (System Oil)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>運作模式</strong></td>
+                        <td>一次性使用 (Once-through)</td>
+                        <td>循環式 (Circulating)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>黏度等級</strong></td>
+                        <td>較高 (SAE 50)</td>
+                        <td>較低 (SAE 30)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>總鹼價 (BN)</strong></td>
+                        <td>高 BN 值 (通常 40–140)</td>
+                        <td>低 BN 值 (通常 5–12)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>主要功能</strong></td>
+                        <td>中和酸性腐蝕、密封 200 bar 高壓、清潔積碳。</td>
+                        <td>活塞冷卻、動力傳遞、液壓介質。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>物理邏輯</strong></td>
+                        <td>強調油膜強度，以承受活塞環在高溫高壓下的邊界潤滑。</td>
+                        <td>強調冷卻效率與泵送性，確保熱量能迅速帶離活塞。</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="warning-box">
+                <p><strong>輪機長筆記：</strong> 填料箱就是這兩套系統的「邊界守護神」。如果填料箱失效，導致含硫的燃燒廢液滲入曲軸箱，幾萬公升的系統油會瞬間報廢。</p>
+            </div>
+
+            <!-- ========== 3. 氣缸潤滑系統 ========== -->
+            <h2 class="section-title">3. 氣缸潤滑系統：一次性的前線守護者</h2>
+            <p>氣缸油工作在引擎最嚴酷的區域，必須在活塞衝程中對抗高達 200 bar 的峰值壓力。</p>
+            
+            <h3 class="sub-section">核心功能</h3>
+            <ul>
+                <li><strong>形成油膜：</strong> 尤其在低速啟動或慢速巡航時，引擎進入「邊界潤滑（Boundary Lubrication）」，全靠油品添加劑防止金屬接觸。</li>
+                <li><strong>酸性中和：</strong> 這是最重要的任務。燃油中的硫會燃燒產生硫酸，氣缸油必須具備高 BN 來中和。</li>
+                <li><strong>磨合期管理 (Running-in)：</strong> 換新缸套或活塞環時，必須大幅調高注油率，以沖走磨屑並加速表面貼合。</li>
+                <li><strong>船上調配技術 (Blending on Board, BoB)：</strong> 透過 BoB 系統，將「高濃度添加劑」與「部分回收的系統油」混合，針對當期燃油硫含量精確調配，維持系統油的「新鮮度」。</li>
+            </ul>
+
+            <div class="warning-box">
+                <p><strong>[!IMPORTANT] 輪機長告誡：</strong> 硫含量越高，酸越多，需要更高 BN 的油預防「低溫腐蝕」。但別以為 BN 越高越好，若硫含量低卻用超高 BN 油，多餘的碳酸鈣會形成硬質沉積物，導致缸壁刮傷。</p>
+            </div>
+
+            <h3 class="sub-section">氣缸油供油率 (SLOFR) 策略</h3>
+            <p>影響因素包含引擎負荷、燃油含硫量、氣缸缸徑、引擎轉速、進氣濕度。在低硫或雙燃料 (LNG) 模式下，必須改用 Low BN 氣缸油以避免灰分沉積。</p>
+
+            <!-- ========== 4. 系統潤滑油 ========== -->
+            <h2 class="section-title">4. 系統潤滑油：多功能的循環生命線</h2>
+            <p>系統油是引擎下半部的多面手，其循環路徑決定了引擎的體溫與反應速度。</p>
+            
+            <ul>
+                <li><strong>熱量調節（核心任務）：</strong> 系統油在活塞下方的空腔循環，全靠 SAE 30 的系統油快速帶走熱量，防止活塞變形。</li>
+                <li><strong>動力傳動：</strong> 支撐主軸承、十字頭滑塊，並在啟動瞬間提供保護。</li>
+                <li><strong>現代液壓介質：</strong> 在電子控制引擎（如 MAN ME 型）中，系統油就是驅動排氣閥與噴油系統的「液壓驅動油」，純淨度必須符合嚴格的 NAS 或 ISO 標準。</li>
+                <li><strong>減震與穩定：</strong> 支撐引擎轉動時的動態平衡。</li>
+            </ul>
+
+            <div class="success-box">
+                <p><strong>輪機長筆記：</strong> 系統油不需要頻繁更換，但需要不間斷的淨油機（Purifier）離心處理。約需 7500 小時才能完成一次全量置換。</p>
+            </div>
+
+            <!-- ========== 5. 磨損機制與視覺警示 ========== -->
+            <h2 class="section-title">5. 磨損機制與視覺警示：學習者的診斷工具</h2>
+            <p>摩擦學（Tribology）定義了相對運動表面間的相互作用。在二行程引擎中，我們追求的是透過潤滑膜徹底隔離固體表面。</p>
+
+            <h3 class="sub-section">Stribeck 曲線與潤滑狀態</h3>
+            <table class="info-table">
+                <thead>
+                    <tr>
+                        <th>潤滑狀態</th>
+                        <th>摩擦係數</th>
+                        <th>表面接觸情況</th>
+                        <th>影響</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>邊界潤滑 (Boundary)</strong></td>
+                        <td>最高</td>
+                        <td>表面突起直接接觸，油膜厚度趨近於零。</td>
+                        <td>磨損最嚴重，常見於起動/停機或極高負載。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>混合/彈性流體動力 (Mixed)</strong></td>
+                        <td>最低點</td>
+                        <td>油膜與表面粗糙度處於同一數量級。</td>
+                        <td>磨損顯著降低，表面部分被分離。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>流體動力 (Hydrodynamic)</strong></td>
+                        <td>穩定低值</td>
+                        <td>固體表面完全被連續油膜分離。</td>
+                        <td>理想狀態，幾乎無機械磨損。</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p><strong>技術洞察：</strong> 在活塞運動至上死點 (TDC) 時，速度暫態為零，此時潤滑油的 <strong>表面浸潤性（Surface Wetting）</strong> 與添加劑生成的邊界膜強度至關重要。</p>
+
+            <h3 class="sub-section">以眼診病：磨損現象診斷</h3>
+            <ul>
+                <li><strong>黏著磨損 (Adhesive Wear) 與拉缸 (Scuffing)：</strong> 潤滑膜破裂導致金屬「焊接」與轉移。</li>
+                <li><strong>磨料磨損 (Abrasive Wear)：</strong> 硬表面刮削或外來顆粒（如觸媒微粉 Catfines）造成的毀滅性刮削。</li>
+                <li><strong>冷腐蝕 (Cold Corrosion)：</strong> 缸套溫度低於硫酸露點（低於 200°C）時，酸液凝結造成的化學侵蝕。</li>
+                <li><strong>熱腐蝕 (Hot Corrosion)：</strong> 燃油中釩與鈉在高溫（> 550°C）下形成熔融鹽燒灼零件。</li>
+            </ul>
+
+            <!-- ========== 6. 總結 ========== -->
+            <h2 class="section-title">6. 總結：給未來輪機員的黃金法則</h2>
+            <div class="highlight-box">
+                <ol>
+                    <li><strong>盯緊注油率與 BN 平衡：</strong> 過低腐蝕，過高鈣質沉積（Bore Polish）。</li>
+                    <li><strong>淨化器是你的生命線：</strong> Cat Fines 是毀滅性的，離心機一刻都不能馬虎。</li>
+                    <li><strong>嚴格遵守安全邊界：</strong> 監控 200°C 的低溫腐蝕點與 200 bar 的壓力峰值。</li>
+                </ol>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <div style="text-align: center; padding: 2rem;">
+            <h5>
+                <p>如果對文章內容有疑慮，歡迎來信討論指教</p>
+                <a href="mailto:mark.chuangjj@gmail.com">email to me (Mark CHUANG)</a>
+            </h5>
+        </div>
+    </footer>
+
+    <!-- AI Chatbot -->
+    <script src="../scripts/chatbot.js"></script>
+</body>
+
+</html>
