@@ -1,0 +1,203 @@
+/* quiz.css - 潤滑油達人挑戰樣式 */
+
+:root {
+    --quiz-primary: var(--sun-gold, #ee9b00);
+    --quiz-secondary: var(--ocean-deep, #005f73);
+    --quiz-bg: rgba(255, 255, 255, 0.95);
+    --quiz-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* 側邊入口按鈕 */
+#quiz-trigger {
+    position: fixed;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--quiz-primary);
+    color: white;
+    padding: 1.2rem 0.6rem;
+    border-radius: 0 8px 8px 0;
+    cursor: pointer;
+    z-index: 2000;
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    font-weight: bold;
+    letter-spacing: 2px;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    border: none;
+}
+
+#quiz-trigger:hover {
+    padding-left: 1rem;
+    background: var(--sun-warm, #ca6702);
+}
+
+/* 測驗遮罩層 */
+#quiz-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(5px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 3000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* 測驗彈窗容器 (70% 寬高) */
+#quiz-container {
+    width: 70%;
+    height: 70%;
+    background: var(--quiz-bg);
+    border-radius: 20px;
+    box-shadow: var(--quiz-shadow);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+#quiz-overlay.active {
+    display: flex;
+    opacity: 1;
+}
+
+#quiz-overlay.active #quiz-container {
+    transform: scale(1);
+}
+
+/* 頂部區域 */
+.quiz-header {
+    background: var(--quiz-secondary);
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.quiz-close {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.quiz-close:hover {
+    transform: scale(1.2);
+}
+
+/* 進度條 */
+.quiz-progress-bar {
+    position: absolute;
+    top: 55px;
+    left: 0;
+    height: 4px;
+    background: var(--sun-gold);
+    width: 0%;
+    transition: width 0.3s;
+}
+
+/* 主內容區 */
+.quiz-body {
+    flex: 1;
+    padding: 2rem 3rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#quiz-question {
+    font-size: 1.4rem;
+    color: var(--quiz-secondary);
+    margin-bottom: 2rem;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+/* 選項按鈕 */
+.quiz-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+}
+
+.option-btn {
+    padding: 1rem 1.5rem;
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1rem;
+    text-align: left;
+    transition: all 0.2s;
+    font-family: inherit;
+}
+
+.option-btn:hover {
+    border-color: var(--quiz-primary);
+    background: #fff8eb;
+}
+
+.option-btn.correct {
+    background: #d4edda;
+    border-color: #28a745;
+    color: #155724;
+}
+
+.option-btn.wrong {
+    background: #f8d7da;
+    border-color: #dc3545;
+    color: #721c24;
+}
+
+/* 反饋區域 */
+.quiz-feedback {
+    margin-top: 2rem;
+    padding: 1.2rem;
+    border-radius: 10px;
+    display: none;
+    animation: fadeIn 0.4s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 結算畫面 */
+.result-screen {
+    text-align: center;
+    padding: 2rem;
+}
+
+.title-badge {
+    font-size: 2.5rem;
+    font-weight: 900;
+    margin: 1.5rem 0;
+    display: block;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+/* RWD 修整 */
+@media (max-width: 992px) {
+    #quiz-container { width: 90%; height: 85%; }
+    .quiz-options { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+    #quiz-trigger { padding: 0.8rem 0.4rem; font-size: 0.9rem; }
+    .quiz-body { padding: 1.5rem; }
+    #quiz-question { font-size: 1.1rem; }
+}
