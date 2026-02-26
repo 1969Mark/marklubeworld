@@ -1,65 +1,65 @@
-/* quiz.js - 潤滑油達人挑戰邏輯 */
+/* quiz.js - 潤滑油達人挑戰邏輯 - 擴充版 (涵蓋全站文章) */
 
 const QUIZ_DATA = [
     {
-        question: "在二衝程十字頭引擎中，哪一個部件負責物理性隔離燃燒室與曲軸箱？",
-        options: ["活塞環 (Piston Ring)", "填料箱 (Stuffing Box)", "十字頭滑塊 (Crosshead Guide)", "掃氣孔 (Scavenge Port)"],
+        question: "傳統基礎油命名如 SN150，其數字 150 是代表在 100°F 時的哪種黏度單位？",
+        options: ["運動黏度 (cSt)", "賽氏通用秒數 (SUS)", "恩氏黏度 (Engler)", "絕對黏度 (cP)"],
         answer: 1,
-        explanation: "填料箱 (Stuffing Box) 是關鍵的物理屏障，將上方的燃燒區域與下方的曲軸箱潤滑系統隔開。"
+        explanation: "SN150 代表 Solvent Neutral 溶劑中性油，其 150 是在 100°F 下的賽氏通用秒數 (Saybolt Universal Seconds)。"
     },
     {
-        question: "為什麼氣缸潤滑油 (Cylinder Oil) 的 BN 值通常遠高於系統油？",
-        options: ["為了導熱更快", "為了增加黏度", "為了中和燃油燃燒產生的硫酸", "為了清淨曲軸箱"],
-        answer: 2,
-        explanation: "氣缸油需要高 BN (總鹼價) 來中和含硫燃油燃燒產生的酸性物質，預防腐蝕。"
+        question: "根據 API 基礎油分類，哪一類基礎油具有 100% 飽和物、0 硫含量且屬於「純化學合成」？",
+        options: ["Group I", "Group II", "Group III", "Group IV (PAO)"],
+        answer: 3,
+        explanation: "Group IV 是聚α-烯烴 (PAO)，是完全不含天然原油雜質的純化學合成基礎油。"
     },
     {
-        question: "當缸套溫度低於硫酸露點 (通常約 200°C) 時，容易發生什麼現象？",
-        options: ["熱腐蝕 (Hot Corrosion)", "拉缸 (Scuffing)", "低溫腐蝕 (Cold Corrosion)", "電解腐蝕"],
-        answer: 2,
-        explanation: "低溫腐蝕發生在酸液凝結的溫度點以下，特別是在慢速航行(Slow Steaming)時尤為嚴重。"
-    },
-    {
-        question: "根據 Stribeck 曲線，最理想的潤滑狀態（幾乎無機械磨損）是？",
-        options: ["邊界潤滑 (Boundary Lubrication)", "混合潤滑 (Mixed Lubrication)", "流體動力潤滑 (Hydrodynamic Lubrication)", "彈性流體動力潤滑"],
-        answer: 2,
-        explanation: "流體動力潤滑狀態下，固體表面被連續油膜完全分離，幾乎沒有機械接觸磨損。"
-    },
-    {
-        question: "燃油中的哪種極硬顆粒若未經分離器移除，會對缸套造成毀滅性刮削？",
-        options: ["釩 (Vanadium)", "鈉 (Sodium)", "觸媒微粉 (Catfines)", "碳粒"],
-        answer: 2,
-        explanation: "觸媒微粉 (Catfines) 是源自煉油過程的鋁矽顆粒，硬度極高。"
-    },
-    {
-        question: "現代航運中，BoB (Blending on Board) 系統的主要目的是？",
-        options: ["自動更換系統油", "精確調配最適當的 BN 值汽缸油", "過濾系統油中的水分", "增加燃油的發熱值"],
+        question: "在脫碳轉型中，HVO 生質燃料相較於 FAME 的主要優點是什麼？",
+        options: ["價格更低", "不含氧、化學穩定性極佳且十六烷值高", "能溶解管路積碳", "含氧量高達 10%"],
         answer: 1,
-        explanation: "BoB 系統能根據當前燃油硫含量，動態混合添加劑與系統油，調配出精確 BN 值的汽缸油。"
+        explanation: "HVO (加氫處理植物油) 是純烴類，不含氧且物理性與石油柴油接近，穩定性遠優於 FAME。"
     },
     {
-        question: "系統油 (System Oil) 在二衝程引擎中的核心任務除了潤滑，還有？",
-        options: ["冷卻活塞下端", "增加燃燒壓力", "清潔掃氣箱", "防止缸壁拋光"],
-        answer: 0,
-        explanation: "系統油在活塞下方空腔循環，負責帶走大量熱量以防止活塞受熱變形。"
-    },
-    {
-        question: "在電子控制引擎（如 MAN ME 型）中，系統油還扮演什麼額外角色？",
-        options: ["冷媒", "液壓驅動油", "封堵氣體", "抗氧劑"],
-        answer: 1,
-        explanation: "電子控制引擎使用系統油作為液壓介質來驅動排氣閥與噴油系統。"
-    },
-    {
-        question: "當燃油中釩 (Vanadium) 與鈉 (Sodium) 的比例處於什麼狀態時，最容易發生熱腐蝕？",
-        options: ["1:1", "10:1", "3:1", "1:3"],
+        question: "2025 年生效的 FuelEU Maritime 條例，主要限制船舶能源的哪項指標？",
+        options: ["總耗油量", "硫氧化物排放量", "溫室氣體強度 (GHG Intensity)", "航行速度"],
         answer: 2,
-        explanation: "釩與鈉比例約 3:1 時最容易形成低熔點鹽類，在 550°C 以上會造成金屬燒灼。"
+        explanation: "FuelEU Maritime 規定船舶溫室氣體強度必須逐年降低，以生命週期 (Well-to-Wake) 模型計算。"
     },
     {
-        question: "評估潤滑效能最直接且必須優先進行的實地檢查是？",
-        options: ["燃油化驗", "掃氣口檢查 (Scavenge Port Inspection)", "排煙顏色觀測", "曲軸箱油霧偵測"],
+        question: "空氣引導式艉軸密封 (Air Seal) 相比傳統油封，其核心優勢為何？",
+        options: ["不需要潤滑油", "利用空氣緩衝區徹底隔離油與水，實現零排放", "成本更低", "構造更簡單"],
         answer: 1,
-        explanation: "掃氣口檢查是觀察活塞、活塞環與缸套真實狀況最直接的基準。"
+        explanation: "空氣密封透過受控的壓力空氣腔室，將海水與潤滑油徹底分離，即使洩漏也會排向船內收集箱而非大海。"
+    },
+    {
+        question: "環保潤滑油 (EAL) 若混入海水，最容易發生的致命化學反應是？",
+        options: ["氧化反應", "硝化反應", "水解反應 (Hydrolysis)", "聚合反應"],
+        answer: 2,
+        explanation: "酯類 EAL 遇到水會發生水解反應產生酸性物質，導致 TAN 升高並損壞密封件。"
+    },
+    {
+        question: "液壓泵浦發生「氣穴現象 (Cavitation)」時，典型的聲音特徵為何？",
+        options: ["悶悶的轟隆聲", "穩定且尖銳的高頻嘯叫聲", "碎石撞擊缸體的聲音", "低頻的震動聲"],
+        answer: 1,
+        explanation: "氣穴現象是油液內部因真空氣泡在高壓區迅速崩塌產生的尖銳高頻嘯叫聲。"
+    },
+    {
+        question: "舵機系統中的「追隨機構 (Hunting Gear)」主要發揮什麼功能？",
+        options: ["增加轉向動力", "防止液壓油過熱", "負反饋機制使舵葉角度精確跟隨駕駛台指令", "自動隔離洩漏缸"],
+        answer: 2,
+        explanation: "追隨機構是一種機械式負反饋系統，確保舵葉到達指令角度後，泵浦能自動歸零停止供油。"
+    },
+    {
+        question: "在冷媒與潤滑油匹配中，POE (聚酯油) 最需要嚴格防範的物理特性是？",
+        options: ["揮發性太高", "強大的吸濕性 (Hygroscopic)", "黏度太低", "顏色太深"],
+        answer: 1,
+        explanation: "POE 油極易吸收空氣中的水分，進而導致水解產生酸，侵蝕壓縮機線圈。"
+    },
+    {
+        question: "目前船舶空調系統中，哪種冷媒被視為 R-134a 的最佳低 GWP 替代品？",
+        options: ["R-404A", "R-513A", "R-448A", "CO2"],
+        answer: 1,
+        explanation: "R-513A 的 GWP 約 630，且屬於 A1 級不可燃，是 R-134a 理想的直接替代方案。"
     }
 ];
 
@@ -67,6 +67,9 @@ let currentQuestionIndex = 0;
 let score = 0;
 
 function initQuiz() {
+    // 檢查是否已存在按鈕，避免重複初始化
+    if (document.getElementById('quiz-trigger')) return;
+
     const trigger = document.createElement('button');
     trigger.id = 'quiz-trigger';
     trigger.innerText = '潤滑油達人挑戰';
@@ -77,7 +80,7 @@ function initQuiz() {
     overlay.innerHTML = `
         <div id="quiz-container">
             <div class="quiz-header">
-                <h3>潤滑油達人挑戰</h3>
+                <h3>潤滑油達人挑戰 (全方位版)</h3>
                 <button class="quiz-close">✕</button>
             </div>
             <div class="quiz-progress-bar"></div>
@@ -125,7 +128,6 @@ function checkAnswer(selectedIndex) {
     const feedback = document.getElementById('quiz-feedback');
     const options = document.querySelectorAll('.option-btn');
     
-    // 停用所有按鈕防止重複點擊
     options.forEach(btn => btn.disabled = true);
 
     if (selectedIndex === questionData.answer) {
@@ -139,7 +141,6 @@ function checkAnswer(selectedIndex) {
     }
     feedback.style.display = 'block';
 
-    // 延遲進入下一題
     setTimeout(() => {
         currentQuestionIndex++;
         if (currentQuestionIndex < QUIZ_DATA.length) {
@@ -147,7 +148,7 @@ function checkAnswer(selectedIndex) {
         } else {
             showResult();
         }
-    }, 3500);
+    }, 4000);
 }
 
 function showResult() {
@@ -172,11 +173,17 @@ function showResult() {
             <h2>測驗完成！</h2>
             <p>您的得分：<strong>${score} / ${QUIZ_DATA.length}</strong></p>
             <span class="title-badge" style="color: ${color}">${title}</span>
-            <button class="cta-button" onclick="openQuiz()" style="margin-top: 1rem; cursor:pointer;">再挑戰一次</button>
-            <button class="cta-button" onclick="closeQuiz()" style="margin-top: 1rem; margin-left: 1rem; background: #999; cursor:pointer;">觀看網站內容複習</button>
+            <div style="margin-top: 2rem;">
+                <button class="cta-button" onclick="openQuiz()" style="cursor:pointer;">再挑戰一次</button>
+                <button class="cta-button" onclick="closeQuiz()" style="margin-left: 1rem; background: #999; cursor:pointer;">回首頁複習知識</button>
+            </div>
         </div>
     `;
 }
 
 // 初始化
-document.addEventListener('DOMContentLoaded', initQuiz);
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initQuiz);
+} else {
+    initQuiz();
+}
