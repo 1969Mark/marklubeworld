@@ -1,0 +1,1069 @@
+<!doctype html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="潤滑油黏度與溫度互動計算工具，依據 ASTM D341 Walther 方程式，輸入 40°C 與 100°C 黏度，自動繪製曲線並計算黏度指數 VI。">
+    <title>潤滑油黏度-溫度計算工具 | 馬克的潤滑油世界</title>
+    <link rel="icon" type="image/png" href="../images/mark_small.png">
+    <link rel="stylesheet" href="../styles/web.css">
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    <style>
+        /* ============================================================
+           1. Tool Page Layout
+        ============================================================ */
+        .tool-header {
+            background: linear-gradient(135deg, var(--ocean-deep) 0%, var(--ocean-mid) 100%);
+            color: var(--white);
+            padding: 2.5rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 60%);
+            animation: shimmer 20s infinite linear;
+        }
+
+        @keyframes shimmer {
+            from { transform: rotate(0deg); }
+            to   { transform: rotate(360deg); }
+        }
+
+        .tool-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tool-header p {
+            font-size: 1rem;
+            opacity: 0.85;
+            position: relative;
+            z-index: 1;
+            margin: 0;
+        }
+
+        .tool-header .back-link {
+            position: absolute;
+            top: 1.2rem;
+            left: 1.5rem;
+            color: rgba(255,255,255,0.8);
+            font-size: 0.9rem;
+            z-index: 2;
+            transition: color 0.2s;
+        }
+
+        .tool-header .back-link:hover { color: var(--sun-gold); }
+
+        /* ============================================================
+           2. Main Tool Container
+        ============================================================ */
+        .tool-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        @media (max-width: 900px) {
+            .tool-container {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+        }
+
+        /* ============================================================
+           3. Input Panel
+        ============================================================ */
+        .input-panel {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 80px;
+        }
+
+        .input-panel h2 {
+            color: var(--ocean-deep);
+            font-size: 1.1rem;
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.6rem;
+            border-bottom: 2px solid var(--ocean-light);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--ocean-deep);
+            margin-bottom: 0.35rem;
+        }
+
+        .form-group label span.unit {
+            font-weight: 400;
+            color: var(--text-secondary);
+            font-size: 0.82rem;
+        }
+
+        .form-group input[type="number"],
+        .form-group input[type="text"],
+        .form-group select {
+            width: 100%;
+            padding: 0.6rem 0.8rem;
+            border: 1.5px solid var(--ocean-light);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-family: var(--font-main);
+            background: rgba(255,255,255,0.9);
+            color: var(--text-primary);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--ocean-mid);
+            box-shadow: 0 0 0 3px rgba(10, 147, 150, 0.15);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.8rem;
+        }
+
+        /* Color picker for curve */
+        .color-pill {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .color-pill input[type="color"] {
+            width: 38px;
+            height: 38px;
+            border: 1.5px solid var(--ocean-light);
+            border-radius: 8px;
+            padding: 2px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .color-pill input[type="text"] {
+            flex: 1;
+        }
+
+        /* Action buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            padding: 0.7rem 1.2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.92rem;
+            font-family: var(--font-main);
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+        }
+
+        .btn:hover { transform: translateY(-2px); }
+        .btn:active { transform: translateY(0); }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--ocean-deep), var(--ocean-mid));
+            color: white;
+            box-shadow: 0 4px 12px rgba(0,95,115,0.3);
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+
+        .btn-primary:hover { box-shadow: 0 6px 18px rgba(0,95,115,0.4); }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.6);
+            color: var(--ocean-deep);
+            border: 1.5px solid var(--ocean-light);
+        }
+
+        .btn-danger {
+            background: rgba(255,80,80,0.1);
+            color: #c0392b;
+            border: 1.5px solid rgba(192,57,43,0.3);
+        }
+
+        .btn-sm {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.82rem;
+        }
+
+        /* Preset selector */
+        .preset-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .preset-btn {
+            padding: 0.5rem;
+            border: 1.5px solid var(--ocean-light);
+            border-radius: 8px;
+            background: rgba(255,255,255,0.7);
+            color: var(--ocean-deep);
+            font-size: 0.8rem;
+            font-family: var(--font-main);
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .preset-btn:hover {
+            background: var(--ocean-mid);
+            color: white;
+            border-color: var(--ocean-mid);
+        }
+
+        /* Curve list */
+        .curve-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-top: 0.8rem;
+            max-height: 280px;
+            overflow-y: auto;
+        }
+
+        .curve-item {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.6rem 0.8rem;
+            background: rgba(255,255,255,0.8);
+            border-radius: 8px;
+            border: 1.5px solid var(--glass-border);
+            animation: fadeInUp 0.3s ease;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity:0; transform:translateY(8px); }
+            to   { opacity:1; transform:translateY(0); }
+        }
+
+        .curve-color-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .curve-item-name {
+            flex: 1;
+            font-size: 0.85rem;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .curve-item-vi {
+            font-size: 0.78rem;
+            color: var(--ocean-mid);
+            background: rgba(10,147,150,0.1);
+            padding: 2px 7px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        /* ============================================================
+           4. Chart Panel
+        ============================================================ */
+        .chart-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .chart-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+        }
+
+        .chart-card h2 {
+            color: var(--ocean-deep);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: 420px;
+        }
+
+        /* ============================================================
+           5. Results Table
+        ============================================================ */
+        .results-table-wrapper {
+            overflow-x: auto;
+            border-radius: 10px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.88rem;
+            margin: 0;
+            background: var(--glass-bg);
+            border-radius: 10px;
+        }
+
+        .results-table th {
+            background: linear-gradient(135deg, var(--ocean-deep), var(--ocean-mid));
+            color: white;
+            padding: 0.7rem 1rem;
+            text-align: center;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .results-table td {
+            padding: 0.6rem 1rem;
+            text-align: center;
+            border-bottom: 1px solid var(--glass-border);
+            color: var(--text-primary);
+        }
+
+        .results-table tr:last-child td { border-bottom: none; }
+        .results-table tr:hover td { background: rgba(148,210,189,0.2); }
+
+        /* ============================================================
+           6. VI Badge & Info Box
+        ============================================================ */
+        .vi-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        .vi-excellent { background: rgba(56,176,0,0.15); color: #1a7a00; }
+        .vi-good      { background: rgba(10,147,150,0.15); color: #006064; }
+        .vi-fair      { background: rgba(238,155,0,0.18); color: #9a6200; }
+        .vi-poor      { background: rgba(192,57,43,0.15); color: #c0392b; }
+
+        .formula-box {
+            background: linear-gradient(135deg, rgba(0,95,115,0.06), rgba(10,147,150,0.06));
+            border: 1px solid rgba(10,147,150,0.2);
+            border-radius: 10px;
+            padding: 1rem 1.2rem;
+            margin-top: 0.8rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .formula-box strong { color: var(--ocean-deep); }
+
+        .formula-code {
+            font-family: 'Courier New', monospace;
+            background: rgba(0,0,0,0.05);
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            margin-top: 0.4rem;
+            display: block;
+            font-size: 0.82rem;
+        }
+
+        /* ============================================================
+           7. Empty State
+        ============================================================ */
+        .empty-state {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--text-secondary);
+        }
+
+        .empty-state .icon { font-size: 3rem; margin-bottom: 0.8rem; }
+        .empty-state p { font-size: 0.95rem; }
+
+        /* ============================================================
+           8. Divider & Section Label
+        ============================================================ */
+        .section-label {
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--ocean-mid);
+            margin: 1.2rem 0 0.6rem 0;
+        }
+
+        hr.panel-divider {
+            border: none;
+            border-top: 1px solid var(--glass-border);
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header id="main-header">
+        <div class="logo-container">
+            <a href="../index.html">
+                <img src="../images/mark_small.png" alt="Logo">
+                <h1>馬克的潤滑油世界</h1>
+            </a>
+        </div>
+        <nav id="main-nav">
+            <ul>
+                <li><a href="../index.html#about">關於本站</a></li>
+                <li><a href="../index.html#topics">議題分享</a></li>
+                <li><a href="../index.html#videos">影音專區</a></li>
+                <li><a href="../index.html#contact">聯絡我</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Tool Header Banner -->
+    <div class="tool-header">
+        <a href="../index.html" class="back-link">← 返回首頁</a>
+        <h1>🌡️ 潤滑油黏度與溫度計算工具</h1>
+        <p>依據 ASTM D341 Walther 方程式，輸入兩點黏度即可自動繪製黏度-溫度曲線並計算 VI</p>
+    </div>
+
+    <!-- Main Tool Layout -->
+    <div class="tool-container">
+
+        <!-- ====== LEFT: Input Panel ====== -->
+        <aside class="input-panel">
+
+            <!-- Preset Oils -->
+            <h2>⚡ 快速載入預設油品</h2>
+            <div class="preset-grid" id="preset-btns"></div>
+
+            <hr class="panel-divider">
+
+            <!-- Custom Input -->
+            <h2>✏️ 自訂油品輸入</h2>
+
+            <div class="form-group">
+                <label>油品名稱</label>
+                <input type="text" id="oil-name" placeholder="例：SAE 40 System Oil" maxlength="40">
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>40°C 黏度 <span class="unit">(cSt)</span></label>
+                    <input type="number" id="vis40" placeholder="例：105" step="0.01" min="2" max="50000">
+                </div>
+                <div class="form-group">
+                    <label>100°C 黏度 <span class="unit">(cSt)</span></label>
+                    <input type="number" id="vis100" placeholder="例：12" step="0.01" min="2" max="5000">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>起始溫度 <span class="unit">(°C)</span></label>
+                    <input type="number" id="temp-min" value="-20" step="5" min="-40" max="50">
+                </div>
+                <div class="form-group">
+                    <label>終止溫度 <span class="unit">(°C)</span></label>
+                    <input type="number" id="temp-max" value="150" step="5" min="50" max="250">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>曲線顏色</label>
+                <div class="color-pill">
+                    <input type="color" id="curve-color" value="#005f73">
+                </div>
+            </div>
+
+            <button class="btn btn-primary" id="add-curve-btn">
+                ➕ 新增曲線
+            </button>
+
+            <!-- Curve List -->
+            <hr class="panel-divider">
+            <div class="section-label">已新增的曲線</div>
+            <div class="curve-list" id="curve-list">
+                <div class="empty-state" style="padding:1.5rem;">
+                    <div class="icon">📈</div>
+                    <p>尚未新增任何曲線</p>
+                </div>
+            </div>
+
+            <hr class="panel-divider">
+            <button class="btn btn-danger btn-sm" id="clear-all-btn" style="width:100%;">
+                🗑️ 清除全部曲線
+            </button>
+
+            <!-- Formula Reference -->
+            <div class="formula-box">
+                <strong>📐 ASTM D341 Walther 方程式</strong>
+                <span class="formula-code">log log(ν + 0.7) = A − B × log(T)</span>
+                T = 溫度(K)，ν = 黏度(cSt)，由 ν₄₀ 與 ν₁₀₀ 求解 A、B 常數
+            </div>
+
+        </aside>
+
+        <!-- ====== RIGHT: Chart Panel ====== -->
+        <div class="chart-panel">
+
+            <!-- Chart -->
+            <div class="chart-card">
+                <h2>📊 黏度-溫度曲線圖</h2>
+                <div class="chart-wrapper">
+                    <canvas id="viscosity-chart"></canvas>
+                </div>
+            </div>
+
+            <!-- Results Table -->
+            <div class="chart-card" id="results-section" style="display:none;">
+                <h2>📋 關鍵溫度點黏度查詢</h2>
+                <div class="results-table-wrapper">
+                    <table class="results-table">
+                        <thead id="result-thead"></thead>
+                        <tbody id="result-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- VI Explanation -->
+            <div class="chart-card" id="vi-section" style="display:none;">
+                <h2>🏷️ 黏度指數 (VI) 說明</h2>
+                <div id="vi-content"></div>
+                <div class="formula-box" style="margin-top:1rem;">
+                    <strong>計算依據</strong>：ASTM D2270 查表法
+                    <span class="formula-code">
+                        KV₁₀₀ &lt; 2 cSt：使用低黏度查表；≥ 2 cSt：VI = (L − U) / (L − H) × 100
+                    </span>
+                    L、H 為查表值（分別對應 VI=0 和 VI=100 時的 40°C 黏度參考值）
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>聯絡資訊</h4>
+                <p>如果對文章內容有疑慮，歡迎來信討論指教</p>
+                <a href="mailto:mark.chuangjj@gmail.com">✉ mark.chuangjj@gmail.com</a>
+            </div>
+            <div class="footer-section">
+                <h4>快速連結</h4>
+                <a href="../index.html#about">關於本站</a>
+                <a href="../index.html#topics">議題分享</a>
+                <a href="../index.html#videos">影音專區</a>
+            </div>
+            <div class="footer-section">
+                <h4>關於作者</h4>
+                <p>Mark CHUANG</p>
+                <p>專業船舶潤滑油工程師</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 馬克的潤滑油世界 Marklubeworld. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- ============================================================
+         JavaScript: ASTM D341 Walther Engine + Chart.js
+    ============================================================ -->
+    <script>
+    // ==========================================================================
+    // 1. Configuration & Constants
+    // ==========================================================================
+    const CONFIG = {
+        // Default temperature key points for results table (°C)
+        KEY_TEMPS: [-10, 0, 20, 40, 60, 80, 100, 120, 150],
+        // Walter correction constant
+        WALTHER_C: 0.7,
+        // Chart grid points count
+        CHART_POINTS: 80,
+        // ASTM D2270 VI lookup data pairs [KV100, L, H]
+        // Simplified subset from ASTM D2270 Table 1
+    };
+
+    // ASTM D2270 simplified lookup table [KV100(cSt), L, H] (subset, interpolation used)
+    const ASTM_D2270_TABLE = [
+        [2.00, 7.994, 6.394], [2.10, 8.640, 6.894], [2.20, 9.309, 7.410],
+        [2.30, 10.00, 7.944], [2.40, 10.71, 8.496], [2.50, 11.45, 9.063],
+        [2.60, 12.21, 9.647], [2.70, 13.00, 10.25], [2.80, 13.80, 10.87],
+        [2.90, 14.63, 11.50], [3.00, 15.49, 12.15], [3.20, 17.28, 13.51],
+        [3.40, 19.18, 14.93], [3.60, 21.18, 16.43], [3.80, 23.28, 17.99],
+        [4.00, 25.47, 19.61], [4.20, 27.75, 21.29], [4.40, 30.14, 23.03],
+        [4.60, 32.61, 24.82], [4.80, 35.17, 26.66], [5.00, 37.81, 28.56],
+        [5.50, 44.93, 33.29], [6.00, 52.58, 38.26], [6.50, 60.74, 43.47],
+        [7.00, 69.39, 48.91], [7.50, 78.53, 54.58], [8.00, 88.16, 60.48],
+        [8.50, 98.27, 66.60], [9.00, 108.9, 72.94], [9.50, 119.9, 79.50],
+        [10.0, 131.9, 86.28], [11.0, 157.0, 100.4], [12.0, 183.4, 115.1],
+        [13.0, 211.3, 130.4], [14.0, 240.6, 146.4], [15.0, 271.4, 163.1],
+        [16.0, 303.6, 180.4], [17.0, 337.2, 198.3], [18.0, 372.2, 217.0],
+        [19.0, 408.6, 236.2], [20.0, 446.4, 256.2], [22.0, 525.7, 298.1],
+        [24.0, 610.0, 342.2], [26.0, 699.2, 388.5], [28.0, 793.2, 437.0],
+        [30.0, 892.1, 487.7], [35.0, 1147, 618.0], [40.0, 1429, 764.5],
+        [45.0, 1737, 926.6], [50.0, 2070, 1103], [60.0, 2816, 1498],
+        [70.0, 3674, 1951], [80.0, 4637, 2461], [90.0, 5705, 3030],
+        [100.0, 6875, 3659],
+    ];
+
+    // Preset lubricant oils: [name, v40, v100, color]
+    const PRESET_OILS = [
+        { name: 'SAE 30 系統油',  v40: 95,   v100: 11.0, color: '#005f73' },
+        { name: 'SAE 40 系統油',  v40: 135,  v100: 14.0, color: '#0a9396' },
+        { name: 'ISO VG 46 液壓', v40: 46,   v100: 6.8,  color: '#ee9b00' },
+        { name: 'ISO VG 100 工業',v40: 100,  v100: 11.4, color: '#38b000' },
+        { name: 'SAE 30 CLO 汽缸', v40: 200, v100: 18.5, color: '#ca6702' },
+        { name: '合成 PAO VG 100', v40: 100, v100: 14.5, color: '#9a3ab5' },
+    ];
+
+    // ==========================================================================
+    // 2. ASTM D341 Walther Engine
+    // ==========================================================================
+
+    /**
+     * 計算 Walther 方程式常數 A, B
+     * @param {number} v40  - 40°C 時的運動黏度 (cSt)
+     * @param {number} v100 - 100°C 時的運動黏度 (cSt)
+     * @returns {{ A: number, B: number } | null}
+     */
+    function calcWaltherConstants(v40, v100) {
+        const C = CONFIG.WALTHER_C;
+        const W40  = Math.log10(Math.log10(v40  + C));
+        const W100 = Math.log10(Math.log10(v100 + C));
+        const T40  = Math.log10(40  + 273.15);
+        const T100 = Math.log10(100 + 273.15);
+
+        if (Math.abs(T100 - T40) < 1e-12) return null;
+
+        const B = (W40 - W100) / (T100 - T40);
+        const A = W40 + B * T40;
+        return { A, B };
+    }
+
+    /**
+     * 由 Walther 常數反算指定溫度下的黏度
+     * @param {number} tempC   - 目標溫度 (°C)
+     * @param {number} A
+     * @param {number} B
+     * @returns {number | null} - 黏度 (cSt)，若超出合理範圍回傳 null
+     */
+    function calcViscosity(tempC, A, B) {
+        const T = Math.log10(tempC + 273.15);
+        const W = A - B * T;
+        // W = log10(log10(ν + 0.7))
+        const inner = Math.pow(10, W);  // = log10(ν + 0.7)
+        if (inner <= 0) return null;
+        const vis = Math.pow(10, inner) - CONFIG.WALTHER_C;
+        if (vis < 0.1 || vis > 1e8) return null;
+        return vis;
+    }
+
+    // ==========================================================================
+    // 3. ASTM D2270 VI Calculation
+    // ==========================================================================
+
+    /**
+     * 線性插值
+     */
+    function linearInterp(x, x0, y0, x1, y1) {
+        if (x1 === x0) return y0;
+        return y0 + (y1 - y0) * (x - x0) / (x1 - x0);
+    }
+
+    /**
+     * 由 KV100 在 ASTM D2270 查表，取得 L 和 H 值
+     * @param {number} kv100
+     * @returns {{ L: number, H: number } | null}
+     */
+    function lookupLH(kv100) {
+        const tbl = ASTM_D2270_TABLE;
+        if (kv100 < tbl[0][0] || kv100 > tbl[tbl.length - 1][0]) return null;
+        for (let i = 0; i < tbl.length - 1; i++) {
+            if (kv100 >= tbl[i][0] && kv100 <= tbl[i+1][0]) {
+                const L = linearInterp(kv100, tbl[i][0], tbl[i][1], tbl[i+1][0], tbl[i+1][1]);
+                const H = linearInterp(kv100, tbl[i][0], tbl[i][2], tbl[i+1][0], tbl[i+1][2]);
+                return { L, H };
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 計算黏度指數 VI (ASTM D2270)
+     * @param {number} kv40
+     * @param {number} kv100
+     * @returns {number | null}
+     */
+    function calcVI(kv40, kv100) {
+        if (kv100 < 2) return null;
+        const lh = lookupLH(kv100);
+        if (!lh) return null;
+        const { L, H } = lh;
+        if (L === H) return null;
+        const vi = Math.round((L - kv40) / (L - H) * 100);
+        return vi;
+    }
+
+    // ==========================================================================
+    // 4. Chart Management
+    // ==========================================================================
+    let chart = null;
+    const CHART_COLORS_CYCLE = [
+        '#005f73','#ee9b00','#38b000','#ca6702','#9a3ab5','#c0392b','#0a9396','#2d6a4f'
+    ];
+    let colorIdx = 0;
+
+    /** 曲線資料陣列 */
+    const curves = [];
+
+    function initChart() {
+        const ctx = document.getElementById('viscosity-chart').getContext('2d');
+        chart = new Chart(ctx, {
+            type: 'line',
+            data: { datasets: [] },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: { mode: 'index', intersect: false },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: { font: { family: 'Microsoft JhengHei, sans-serif', size: 12 }, padding: 16 }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y.toFixed(2)} cSt`
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        type: 'linear',
+                        title: { display: true, text: '溫度 (°C)', font: { size: 13, weight: 'bold' }, color: '#005f73' },
+                        grid: { color: 'rgba(0,0,0,0.06)' }
+                    },
+                    y: {
+                        type: 'logarithmic',
+                        title: { display: true, text: '運動黏度 (cSt)', font: { size: 13, weight: 'bold' }, color: '#005f73' },
+                        ticks: {
+                            callback: val => val >= 1 ? val.toFixed(0) : val.toFixed(2)
+                        },
+                        grid: { color: 'rgba(0,0,0,0.06)' }
+                    }
+                }
+            }
+        });
+    }
+
+    /**
+     * 生成曲線資料點
+     */
+    function generateCurveData(v40, v100, tMin, tMax, color, name) {
+        const constants = calcWaltherConstants(v40, v100);
+        if (!constants) return null;
+        const { A, B } = constants;
+
+        const points = [];
+        const step = (tMax - tMin) / CONFIG.CHART_POINTS;
+        for (let t = tMin; t <= tMax + 0.001; t += step) {
+            const vis = calcViscosity(t, A, B);
+            if (vis !== null) {
+                points.push({ x: parseFloat(t.toFixed(2)), y: parseFloat(vis.toFixed(4)) });
+            }
+        }
+
+        return {
+            label: name,
+            data: points,
+            borderColor: color,
+            backgroundColor: color + '22',
+            borderWidth: 2.5,
+            pointRadius: 0,
+            pointHoverRadius: 5,
+            tension: 0.4,
+            fill: false,
+        };
+    }
+
+    /**
+     * 重繪圖表
+     */
+    function redrawChart() {
+        if (!chart) return;
+        chart.data.datasets = curves.map(c => c.dataset);
+        chart.update();
+    }
+
+    // ==========================================================================
+    // 5. Results Table
+    // ==========================================================================
+    function updateResultsTable() {
+        const section = document.getElementById('results-section');
+        const thead = document.getElementById('result-thead');
+        const tbody = document.getElementById('result-tbody');
+
+        if (curves.length === 0) {
+            section.style.display = 'none';
+            return;
+        }
+
+        section.style.display = 'block';
+        const keyTemps = CONFIG.KEY_TEMPS;
+
+        // Header
+        let thHTML = '<tr><th>溫度 (°C)</th>';
+        curves.forEach(c => {
+            thHTML += `<th style="border-left:3px solid ${c.color}">${c.name}</th>`;
+        });
+        thHTML += '</tr>';
+        thead.innerHTML = thHTML;
+
+        // Body
+        let tbHTML = '';
+        keyTemps.forEach(temp => {
+            tbHTML += `<tr><td><strong>${temp}°C</strong></td>`;
+            curves.forEach(c => {
+                const vis = calcViscosity(temp, c.A, c.B);
+                tbHTML += vis !== null
+                    ? `<td>${vis.toFixed(2)} cSt</td>`
+                    : `<td style="color:#bbb">—</td>`;
+            });
+            tbHTML += '</tr>';
+        });
+        tbody.innerHTML = tbHTML;
+    }
+
+    // ==========================================================================
+    // 6. VI Panel
+    // ==========================================================================
+    function updateVIPanel() {
+        const section = document.getElementById('vi-section');
+        const content = document.getElementById('vi-content');
+
+        if (curves.length === 0) {
+            section.style.display = 'none';
+            return;
+        }
+
+        section.style.display = 'block';
+        let html = '<div style="display:flex;flex-wrap:wrap;gap:0.8rem;">';
+        curves.forEach(c => {
+            const viClass = c.vi >= 120 ? 'vi-excellent'
+                : c.vi >= 95  ? 'vi-good'
+                : c.vi >= 60  ? 'vi-fair'
+                : 'vi-poor';
+            const viLabel = c.vi >= 120 ? '優異'
+                : c.vi >= 95  ? '良好'
+                : c.vi >= 60  ? '普通'
+                : '待改善';
+            const viText = c.vi !== null ? c.vi : 'N/A';
+            html += `
+                <div style="background:rgba(255,255,255,0.8);border:1.5px solid ${c.color}33;border-left:4px solid ${c.color};border-radius:10px;padding:0.8rem 1rem;min-width:200px;flex:1;">
+                    <div style="font-size:0.85rem;color:#555;margin-bottom:0.3rem;">${c.name}</div>
+                    <div style="font-size:1.5rem;font-weight:700;color:#005f73;">${viText} <span style="font-size:0.9rem;font-weight:400;">VI</span></div>
+                    ${c.vi !== null ? `<span class="vi-badge ${viClass}">${viLabel}</span>` : ''}
+                    <div style="font-size:0.78rem;color:#777;margin-top:0.4rem;">
+                        KV₄₀ = ${c.v40} cSt | KV₁₀₀ = ${c.v100} cSt
+                    </div>
+                </div>
+            `;
+        });
+        html += '</div>';
+        content.innerHTML = html;
+    }
+
+    // ==========================================================================
+    // 7. Curve List UI
+    // ==========================================================================
+    function updateCurveList() {
+        const list = document.getElementById('curve-list');
+        if (curves.length === 0) {
+            list.innerHTML = `
+                <div class="empty-state" style="padding:1.5rem;">
+                    <div class="icon">📈</div>
+                    <p>尚未新增任何曲線</p>
+                </div>`;
+            return;
+        }
+        list.innerHTML = curves.map((c, idx) => `
+            <div class="curve-item">
+                <div class="curve-color-dot" style="background:${c.color};"></div>
+                <div class="curve-item-name">${c.name}</div>
+                ${c.vi !== null ? `<span class="curve-item-vi">VI ${c.vi}</span>` : ''}
+                <button class="btn btn-danger btn-sm" onclick="removeCurve(${idx})" style="padding:2px 8px;">✕</button>
+            </div>
+        `).join('');
+    }
+
+    // ==========================================================================
+    // 8. Add / Remove Curve
+    // ==========================================================================
+
+    /**
+     * 新增一條曲線到圖表
+     */
+    function addCurve(name, v40, v100, color, tMin, tMax) {
+        const constants = calcWaltherConstants(v40, v100);
+        if (!constants) {
+            alert('❌ 無法計算 Walther 常數，請檢查黏度值是否合理。');
+            return false;
+        }
+
+        const vi = calcVI(v40, v100);
+        const dataset = generateCurveData(v40, v100, tMin, tMax, color, name);
+        if (!dataset || dataset.data.length < 2) {
+            alert('❌ 黏度資料不足，無法繪製曲線。請確認溫度範圍。');
+            return false;
+        }
+
+        curves.push({
+            name, v40, v100, color, vi,
+            A: constants.A,
+            B: constants.B,
+            dataset,
+        });
+        return true;
+    }
+
+    /**
+     * 移除曲線
+     */
+    function removeCurve(idx) {
+        curves.splice(idx, 1);
+        refresh();
+    }
+
+    /**
+     * 全部重新整理
+     */
+    function refresh() {
+        redrawChart();
+        updateCurveList();
+        updateResultsTable();
+        updateVIPanel();
+    }
+
+    // ==========================================================================
+    // 9. UI Event Handlers
+    // ==========================================================================
+    document.getElementById('add-curve-btn').addEventListener('click', () => {
+        const name  = document.getElementById('oil-name').value.trim() || `油品 ${curves.length + 1}`;
+        const v40   = parseFloat(document.getElementById('vis40').value);
+        const v100  = parseFloat(document.getElementById('vis100').value);
+        const tMin  = parseFloat(document.getElementById('temp-min').value);
+        const tMax  = parseFloat(document.getElementById('temp-max').value);
+        const color = document.getElementById('curve-color').value;
+
+        if (isNaN(v40) || isNaN(v100) || v40 <= 0 || v100 <= 0) {
+            alert('⚠️ 請輸入有效的黏度值（必須大於 0）');
+            return;
+        }
+        if (v40 <= v100) {
+            alert('⚠️ 40°C 黏度應大於 100°C 黏度，請重新確認數值。');
+            return;
+        }
+        if (tMin >= tMax) {
+            alert('⚠️ 起始溫度須小於終止溫度。');
+            return;
+        }
+
+        const ok = addCurve(name, v40, v100, color, tMin, tMax);
+        if (ok) {
+            refresh();
+            // Cycle color for next input
+            colorIdx = (colorIdx + 1) % CHART_COLORS_CYCLE.length;
+            document.getElementById('curve-color').value = CHART_COLORS_CYCLE[colorIdx];
+            document.getElementById('oil-name').value = '';
+            document.getElementById('vis40').value = '';
+            document.getElementById('vis100').value = '';
+        }
+    });
+
+    document.getElementById('clear-all-btn').addEventListener('click', () => {
+        if (curves.length === 0) return;
+        if (confirm('確定要清除所有曲線？')) {
+            curves.length = 0;
+            refresh();
+        }
+    });
+
+    // ==========================================================================
+    // 10. Preset Buttons
+    // ==========================================================================
+    function buildPresetButtons() {
+        const container = document.getElementById('preset-btns');
+        PRESET_OILS.forEach(oil => {
+            const btn = document.createElement('button');
+            btn.className = 'preset-btn';
+            btn.textContent = oil.name;
+            btn.title = `KV₄₀=${oil.v40} | KV₁₀₀=${oil.v100}`;
+            btn.addEventListener('click', () => {
+                const tMin = parseFloat(document.getElementById('temp-min').value) || -20;
+                const tMax = parseFloat(document.getElementById('temp-max').value) || 150;
+                // Avoid duplicate
+                if (curves.find(c => c.name === oil.name)) {
+                    alert(`「${oil.name}」已在圖表中。`);
+                    return;
+                }
+                const ok = addCurve(oil.name, oil.v40, oil.v100, oil.color, tMin, tMax);
+                if (ok) refresh();
+            });
+            container.appendChild(btn);
+        });
+    }
+
+    // ==========================================================================
+    // 11. Init
+    // ==========================================================================
+    initChart();
+    buildPresetButtons();
+
+    // Load a default curve on startup for demo
+    addCurve('SAE 40 系統油（預設）', 135, 14.0, '#005f73', -20, 150);
+    refresh();
+
+    </script>
+
+</body>
+</html>

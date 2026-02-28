@@ -310,6 +310,33 @@ html {
   border-left-color: var(--sun-warm);
 }
 
+/* Equipment Category Cards */
+.card.equipment {
+  border-left-color: var(--ocean-deep);
+}
+
+.card.equipment:hover {
+  border-left-color: var(--ocean-mid);
+}
+
+/* Tools Category Cards */
+.card.tools {
+  border-left-color: var(--eco-mid);
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.card.tools:hover {
+  border-left-color: var(--eco-dark);
+}
+
+.card.tools h3 {
+  color: var(--eco-dark);
+}
+
+.card.tools:hover h3 {
+  color: var(--eco-mid);
+}
+
 /* External Link Cards */
 .card.external::after {
   content: '↗';
