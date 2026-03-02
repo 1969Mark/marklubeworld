@@ -27,6 +27,7 @@
 
     <link rel="stylesheet" href="styles/web.css">
     <link rel="stylesheet" href="styles/chatbot.css">
+    <link rel="stylesheet" href="styles/quiz.css">
 </head>
 
 <body>
@@ -59,12 +60,12 @@
         <h2>探索潤滑與海洋的奧秘</h2>
         <p>專業．環保．永續</p>
         <!-- Search Bar -->
-        <div class="search-container" style="margin: 1.5rem 0;">
-            <input type="text" id="search-input" placeholder="🔍 搜尋議題或影片...（例：甲醇、LNG、BN、汽缸油）"
-                style="width: 100%; max-width: 500px; padding: 12px 20px; font-size: 1rem; border: none; border-radius: 25px; background: rgba(255,255,255,0.95); box-shadow: 0 4px 15px rgba(0,0,0,0.2); outline: none;">
+        <div class="search-container">
+            <label for="search-input" class="sr-only">搜尋議題或影片</label>
+            <input type="text" id="search-input" class="search-input"
+                placeholder="🔍 搜尋議題或影片...（例：甲醇、LNG、BN、汽缸油）">
         </div>
-        <div id="search-results-count"
-            style="color: rgba(255,255,255,0.9); font-size: 0.9rem; margin-bottom: 0.5rem; display: none;"></div>
+        <div id="search-results-count" class="search-results-count"></div>
         <a href="#topics" class="cta-button">探索議題</a>
     </div>
 
@@ -284,7 +285,7 @@
                 <!-- Video 1 -->
                 <div class="video-card"
                     style="background: rgba(255,255,255,0.8); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-                    <video controls style="width: 100%; display: block;" poster="">
+                    <video controls preload="metadata" style="width: 100%; display: block;">
                         <source src="video/甲醇船用引擎：驅動航運業的未來燃料？.mp4" type="video/mp4">
                         您的瀏覽器不支援影片播放。
                     </video>
@@ -297,7 +298,7 @@
                 <!-- Video 2 -->
                 <div class="video-card"
                     style="background: rgba(255,255,255,0.8); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-                    <video controls style="width: 100%; display: block;" poster="">
+                    <video controls preload="metadata" style="width: 100%; display: block;">
                         <source src="video/綠色航運的引擎危機.mp4" type="video/mp4">
                         您的瀏覽器不支援影片播放。
                     </video>
@@ -406,52 +407,59 @@
         // Search Functionality
         const searchInput = document.getElementById('search-input');
         const searchResultsCount = document.getElementById('search-results-count');
-        const topicCards = document.querySelectorAll('.topic-grid .card');
+        const topicCards = document.querySelectorAll('.topic-grid .card:not(.tools)');
+        const toolCards = document.querySelectorAll('.topic-grid .card.tools');
         const videoCards = document.querySelectorAll('.video-card');
+
+        function matchesQuery(card, titleSelector, query) {
+            const title = card.querySelector(titleSelector)?.textContent.toLowerCase() || '';
+            const desc = card.querySelector('p')?.textContent.toLowerCase() || '';
+            return query === '' || title.includes(query) || desc.includes(query);
+        }
 
         searchInput.addEventListener('input', function () {
             const query = this.value.toLowerCase().trim();
-            let visibleTopics = 0;
-            let visibleVideos = 0;
+            let visibleTopics = 0, visibleTools = 0, visibleVideos = 0;
 
             // Filter topic cards
             topicCards.forEach(card => {
-                const title = card.querySelector('h3')?.textContent.toLowerCase() || '';
-                const desc = card.querySelector('p')?.textContent.toLowerCase() || '';
-                const matches = query === '' || title.includes(query) || desc.includes(query);
+                const show = matchesQuery(card, 'h3', query);
+                card.style.display = show ? '' : 'none';
+                if (show) visibleTopics++;
+            });
 
-                if (matches) {
-                    card.style.display = '';
-                    card.style.opacity = '1';
-                    card.style.transform = 'scale(1)';
-                    visibleTopics++;
-                } else {
-                    card.style.display = 'none';
-                    card.style.opacity = '0';
-                    card.style.transform = 'scale(0.95)';
-                }
+            // Filter tool cards
+            toolCards.forEach(card => {
+                const show = matchesQuery(card, 'h3', query);
+                card.style.display = show ? '' : 'none';
+                if (show) visibleTools++;
             });
 
             // Filter video cards
             videoCards.forEach(card => {
-                const title = card.querySelector('h4')?.textContent.toLowerCase() || '';
-                const desc = card.querySelector('p')?.textContent.toLowerCase() || '';
-                const matches = query === '' || title.includes(query) || desc.includes(query);
-
-                if (matches) {
-                    card.style.display = '';
-                    card.style.opacity = '1';
-                    visibleVideos++;
-                } else {
-                    card.style.display = 'none';
-                    card.style.opacity = '0';
-                }
+                const show = matchesQuery(card, 'h4', query);
+                card.style.display = show ? '' : 'none';
+                if (show) visibleVideos++;
             });
 
-            // Show results count
+            // Hide section headings when all cards in their grid are hidden
+            document.querySelectorAll('.topic-grid').forEach(grid => {
+                const heading = grid.previousElementSibling;
+                if (!heading) return;
+                const hasVisible = [...grid.querySelectorAll('.card')].some(c => c.style.display !== 'none');
+                heading.style.display = (query === '' || hasVisible) ? '' : 'none';
+            });
+
+            // Update results count
             if (query !== '') {
                 searchResultsCount.style.display = 'block';
-                searchResultsCount.textContent = `找到 ${visibleTopics} 個議題、${visibleVideos} 個影片`;
+                const parts = [];
+                if (visibleTopics) parts.push(`${visibleTopics} 個議題`);
+                if (visibleTools) parts.push(`${visibleTools} 個工具`);
+                if (visibleVideos) parts.push(`${visibleVideos} 個影片`);
+                searchResultsCount.textContent = parts.length
+                    ? `找到 ${parts.join('、')}`
+                    : '找不到相關內容';
             } else {
                 searchResultsCount.style.display = 'none';
             }
@@ -467,7 +475,6 @@
         });
     </script>
     <!-- Quiz Feature -->
-    <link rel="stylesheet" href="styles/quiz.css">
     <script src="scripts/quiz.js"></script>
     <!-- AI Chatbot -->
     <script src="scripts/chatbot.js"></script>

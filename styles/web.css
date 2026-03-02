@@ -779,3 +779,41 @@ tr:last-child td {
 tr:hover {
   background-color: rgba(255, 255, 255, 0.3);
 }
+
+/* ── Search Bar ── */
+.search-container {
+  margin: 1.5rem 0;
+}
+
+.search-input {
+  width: 100%;
+  max-width: 500px;
+  padding: 12px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 25px;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  outline: none;
+  font-family: var(--font-main);
+}
+
+.search-results-count {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  display: none;
+}
+
+/* Visually hidden label for accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
