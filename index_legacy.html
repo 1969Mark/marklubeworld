@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="這是有關潤滑油的網站，特別是船用潤滑油。">
+    <meta name="author" content="Mark CHUANG">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords"
+        content="馬克的潤滑油世界, 潤滑油, 船舶潤滑油, lubricant, lubrication, marine lubricant, marine lubrication, cylinder oil, two stroke engine cylinder oil">
+    <link rel="icon" type="image/png" href="images/mark_small.png">
+    <title>馬克的潤滑油世界</title>
+
+    <!-- Open Graph / Social Sharing -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="馬克的潤滑油世界">
+    <meta property="og:description" content="專業船舶潤滑油技術資源平台，涵蓋二衝程主機汽缸油、系統油分析、掃氣孔檢查等專業議題。">
+    <meta property="og:image" content="images/hero_port_background.png">
+    <meta property="og:url" content="https://marklubeworld.vercel.app">
+    <meta property="og:locale" content="zh_TW">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="馬克的潤滑油世界">
+    <meta name="twitter:description" content="專業船舶潤滑油技術資源平台，涵蓋二衝程主機汽缸油、系統油分析等專業議題。">
+    <meta name="twitter:image" content="images/hero_port_background.png">
+
+    <link rel="stylesheet" href="styles/web.css">
+    <link rel="stylesheet" href="styles/chatbot.css">
+    <link rel="stylesheet" href="styles/quiz.css">
+</head>
+
+<body>
+
+    <header id="main-header">
+        <div class="logo-container">
+            <a href="index.html">
+                <img src="images/mark_small.png" alt="Logo">
+                <h1>馬克的潤滑油世界</h1>
+            </a>
+        </div>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <nav id="main-nav">
+            <ul>
+                <li><a href="#about">關於本站</a></li>
+                <li><a href="#topics">議題分享</a></li>
+                <li><a href="#tools">應用工具</a></li>
+                <li><a href="#videos">影音專區</a></li>
+                <li><a href="#contact">聯絡我</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="nav-overlay" id="nav-overlay"></div>
+
+    <div class="hero">
+        <h2>探索潤滑與海洋的奧秘</h2>
+        <p>專業．環保．永續</p>
+        <!-- Search Bar -->
+        <div class="search-container">
+            <label for="search-input" class="sr-only">搜尋議題或影片</label>
+            <input type="text" id="search-input" class="search-input"
+                placeholder="🔍 搜尋議題或影片...（例：甲醇、LNG、BN、汽缸油）">
+        </div>
+        <div id="search-results-count" class="search-results-count"></div>
+        <a href="#topics" class="cta-button">探索議題</a>
+    </div>
+
+    <main class="container">
+
+        <!-- About / Intro Section -->
+        <section id="about">
+            <div class="card">
+                <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: center;">
+                    <div style="flex: 2; min-width: 300px;">
+                        <p style="margin-bottom: 1rem;">
+                            潤滑學 (Tribology)
+                            是一門綜合性學科，涵蓋了多個領域，包括工程靜力學、動力學、流體力學、熱力學、材料學、燃燒學和應用化學等。儘管大多數學校並未開設專門的潤滑學課程，但實際應用中的經驗對於學習這門學科至關重要。特別是在一些國際知名的潤滑油公司，這些公司不僅擁有研發部門，還有在銷售和服務一線工作的工程師，並與設備製造商長期合作，從而在理論基礎和實踐經驗方面相互印證和傳承。全球性的石油公司，例如
+                            ExxonMobil、Shell、TotalEnergies、BP-Castrol 等，銷售的潤滑油（包括潤滑油脂）涵蓋了工業、海運和航空等多個領域。
+                        </p>
+                        <p>
+                            由於日益嚴重的溫室效應以及日趨嚴苛的碳排放要求，幾乎所有國際石油公司都開始企業轉型，以永續能源為發展方向，如太陽能、風能、氫能、再生能等。石化產業與產品將不再是國際石油公司的主力業務。船舶產業也因國際排放法規要求改用低硫燃油或更乾淨的
+                            LNG 燃料。未來燃料的選項會往乙醇、氨氣或氫氣發展，以2050年實現淨零碳排放為最終目標。設立此網站的目的是希望與同業進行技術交流，並無營利目的。
+                        </p>
+                    </div>
+                    <div style="flex: 1; min-width: 250px; text-align: center;">
+                        <figure style="border: none;">
+                            <img src="images/fig_main_oil_companies.jpg" alt="主要潤滑油品牌"
+                                style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                            <figcaption style="background: transparent; color: var(--text-secondary); margin-top: 5px;">
+                                fig_國際主要潤滑油品牌</figcaption>
+                        </figure>
+                        <img src="images/mark_small.png" alt="Mark Logo" style="height: 100px; margin-top: 20px;">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Topics Section -->
+        <section id="topics">
+            <h2
+                style="margin: 3rem 0 1.5rem 0; color: var(--ocean-deep); border-left: 5px solid var(--sun-gold); padding-left: 15px;">
+                議題分享</h2>
+
+            <h3 style="margin-top: 2rem; color: var(--ocean-mid);">一般潤滑油</h3>
+            <div class="topic-grid">
+                <!-- General Lubes Cards - 2026 -->
+                <a href="links/lube_base_oil_naming.html" class="card">
+                    <h3>2026_潤滑成品油與基礎油命名</h3>
+                    <p>深度解析 SN/BS 賽氏黏度命名體系、API Group I-V 化學分類、SAE J300/J306 黏度標準與 ISO VG 工業等級系統，並透過國際配方案例實證流變學應用。</p>
+                </a>
+                <a href="links/lube_organic_chemistry.html" class="card">
+                    <h3>2026_潤滑油有機化學</h3>
+                    <p>深入探討潤滑油的分子架構、基礎油分類、合成潤滑油工程及添加劑化學原理。</p>
+                </a>
+                <!-- General Lubes Cards - 2025 -->
+                <a href="links/compressor_maintenance.html" class="card">
+                    <h3>2025_船用往復式壓縮機故障、維護與潤滑策略</h3>
+                    <p>多段壓縮機運作原理、閥門失效模式、預防性維護及合成油選用策略。</p>
+                </a>
+                <a href="links/hydraulic_system.html" class="card">
+                    <h3>2025_船舶液壓系統原理、故障與維護研究</h3>
+                    <p>液壓油黏度選用、泵浦類型、舵機追隨機構、氣穴與空氣混入辨別。</p>
+                </a>
+                <a href="links/gearbox_lubrication.html" class="card">
+                    <h3>2025_齒輪箱潤滑與維護關鍵洞察簡報</h3>
+                    <p>基礎油選用、Lambda比與油膜厚度、失效模式診斷及狀態基礎維護策略。</p>
+                </a>
+                <a href="links/refrigerant_lubricant.html" class="card">
+                    <h3>2025_冷媒與潤滑油匹配指南</h3>
+                    <p>HFC/HFO冷媒與POE油匹配科學、油滯留與鍍銅故障機制、船舶應用方案。</p>
+                </a>
+                <!-- General Lubes Cards - 2024 -->
+                <a href="links/organic.html" class="card">
+                    <h3>2024_淺談有機化學</h3>
+                    <p>介紹原油的主要組成與基本的有機化學概念。</p>
+                </a>
+                <a href="links/basic_viscosity.html" class="card">
+                    <h3>2024_基礎潤滑的Stribeck曲線與黏度</h3>
+                    <p>磨潤學中Stribeck曲線介紹，同時也說明黏度的重要性與其分類。</p>
+                </a>
+                <a href="links/baseoil_additives.html" class="card">
+                    <h3>2024_基礎油與添加劑</h3>
+                    <p>基礎油API的定義與添加劑類別和應用。</p>
+                </a>
+                <a href="links/testkit_xray.html" class="card">
+                    <h3>2024_可攜式X-Ray化驗設備</h3>
+                    <p>精準先進的可攜帶式X-Ray化驗設備(針對Residual BN and Iron)。</p>
+                </a>
+                <a href="links/cimac_usedoilanalysis.html" class="card">
+                    <h3>2024_CIMAC 引擎油化驗指南</h3>
+                    <p>CIMAC 引擎油化驗指南 (2023年版)。</p>
+                </a>
+                <a href="links/qands.html" class="card">
+                    <h3>2024_Q &amp; S, 疑問與建議</h3>
+                    <p>有關船上遇到缺油或混油等疑問，提出建議供參考。</p>
+                </a>
+                <a href="links/usedoil_pbi.html" class="card">
+                    <h3>2024_使用Power BI做油樣化驗管理</h3>
+                    <p>使用免費的Power BI做油樣化驗的管理，輕鬆簡單又可做視覺化分析。</p>
+                </a>
+            </div>
+
+            <h3 style="margin-top: 3rem; color: var(--ocean-mid);">船舶潤滑油</h3>
+            <div class="topic-grid">
+                <!-- Marine Lubes Cards - 2026 -->
+                <a href="links/cimac_2017_marine_lube.html" class="card marine">
+                    <h3>2026_CIMAC 2017_二衝程低速引擎潤滑油</h3>
+                    <p>深度解析二衝程十字頭引擎的潤滑體系，對比氣缸油與系統油的運作模式、磨損機制與診斷維護黃金法則。</p>
+                </a>
+                <a href="links/sda_analysis.html" class="card marine">
+                    <h3>2026_主機汽缸殘油化驗解析</h3>
+                    <p>MAN ES 與 WinGD 汽缸殘油分析（SDA）完整技術指南：磨損參數診斷、採樣標準化、廠家判斷框架及掃描測試餵油率優化策略。</p>
+                </a>
+                <a href="links/biofuels.html" class="card marine">
+                    <h3>2026_脫碳轉型中的生質燃料應用</h3>
+                    <p>FAME與HVO生質燃料特性、FuelEU Maritime法規、主機廠家要求及潤滑挑戰分析。</p>
+                </a>
+                <a href="links/egrbp_deposit.html" class="card marine">
+                    <h3>2026_LNG雙燃料引擎EGRBP掃氣室沉積物之可能成因分析</h3>
+                    <p>MAN B&W EGRBP系統掃氣室沉積物SEM-EDX化驗分析、成因研究與維護策略。</p>
+                </a>
+                <!-- Marine Lubes Cards - 2025 -->
+                <a href="links/lng_ash_control.html" class="card marine">
+                    <h3>2025_LNG船對潤滑油ash的管控</h3>
+                    <p>四衝程雙燃料發電機燃燒LNG工況下，潤滑油硫酸鹽灰分的化學機制與管制策略。</p>
+                </a>
+                <a href="links/methanol_ethanol.html" class="card marine">
+                    <h3>2025_甲醇與乙醇船舶燃料分析</h3>
+                    <p>甲醇與乙醇作為二衝程低速引擎燃料的技術、供應、營運與市場全面對比分析。</p>
+                </a>
+                <a href="links/microbial_degradation.html" class="card marine">
+                    <h3>2025_船舶主機油微生物劣化與防治策略</h3>
+                    <p>探討系統油微生物污染機制、ASTM檢測標準及高溫巴氏殺菌防治策略。</p>
+                </a>
+                <a href="links/methanol_vs_lng.html" class="card marine">
+                    <h3>2025_航運減碳：甲醇與LNG雙燃料策略對比</h3>
+                    <p>海運脫碳路徑評估，聚焦於甲醇與LNG兩種雙燃料選項的技術與經濟比較。</p>
+                </a>
+                <a href="links/wingd_methanol.html" class="card marine">
+                    <h3>2025_WinGD 甲醇雙燃料發動機</h3>
+                    <p>WinGD X-DF-M 甲醇雙燃料引擎技術，包含噴射系統、安全概念與性能表現。</p>
+                </a>
+                <a href="links/lng_methanol_lubrication.html" class="card marine">
+                    <h3>2025_LNG與甲醇燃料對主機潤滑的挑戰</h3>
+                    <p>清潔度悖論、缸套拋光、洗去效應，以及 Category II BN 40 汽缸油解決方案。</p>
+                </a>
+                <a href="links/lng_engine_wear.html" class="card marine">
+                    <h3>2025_船舶LNG雙燃料引擎磨損與潤滑策略</h3>
+                    <p>二衝程與四衝程LNG引擎的摩擦學挑戰、磨損機制與綜合緩解策略彙整。</p>
+                </a>
+                <a href="https://engine-port-inspection.vercel.app" class="card marine external" target="_blank">
+                    <h3>2025_二衝程低速機掃氣孔檢查 (Port Inspection)</h3>
+                    <p>外部連結：Two Stroke Slow Speed Engine Port Inspection 完整指南。</p>
+                </a>
+                <a href="links/sl2025_776.html" class="card marine">
+                    <h3>2025_SL2025-776 掃氣箱洩油取樣</h3>
+                    <p>Everllence針對二衝程主機發布的最新掃氣箱洩油取樣與分析指導方針。</p>
+                </a>
+                <a href="links/sl.html" class="card marine">
+                    <h3>2025_二衝程主機廠家最新的Service Letter</h3>
+                    <p>MAN B&W和WinGD對主機汽缸油的最新規範與定義。</p>
+                </a>
+                <!-- Marine Lubes Cards - 2024 -->
+                <a href="links/bn.html" class="card marine">
+                    <h3>2024_鹼質(BN)的概念與應用</h3>
+                    <p>介紹鹼值添加劑的組成與功能，有助於了解酸鹼中和的過程。</p>
+                </a>
+                <a href="links/sl2023_738.html" class="card marine">
+                    <h3>2024_MAN B&W的SL2023-738</h3>
+                    <p>對汽缸殘油的化驗控制值新定義及油樣準備程序。</p>
+                </a>
+                <a href="links/port_inspection.html" class="card marine">
+                    <h3>2024_二衝程主機掃氣孔檢查</h3>
+                    <p>經由掃氣孔檢查來判斷主機缸套與活塞的狀況。</p>
+                </a>
+                <a href="links/dos.html" class="card marine">
+                    <h3>2024_二衝程主機汽缸殘油化驗解讀</h3>
+                    <p>汽缸殘油化驗報告參數含意、大數據資料分析與案例。</p>
+                </a>
+                <a href="links/egr.html" class="card marine">
+                    <h3>2024_EGR廢熱回收與主機汽缸油</h3>
+                    <p>EGR對降低NOx排放的影響及其帶來的負面效應案例分析。</p>
+                </a>
+                <a href="links/bnperformance.html" class="card marine">
+                    <h3>2024_不同鹼值汽缸油的表現</h3>
+                    <p>針對不同鹼值的汽缸油，就案例分析看看哪種表現比較好。</p>
+                </a>
+            </div>
+
+            <h3 style="margin-top: 3rem; color: var(--ocean-mid);">機械設備</h3>
+            <div class="topic-grid">
+                <a href="links/stern_tube.html" class="card equipment">
+                    <h3>2026_船舶艉軸stern tube</h3>
+                    <p>艉軸系統機械構造、潤滑力學原理、密封技術演進與海水汙染防治策略完整解析。</p>
+                </a>
+                <a href="links/everllence_engine.html" class="card equipment">
+                    <h3>2026_Everllence_二行程主機與四行程發電機</h3>
+                    <p>MAN B&amp;W 二行程推進發動機與四行程 GenSet 之型號命名、燃料變體技術與排放控制策略完整解析。</p>
+                </a>
+                <a href="links/wingd_wartsila_2026.html" class="card equipment">
+                    <h3>2026_WinGD二衝程主機與Wartsila四衝程發電機</h3>
+                    <p>WinGD 二衝程低速機與 Wärtsilä 四衝程中速機之型號命名、系列分佈、船型配置及脫碳技術趨勢深度解析。</p>
+                </a>
+            </div>
+
+            <!-- ===== 應用工具 Section ===== -->
+            <h3 id="tools" style="margin-top: 3rem; color: var(--eco-dark);">🛠️ 應用工具</h3>
+            <div class="topic-grid">
+                <a href="links/viscosity_temperature.html" class="card tools">
+                    <h3>🌡️ 潤滑油黏度-溫度計算工具</h3>
+                    <p>輸入 40°C 與 100°C 兩點黏度，依據 ASTM D341 Walther 方程式自動繪製黏度-溫度曲線、計算黏度指數 VI，支援多油品同時對比。</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- Video Section -->
+        <section id="videos">
+            <h2>影音專區</h2>
+            <div class="video-grid"
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
+                <!-- Video 1 -->
+                <div class="video-card"
+                    style="background: rgba(255,255,255,0.8); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                    <video controls preload="metadata" style="width: 100%; display: block;">
+                        <source src="video/甲醇船用引擎：驅動航運業的未來燃料？.mp4" type="video/mp4">
+                        您的瀏覽器不支援影片播放。
+                    </video>
+                    <div style="padding: 1rem;">
+                        <h4 style="margin: 0 0 0.5rem; color: var(--ocean-deep);">2025_甲醇船用引擎：驅動航運業的未來燃料？</h4>
+                        <p style="margin: 0; font-size: 0.9rem; color: var(--text-secondary);">探討 WinGD X-DF-M
+                            甲醇雙燃料引擎技術與航運脫碳趨勢。</p>
+                    </div>
+                </div>
+                <!-- Video 2 -->
+                <div class="video-card"
+                    style="background: rgba(255,255,255,0.8); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                    <video controls preload="metadata" style="width: 100%; display: block;">
+                        <source src="video/綠色航運的引擎危機.mp4" type="video/mp4">
+                        您的瀏覽器不支援影片播放。
+                    </video>
+                    <div style="padding: 1rem;">
+                        <h4 style="margin: 0 0 0.5rem; color: var(--ocean-deep);">2025_綠色航運的引擎危機</h4>
+                        <p style="margin: 0; font-size: 0.9rem; color: var(--text-secondary);">LNG與甲醇燃料對主機潤滑系統的挑戰與對策分析。
+                        </p>
+                    </div>
+                </div>
+                <!-- 更多影片將在此新增 -->
+            </div>
+        </section>
+
+        <!-- References -->
+        <section id="references" style="margin-top: 3rem;">
+            <div class="card" style="background: rgba(255,255,255,0.4);">
+                <h3>主要參考資料來源</h3>
+                <ul>
+                    <li>CIMAC (International Council on Combustion Engines)每年會議發表論文</li>
+                    <li>主機廠家(Everllence, WinGD, Yanmar, Daihatsu...)技術資料</li>
+                    <li>IMO法規資料</li>
+                    <li>"Lubrication Fundamentals", D.M. Pirro, A.A.Wessol</li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>聯絡資訊</h4>
+                <p>如果對文章內容有疑慮，歡迎來信討論指教</p>
+                <a href="mailto:mark.chuangjj@gmail.com">✉ mark.chuangjj@gmail.com</a>
+            </div>
+            <div class="footer-section">
+                <h4>快速連結</h4>
+                <a href="#about">關於本站</a>
+                <a href="#topics">議題分享</a>
+                <a href="#tools">應用工具</a>
+                <a href="#videos">影音專區</a>
+            </div>
+            <div class="footer-section">
+                <h4>關於作者</h4>
+                <p>Mark CHUANG</p>
+                <p>專業船舶潤滑油工程師</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 馬克的潤滑油世界 Marklubeworld. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">↑</button>
+
+    <script>
+        // Hamburger Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const nav = document.getElementById('main-nav');
+        const overlay = document.getElementById('nav-overlay');
+
+        function toggleMenu() {
+            hamburger.classList.toggle('active');
+            nav.classList.toggle('open');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = nav.classList.contains('open') ? 'hidden' : '';
+        }
+
+        hamburger.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', toggleMenu);
+
+        // Close menu when clicking nav links
+        nav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (nav.classList.contains('open')) {
+                    toggleMenu();
+                }
+            });
+        });
+
+        // Header Scroll Effect
+        const header = document.getElementById('main-header');
+        const backToTop = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', () => {
+            // Header compact on scroll
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+
+            // Back to top button visibility
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        // Back to top click handler
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Search Functionality
+        const searchInput = document.getElementById('search-input');
+        const searchResultsCount = document.getElementById('search-results-count');
+        const topicCards = document.querySelectorAll('.topic-grid .card:not(.tools)');
+        const toolCards = document.querySelectorAll('.topic-grid .card.tools');
+        const videoCards = document.querySelectorAll('.video-card');
+
+        function matchesQuery(card, titleSelector, query) {
+            const title = card.querySelector(titleSelector)?.textContent.toLowerCase() || '';
+            const desc = card.querySelector('p')?.textContent.toLowerCase() || '';
+            return query === '' || title.includes(query) || desc.includes(query);
+        }
+
+        searchInput.addEventListener('input', function () {
+            const query = this.value.toLowerCase().trim();
+            let visibleTopics = 0, visibleTools = 0, visibleVideos = 0;
+
+            // Filter topic cards
+            topicCards.forEach(card => {
+                const show = matchesQuery(card, 'h3', query);
+                card.style.display = show ? '' : 'none';
+                if (show) visibleTopics++;
+            });
+
+            // Filter tool cards
+            toolCards.forEach(card => {
+                const show = matchesQuery(card, 'h3', query);
+                card.style.display = show ? '' : 'none';
+                if (show) visibleTools++;
+            });
+
+            // Filter video cards
+            videoCards.forEach(card => {
+                const show = matchesQuery(card, 'h4', query);
+                card.style.display = show ? '' : 'none';
+                if (show) visibleVideos++;
+            });
+
+            // Hide section headings when all cards in their grid are hidden
+            document.querySelectorAll('.topic-grid').forEach(grid => {
+                const heading = grid.previousElementSibling;
+                if (!heading) return;
+                const hasVisible = [...grid.querySelectorAll('.card')].some(c => c.style.display !== 'none');
+                heading.style.display = (query === '' || hasVisible) ? '' : 'none';
+            });
+
+            // Update results count
+            if (query !== '') {
+                searchResultsCount.style.display = 'block';
+                const parts = [];
+                if (visibleTopics) parts.push(`${visibleTopics} 個議題`);
+                if (visibleTools) parts.push(`${visibleTools} 個工具`);
+                if (visibleVideos) parts.push(`${visibleVideos} 個影片`);
+                searchResultsCount.textContent = parts.length
+                    ? `找到 ${parts.join('、')}`
+                    : '找不到相關內容';
+            } else {
+                searchResultsCount.style.display = 'none';
+            }
+        });
+
+        // Clear search on Escape key
+        searchInput.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                this.value = '';
+                this.dispatchEvent(new Event('input'));
+                this.blur();
+            }
+        });
+    </script>
+    <!-- Quiz Feature -->
+    <script src="scripts/quiz.js"></script>
+    <!-- AI Chatbot -->
+    <script src="scripts/chatbot.js"></script>
+</body>
+
+</html>
