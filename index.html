@@ -378,7 +378,22 @@
                 inset 0 -1px 0 rgba(255, 255, 255, 0.55),
                 0 0 0 2px rgba(44, 74, 58, 0.25);
         }
-        .instrument .search-row svg { color: var(--moss-deep); opacity: 0.7; }
+        .instrument .search-row svg { color: var(--moss-deep); opacity: 0.7; flex-shrink: 0; }
+        .instrument .result-badge {
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: 0.06em;
+            padding: 4px 10px;
+            background: var(--moss-deep);
+            color: var(--paper);
+            border-radius: 100px;
+            white-space: nowrap;
+            animation: badgePop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        @keyframes badgePop {
+            from { transform: scale(0.6); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
         .instrument input {
             flex: 1;
             background: transparent;
@@ -1020,7 +1035,8 @@
                             <circle cx="11" cy="11" r="7" />
                             <path d="m21 21-5-5" />
                         </svg>
-                        <input type="text" placeholder="搜尋議題、燃料或技術名詞⋯">
+                        <input type="text" placeholder="搜尋議題、燃料或技術名詞⋯（按 Enter 跳至結果）">
+                        <span class="result-badge" id="result-badge" hidden></span>
                     </div>
                     <div class="instrument-tags">
                         <span>甲醇雙燃料</span>
@@ -1314,6 +1330,8 @@
         const videoCards = document.querySelectorAll(".video-card");
         const emptyMsg = document.getElementById("topic-empty");
 
+        const resultBadge = document.getElementById("result-badge");
+
         function applyFilter() {
             const q = searchInput.value.trim().toLowerCase();
             let visibleTotal = 0;
@@ -1336,8 +1354,21 @@
             });
 
             emptyMsg.hidden = visibleTotal !== 0;
+
+            if (q) {
+                resultBadge.textContent = visibleTotal > 0 ? `${visibleTotal} 篇` : "查無結果";
+                resultBadge.hidden = false;
+            } else {
+                resultBadge.hidden = true;
+            }
         }
         searchInput.addEventListener("input", applyFilter);
+        searchInput.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                document.getElementById("topics").scrollIntoView({ behavior: "smooth" });
+            }
+        });
 
         // 漢堡選單
         const hamburger = document.getElementById("hamburger");
