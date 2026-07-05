@@ -949,6 +949,45 @@
 
 <body>
 
+    <!-- ============ 3D 貨櫃輪開場（關閉後才進入網站） ============ -->
+    <div id="ship-intro-overlay">
+        <iframe id="ship-intro-frame" src="ship-intro.html" title="MARINE LUBE 貨櫃輪 3D 展示"></iframe>
+        <button id="ship-intro-close" type="button">進入網站 Enter Site ✕</button>
+    </div>
+    <style>
+        #ship-intro-overlay {
+            position: fixed; inset: 0; z-index: 99999;
+            background: #0a1420;
+            transition: opacity .6s ease;
+        }
+        #ship-intro-overlay.closing { opacity: 0; pointer-events: none; }
+        #ship-intro-frame { width: 100%; height: 100%; border: 0; display: block; }
+        #ship-intro-close {
+            position: absolute; top: 20px; right: 24px;
+            font: 600 14px/1 "Geist", "Noto Sans TC", sans-serif;
+            letter-spacing: .08em; color: #dce6ef;
+            background: rgba(10, 20, 31, .6);
+            border: 1px solid rgba(220, 230, 239, .3);
+            border-radius: 999px; padding: 12px 22px;
+            cursor: pointer; backdrop-filter: blur(6px);
+        }
+        #ship-intro-close:hover { border-color: #4395d1; color: #fff; }
+        #ship-intro-close:focus-visible { outline: 2px solid #4395d1; outline-offset: 2px; }
+    </style>
+    <script>
+        (function () {
+            const overlay = document.getElementById('ship-intro-overlay');
+            document.documentElement.style.overflow = 'hidden';
+            function closeIntro() {
+                overlay.classList.add('closing');
+                document.documentElement.style.overflow = '';
+                setTimeout(() => overlay.remove(), 650);   // 淡出後移除，iframe 隨之停止渲染
+            }
+            document.getElementById('ship-intro-close').addEventListener('click', closeIntro);
+            window.addEventListener('keydown', e => { if (e.key === 'Escape' && overlay.isConnected) closeIntro(); });
+        })();
+    </script>
+
     <!-- ============ STATUS BAR ============ -->
     <div class="status-bar">
         <div><span class="pulse"></span>系統運行中 ｜ ONLINE</div>

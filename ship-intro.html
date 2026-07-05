@@ -1,0 +1,646 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>貨櫃輪 3D 展示 — MARINE LUBE</title>
+<style>
+  :root{
+    --ink:#dce6ef;
+    --ink-dim:#93a5b6;
+    --accent:#4395d1;   /* TotalEnergies 淺藍 */
+    --panel:rgba(10,20,31,.55);
+    --hairline:rgba(220,230,239,.18);
+  }
+  html,body{height:100%;margin:0;overflow:hidden}
+  body{
+    font-family:"PingFang TC","Microsoft JhengHei UI","Microsoft JhengHei",system-ui,sans-serif;
+    color:var(--ink);
+    /* 破曉海面：深夜藍 → 晨光暖帶 → 沉入海色 */
+    background:linear-gradient(180deg,
+      #0a1420 0%, #1c3550 26%, #4c6a85 36%,
+      #c69a6b 43%, #6d8194 49%,
+      #14293a 62%, #081521 100%);
+  }
+  #sea{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none;cursor:grab}
+  #sea.dragging{cursor:grabbing}
+
+  #spin{
+    position:fixed;right:20px;bottom:16px;
+    font:inherit;font-size:13px;color:var(--ink);
+    background:var(--panel);border:1px solid var(--hairline);border-radius:999px;
+    padding:8px 16px;cursor:pointer;backdrop-filter:blur(6px);
+  }
+  #spin[aria-pressed="false"]{color:var(--ink-dim)}
+  #spin:hover{border-color:var(--accent)}
+  #spin:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+  .hint{
+    position:fixed;left:50%;bottom:18px;transform:translateX(-50%);
+    font-size:12px;letter-spacing:.08em;color:var(--ink-dim);
+    background:var(--panel);border:1px solid var(--hairline);border-radius:999px;
+    padding:7px 18px;backdrop-filter:blur(6px);white-space:nowrap;pointer-events:none;
+  }
+  @media (max-width:640px){
+    .hint{font-size:11px;padding:6px 14px;white-space:normal;max-width:86vw;text-align:center;line-height:1.6}
+  }
+</style>
+</head>
+<body>
+<canvas id="sea"></canvas>
+<button id="spin" aria-pressed="true">⏸ 自動旋轉：開 Auto-Rotate: On</button>
+<div class="hint">拖曳旋轉 Drag to rotate · 滾輪／雙指縮放 Scroll / pinch to zoom</div>
+
+<script>
+'use strict';
+const canvas = document.getElementById('sea');
+const gl = canvas.getContext('webgl', { antialias:true, alpha:true, premultipliedAlpha:false });
+if (!gl) document.body.insertAdjacentHTML('beforeend','<p style="position:fixed;inset:40% 10%;text-align:center">此瀏覽器不支援 WebGL，無法顯示 3D 模型。<br>WebGL is not supported in this browser.</p>');
+
+/* ---------- 小型矩陣工具（column-major） ---------- */
+function mat4Identity(){ const m=new Float32Array(16); m[0]=m[5]=m[10]=m[15]=1; return m; }
+function mat4Mul(a,b){
+  const o=new Float32Array(16);
+  for(let c=0;c<4;c++)for(let r=0;r<4;r++){
+    o[c*4+r]=a[r]*b[c*4]+a[4+r]*b[c*4+1]+a[8+r]*b[c*4+2]+a[12+r]*b[c*4+3];
+  }
+  return o;
+}
+function mat4Perspective(fovY,aspect,near,far){
+  const f=1/Math.tan(fovY/2), m=new Float32Array(16);
+  m[0]=f/aspect; m[5]=f; m[10]=(far+near)/(near-far); m[11]=-1; m[14]=2*far*near/(near-far);
+  return m;
+}
+function mat4LookAt(eye,tgt,up){
+  const z=norm3(sub3(eye,tgt)), x=norm3(cross3(up,z)), y=cross3(z,x), m=new Float32Array(16);
+  m[0]=x[0];m[1]=y[0];m[2]=z[0];
+  m[4]=x[1];m[5]=y[1];m[6]=z[1];
+  m[8]=x[2];m[9]=y[2];m[10]=z[2];
+  m[12]=-dot3(x,eye); m[13]=-dot3(y,eye); m[14]=-dot3(z,eye); m[15]=1;
+  return m;
+}
+function mat4RotX(a){ const c=Math.cos(a),s=Math.sin(a),m=mat4Identity(); m[5]=c;m[6]=s;m[9]=-s;m[10]=c; return m; }
+function mat4RotZ(a){ const c=Math.cos(a),s=Math.sin(a),m=mat4Identity(); m[0]=c;m[1]=s;m[4]=-s;m[5]=c; return m; }
+function mat4Translate(x,y,z){ const m=mat4Identity(); m[12]=x;m[13]=y;m[14]=z; return m; }
+function sub3(a,b){ return [a[0]-b[0],a[1]-b[1],a[2]-b[2]]; }
+function cross3(a,b){ return [a[1]*b[2]-a[2]*b[1], a[2]*b[0]-a[0]*b[2], a[0]*b[1]-a[1]*b[0]]; }
+function dot3(a,b){ return a[0]*b[0]+a[1]*b[1]+a[2]*b[2]; }
+function norm3(v){ const l=Math.hypot(v[0],v[1],v[2])||1; return [v[0]/l,v[1]/l,v[2]/l]; }
+
+/* ---------- 著色器 ---------- */
+function makeProgram(vsSrc,fsSrc){
+  const compile=(type,src)=>{
+    const s=gl.createShader(type);
+    gl.shaderSource(s,src); gl.compileShader(s);
+    if(!gl.getShaderParameter(s,gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s));
+    return s;
+  };
+  const p=gl.createProgram();
+  gl.attachShader(p,compile(gl.VERTEX_SHADER,vsSrc));
+  gl.attachShader(p,compile(gl.FRAGMENT_SHADER,fsSrc));
+  gl.linkProgram(p);
+  if(!gl.getProgramParameter(p,gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(p));
+  return p;
+}
+
+const shipVS = `
+attribute vec3 aPos; attribute vec3 aNor; attribute vec3 aCol;
+uniform mat4 uP,uV,uM;
+varying vec3 vN; varying vec3 vC;
+void main(){
+  vec4 wp = uM * vec4(aPos,1.0);
+  vN = mat3(uM[0].xyz, uM[1].xyz, uM[2].xyz) * aNor;
+  vC = aCol;
+  gl_Position = uP * uV * wp;
+}`;
+const shipFS = `
+precision mediump float;
+varying vec3 vN; varying vec3 vC;
+uniform vec3 uLd;
+void main(){
+  vec3 n = normalize(vN);
+  float d = max(dot(n, normalize(uLd)), 0.0);
+  vec3 amb = vec3(0.30,0.35,0.44);          // 天光（偏冷）
+  vec3 sun = vec3(1.00,0.86,0.66) * 0.85;    // 晨光（偏暖）
+  gl_FragColor = vec4(vC * (amb + sun * d), 1.0);
+}`;
+
+const texVS = `
+attribute vec3 aPos; attribute vec2 aUV;
+uniform mat4 uP,uV,uM;
+varying vec2 vUV;
+void main(){ vUV = aUV; gl_Position = uP * uV * uM * vec4(aPos,1.0); }`;
+const texFS = `
+precision mediump float;
+varying vec2 vUV;
+uniform sampler2D uTex; uniform float uShade;
+void main(){
+  vec4 c = texture2D(uTex, vUV);
+  gl_FragColor = vec4(c.rgb * uShade, c.a);
+}`;
+
+const waterVS = `
+attribute vec2 aXZ;
+uniform mat4 uP,uV;
+uniform float uT;
+varying vec3 vN; varying vec3 vPos;
+void main(){
+  float x=aXZ.x, z=aXZ.y;
+  float h = 0.22*sin(x*0.14 + uT*0.9)
+          + 0.18*cos(z*0.11 - uT*0.7)
+          + 0.15*sin((x+z)*0.07 + uT*0.5);
+  float dhdx = 0.0308*cos(x*0.14 + uT*0.9) + 0.0105*cos((x+z)*0.07 + uT*0.5);
+  float dhdz = -0.0198*sin(z*0.11 - uT*0.7) + 0.0105*cos((x+z)*0.07 + uT*0.5);
+  vPos = vec3(x, -0.8 + h, z);
+  vN = normalize(vec3(-dhdx, 1.0, -dhdz));
+  gl_Position = uP * uV * vec4(vPos, 1.0);
+}`;
+const waterFS = `
+precision mediump float;
+varying vec3 vN; varying vec3 vPos;
+uniform vec3 uLd; uniform vec3 uEye;
+void main(){
+  vec3 n = normalize(vN);
+  vec3 ld = normalize(uLd);
+  float d = max(dot(n, ld), 0.0);
+  vec3 c = mix(vec3(0.045,0.115,0.175), vec3(0.13,0.30,0.40), d);
+  vec3 v = normalize(uEye - vPos);
+  float spec = pow(max(dot(reflect(-ld,n), v), 0.0), 70.0);
+  c += vec3(1.0,0.82,0.55) * spec * 0.55;
+  float dist = length(vPos.xz);
+  float a = 0.88 * (1.0 - smoothstep(140.0, 250.0, dist));
+  gl_FragColor = vec4(c, a);
+}`;
+
+const shipProg  = makeProgram(shipVS, shipFS);
+const texProg   = makeProgram(texVS, texFS);
+const waterProg = makeProgram(waterVS, waterFS);
+
+/* ---------- 幾何建構：頂點直推（不索引），每頂點 pos3+nor3+col3 ----------
+   實船依據：EVER ECHO — LOA 369 m、船寬 54 m、16,556 TEU、雙島式佈局。
+   模型比例：1 單位 ≈ 5.43 m（全長 68 單位、船寬 10 單位 ≈ 369:54）。   */
+const V = [];
+function hex(c){ return [parseInt(c.slice(1,3),16)/255, parseInt(c.slice(3,5),16)/255, parseInt(c.slice(5,7),16)/255]; }
+
+function pushQuadV(a,b,c,d,cols){   // 四角各自帶色（供船殼漸層用）
+  const n = cross3(sub3(b,a), sub3(c,a));
+  const l = Math.hypot(n[0],n[1],n[2]);
+  if (l < 1e-6) return;
+  n[0]/=l; n[1]/=l; n[2]/=l;
+  const vs=[a,b,c, a,c,d], cs=[cols[0],cols[1],cols[2], cols[0],cols[2],cols[3]];
+  for (let i=0;i<6;i++){
+    const p=vs[i], co=cs[i];
+    V.push(p[0],p[1],p[2], n[0],n[1],n[2], co[0],co[1],co[2]);
+  }
+}
+function pushQuad(a,b,c,d,col){ pushQuadV(a,b,c,d,[col,col,col,col]); }
+function addBox(cx,cy,cz, sx,sy,sz, col){
+  const w=sx/2,h=sy/2,d=sz/2;
+  const face=(c,u,v)=>{
+    pushQuad(
+      [c[0]-u[0]-v[0], c[1]-u[1]-v[1], c[2]-u[2]-v[2]],
+      [c[0]+u[0]-v[0], c[1]+u[1]-v[1], c[2]+u[2]-v[2]],
+      [c[0]+u[0]+v[0], c[1]+u[1]+v[1], c[2]+u[2]+v[2]],
+      [c[0]-u[0]+v[0], c[1]-u[1]+v[1], c[2]-u[2]+v[2]], col);
+  };
+  face([cx+w,cy,cz],[0,h,0],[0,0,d]);   // +x
+  face([cx-w,cy,cz],[0,0,d],[0,h,0]);   // -x
+  face([cx,cy+h,cz],[0,0,d],[w,0,0]);   // +y
+  face([cx,cy-h,cz],[w,0,0],[0,0,d]);   // -y
+  face([cx,cy,cz+d],[w,0,0],[0,h,0]);   // +z
+  face([cx,cy,cz-d],[0,h,0],[w,0,0]);   // -z
+}
+
+/* --- 色票（TotalEnergies 標誌色系） --- */
+const C = {
+  boot:  hex('#23303a'),  // 水線帶（深色）
+  anti:  hex('#8f3a2e'),  // 水線下防污紅
+  deck:  hex('#49525a'),  // 甲板／艙蓋
+  white: hex('#e7ebea'),  // 船艛
+  dark:  hex('#1a232e'),  // 窗帶／桅杆
+  lash:  hex('#3c454e'),  // 綁紮橋
+  boat:  hex('#cc5a28'),  // 救生艇
+};
+// TotalEnergies 標誌色（深藍/淺藍/橘/紅為品牌色票；綠/黃為標誌漸層近似值）
+const TE = ['#034ea2','#4395d1','#6fae3d','#f2c12e','#f8981d','#ed1a3a'].map(hex);
+// 乾舷漸層：艉深藍 → 淺藍 → 綠 → 黃 → 橘 → 艏紅（仿標誌漸層）
+const HULL_STOPS = [[-32,TE[0]],[-16,TE[1]],[-3,TE[2]],[9,TE[3]],[21,TE[4]],[36,TE[5]]];
+function hullColorAt(x){
+  let i = 0;
+  while (i < HULL_STOPS.length-2 && HULL_STOPS[i+1][0] < x) i++;
+  const [x1,c1] = HULL_STOPS[i], [x2,c2] = HULL_STOPS[i+1];
+  const t = Math.max(0, Math.min(1, (x-x1)/(x2-x1)));
+  return [c1[0]+(c2[0]-c1[0])*t, c1[1]+(c2[1]-c1[1])*t, c1[2]+(c2[2]-c1[2])*t];
+}
+// 甲板貨櫃：品牌色系混搭，摻入少量中性灰
+const BOX_COLORS = ['#ed1a3a','#f8981d','#034ea2','#034ea2','#4395d1',
+                    '#6fae3d','#f2c12e','#8e939b'].map(hex);
+
+/* --- 船殼放樣：沿船長的剖面，甲板 y=2、水線 y=-0.8 --- */
+const DECK = 2, WL1 = -0.4, WL2 = -0.9;
+const sections = [
+  {x:-32.0, wTop:3.8, wBot:2.2, yBot:-1.2},   // 船艉（艉封板）
+  {x:-29.5, wTop:4.7, wBot:3.8, yBot:-2.6},
+  {x:-22.0, wTop:5.0, wBot:5.0, yBot:-3.0},   // 平行舯體（垂直舷側）
+  {x: 14.0, wTop:5.0, wBot:5.0, yBot:-3.0},
+  {x: 22.0, wTop:4.7, wBot:3.6, yBot:-3.0},
+  {x: 29.0, wTop:3.4, wBot:1.4, yBot:-2.6},
+  {x: 34.0, wTop:1.5, wBot:0.4, yBot:-1.6},
+  {x: 36.0, wTop:0.18,wBot:0.10,yBot:-0.5},   // 艏柱
+];
+function widthAtY(s, y){
+  const t = (y - s.yBot) / (DECK - s.yBot);
+  return s.wBot + (s.wTop - s.wBot) * Math.max(0, Math.min(1, t));
+}
+function sectionAt(x){   // 沿船長內插剖面
+  let i = 0;
+  while (i < sections.length-2 && sections[i+1].x < x) i++;
+  const s1=sections[i], s2=sections[i+1];
+  const t = Math.max(0, Math.min(1, (x-s1.x)/(s2.x-s1.x)));
+  return {
+    x,
+    wTop: s1.wTop+(s2.wTop-s1.wTop)*t,
+    wBot: s1.wBot+(s2.wBot-s1.wBot)*t,
+    yBot: s1.yBot+(s2.yBot-s1.yBot)*t,
+  };
+}
+function hullBand(s1, s2, yHi, yLo, col){       // 一段側板（左右對稱），上下緣各自夾制在船底之上
+  const colAt = (typeof col === 'function') ? col : (()=>col);   // 可傳入沿船長取色函式（漸層）
+  for (const side of [1,-1]){
+    const y1t=Math.max(yHi, s1.yBot), y2t=Math.max(yHi, s2.yBot);
+    const y1b=Math.max(yLo, s1.yBot), y2b=Math.max(yLo, s2.yBot);
+    const p = (x,y,w)=>[x, y, side*w];
+    const a=p(s1.x, y1b, widthAtY(s1,y1b)), b=p(s2.x, y2b, widthAtY(s2,y2b));
+    const c=p(s2.x, y2t, widthAtY(s2,y2t)), d=p(s1.x, y1t, widthAtY(s1,y1t));
+    const c1=colAt(s1.x), c2=colAt(s2.x);
+    if (side>0) pushQuadV(a,b,c,d,[c1,c2,c2,c1]); else pushQuadV(b,a,d,c,[c2,c1,c1,c2]);
+  }
+}
+for (let i=0;i<sections.length-1;i++){
+  const s1=sections[i], s2=sections[i+1];
+  hullBand(s1,s2, DECK, WL1, hullColorAt);
+  hullBand(s1,s2, WL1,  WL2, C.boot);
+  hullBand(s1,s2, WL2,  -99, C.anti);
+  // 船底
+  pushQuad([s1.x,s1.yBot,-s1.wBot],[s2.x,s2.yBot,-s2.wBot],
+           [s2.x,s2.yBot, s2.wBot],[s1.x,s1.yBot, s1.wBot], C.anti);
+  // 主甲板
+  pushQuad([s1.x,DECK, s1.wTop],[s2.x,DECK, s2.wTop],
+           [s2.x,DECK,-s2.wTop],[s1.x,DECK,-s1.wTop], C.deck);
+}
+{ // 艉封板與艏柱端蓋
+  const s=sections[0];
+  pushQuad([s.x,s.yBot,-s.wBot],[s.x,s.yBot,s.wBot],[s.x,DECK,s.wTop],[s.x,DECK,-s.wTop], hullColorAt(s.x));
+  const e=sections[sections.length-1];
+  pushQuad([e.x,e.yBot,e.wBot],[e.x,e.yBot,-e.wBot],[e.x,DECK,-e.wTop],[e.x,DECK,e.wTop], hullColorAt(e.x));
+}
+addBox(36.6, -1.7, 0, 2.6, 1.2, 1.0, C.anti);   // 球狀艏（水線下）
+
+/* --- 艏樓甲板（各貨艙位的艙蓋改於 stack() 內隨船寬生成） --- */
+addBox( 32.6, 2.25, 0,  3.2, 0.5, 3.6, C.deck);
+
+/* --- 甲板貨櫃（40 呎櫃：模型長 2.25 寬 0.45 高 0.48） --- */
+let rng = 20260704;
+function rand(){ rng = (rng * 1664525 + 1013904223) >>> 0; return rng / 4294967296; }
+
+function rowsAt(x){   // 依當地甲板寬決定可放列數（實船最寬處約 21 列）
+  const usable = sectionAt(x).wTop - 0.4;
+  return Math.max(2, Math.min(21, Math.floor(usable*2/0.47)));
+}
+function stack(bayX, maxTier, minTier){
+  const rows = rowsAt(bayX);
+  addBox(bayX, 2.16, 0, 2.45, 0.28, rows*0.47+0.10, C.deck);   // 該貨艙位的艙蓋
+  for (let r=0; r<rows; r++){
+    const z = (r - (rows-1)/2) * 0.47;
+    let tiers = minTier + Math.floor(rand()*(maxTier-minTier+1));
+    for (let t=0; t<tiers; t++){
+      if (t === tiers-1 && rand() < 0.18) continue;   // 頂層偶有缺口
+      addBox(bayX, 2.3 + 0.24 + t*0.49, z, 2.25, 0.48, 0.45,
+             BOX_COLORS[Math.floor(rand()*BOX_COLORS.length)]);
+    }
+  }
+}
+// 前段 5 個貨艙位（駕駛台前，堆高遞減保視線）
+const fwdBays = [19.0, 21.5, 24.0, 26.5, 29.0];
+const fwdCaps = [ 5,    4,    4,    3,    2  ];
+fwdBays.forEach((x,i)=> stack(x, fwdCaps[i], Math.max(1,fwdCaps[i]-1)));
+// 舯段 11 個貨艙位（兩島之間，最高處）
+for (let x=12.25; x>=-12.85; x-=2.5) stack(x, 8, 6);
+// 艉段 4 個貨艙位
+for (const x of [-20.75,-23.25,-25.75,-28.25]) stack(x, 7, 5);
+
+// 綁紮橋（舯段與艉段每個貨艙位之間）
+for (let x=13.5; x>=-14.1; x-=2.5) addBox(x, 3.05, 0, 0.10, 1.5, 9.8, C.lash);
+for (const x of [-19.5,-22.0,-24.5,-27.0,-29.5]) addBox(x, 2.95, 0, 0.10, 1.3, 8.6, C.lash);
+
+/* --- 前島：駕駛台（雙島式，位於船長前 1/3 處） --- */
+addBox(15.7, 2.60, 0, 3.0, 1.2, 9.6, C.white);    // 基座
+addBox(15.7, 5.90, 0, 2.3, 5.4, 8.8, C.white);    // 塔身
+addBox(15.7, 9.00, 0, 2.7, 0.8, 10.6, C.white);   // 駕駛台（艛翼達全寬）
+addBox(17.11, 9.05, 0, 0.10, 0.40, 10.0, C.dark); // 駕駛台窗帶
+for (const y of [4.4,5.4,6.4,7.4]) addBox(16.87, y, 0, 0.08, 0.26, 8.0, C.dark);  // 各層窗帶
+addBox(15.7, 10.3, 0, 0.14, 1.8, 0.14, C.dark);   // 主桅
+addBox(15.7, 11.2, 0, 0.9, 0.10, 0.10, C.dark);   // 雷達橫桿
+addBox(14.3, 3.40,  4.5, 1.6, 0.6, 0.7, C.boat);  // 救生艇（右舷）
+addBox(14.3, 3.40, -4.5, 1.6, 0.6, 0.7, C.boat);  // 救生艇（左舷）
+
+/* --- 後島：機艙棚與煙囪 --- */
+addBox(-17.3, 3.60, 0, 2.4, 3.2, 7.0, C.white);   // 機艙棚
+addBox(-17.3, 7.00, 0, 1.7, 3.6, 2.4, C.white);   // 煙囪（白底）
+// 煙囪六色帶（紅在上 → 深藍在下，仿標誌色序）
+TE.slice().reverse().forEach((col,i)=> addBox(-17.3, 8.55-0.32*i, 0, 1.74, 0.32, 2.44, col));
+addBox(-17.3, 9.05,  0.5, 0.45, 0.5, 0.45, C.dark);  // 排氣管
+addBox(-17.3, 9.05, -0.5, 0.45, 0.5, 0.45, C.dark);
+
+addBox(33.2, 3.40, 0, 0.15, 1.9, 0.15, C.dark);   // 艏桅
+addBox(33.2, 4.15, 0, 0.6, 0.1, 0.1, C.dark);
+
+const shipData = new Float32Array(V);
+const shipVertCount = shipData.length / 9;
+const shipBuf = gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER, shipBuf);
+gl.bufferData(gl.ARRAY_BUFFER, shipData, gl.STATIC_DRAW);
+
+/* ---------- 船側文字（Canvas 貼圖 → 貼附舷側） ---------- */
+function makeTextTexture(lines, w, h){
+  const cv = document.createElement('canvas');
+  cv.width = w; cv.height = h;
+  const ctx = cv.getContext('2d');
+  ctx.clearRect(0,0,w,h);
+  ctx.fillStyle = '#ffffff';
+  ctx.strokeStyle = 'rgba(10,22,36,0.85)';
+  ctx.lineJoin = 'round';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  let y = h / (lines.length + 1);
+  for (const ln of lines){
+    ctx.font = ln.font;
+    ctx.lineWidth = ln.stroke || 0;
+    const draw = (ch,cx)=>{
+      if (ln.stroke) ctx.strokeText(ch, cx, y);
+      ctx.fillText(ch, cx, y);
+    };
+    if (ln.spacing){   // 手動字距（船側大字字距極寬）
+      const widths = [...ln.text].map(ch => ctx.measureText(ch).width);
+      const total = widths.reduce((a,b)=>a+b,0) + ln.spacing*(ln.text.length-1);
+      let cx = (w - total) / 2;
+      [...ln.text].forEach((ch,i)=>{
+        draw(ch, cx + widths[i]/2);
+        cx += widths[i] + ln.spacing;
+      });
+    } else {
+      draw(ln.text, w/2);
+    }
+    y += h / (lines.length + 1);
+  }
+  const tex = gl.createTexture();
+  gl.bindTexture(gl.TEXTURE_2D, tex);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, cv);
+  gl.generateMipmap(gl.TEXTURE_2D);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+  return tex;
+}
+const texBrand = makeTextTexture(
+  [{text:'MARINE LUBE', font:'900 160px Arial, sans-serif', spacing:30, stroke:10}], 2048, 256);
+const texName = makeTextTexture(
+  [{text:'MARINE LUBE', font:'700 88px Arial, sans-serif', spacing:8, stroke:7}], 1024, 128);
+const texStern = makeTextTexture(
+  [{text:'MARINE LUBE', font:'700 82px Arial, sans-serif', spacing:6, stroke:6},
+   {text:'SINGAPORE', font:'500 52px Arial, sans-serif', spacing:6, stroke:5}], 1024, 256);
+
+// 每面文字一個小 buffer：pos3 + uv2
+const texQuads = [];
+function addTexQuad(tex, corners, shade){   // corners: [u0v1, u1v1, u1v0, u0v0]（左下、右下、右上、左上）
+  const [a,b,c,d] = corners;
+  const data = new Float32Array([
+    ...a,0,1, ...b,1,1, ...c,1,0,
+    ...a,0,1, ...c,1,0, ...d,0,0,
+  ]);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
+  texQuads.push({ tex, buf, shade });
+}
+// 舷側 MARINE LUBE：舯體垂直舷側，右舷（+z）字首朝艉、左舷（-z）字首朝艏，兩側皆由左讀到右
+{
+  const y0=-0.25, y1=1.80, zP=5.03, x0=-13, x1=8;
+  addTexQuad(texBrand, [[x0,y0,zP],[x1,y0,zP],[x1,y1,zP],[x0,y1,zP]], 1.0);    // 右舷（受光面）
+  addTexQuad(texBrand, [[x1,y0,-zP],[x0,y0,-zP],[x0,y1,-zP],[x1,y1,-zP]], 0.78); // 左舷（背光面）
+}
+// 艏舷側船名：貼合艏部收窄的舷側（依剖面內插出 z 值）
+{
+  const y0=0.55, y1=1.45, x0=26.0, x1=31.5;
+  const zAt=(x,y)=>{ const s=sectionAt(x); return widthAtY(s,y)+0.06; };
+  addTexQuad(texName,
+    [[x0,y0, zAt(x0,y0)],[x1,y0, zAt(x1,y0)],[x1,y1, zAt(x1,y1)],[x0,y1, zAt(x0,y1)]], 1.0);
+  addTexQuad(texName,
+    [[x1,y0,-zAt(x1,y0)],[x0,y0,-zAt(x0,y0)],[x0,y1,-zAt(x0,y1)],[x1,y1,-zAt(x1,y1)]], 0.78);
+}
+// 艉封板：船名與船籍港
+addTexQuad(texStern, [[-32.03,0.15,-2.9],[-32.03,0.15,2.9],[-32.03,1.75,2.9],[-32.03,1.75,-2.9]], 0.85);
+
+/* --- 海面網格 --- */
+const WN = 64, WSZ = 520;
+const wVerts = [];
+for (let i=0;i<=WN;i++) for (let j=0;j<=WN;j++)
+  wVerts.push(-WSZ/2 + WSZ*i/WN, -WSZ/2 + WSZ*j/WN);
+const wIdx = [];
+for (let i=0;i<WN;i++) for (let j=0;j<WN;j++){
+  const a=i*(WN+1)+j, b=a+WN+1;
+  wIdx.push(a,b,a+1, a+1,b,b+1);
+}
+const waterBuf = gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER, waterBuf);
+gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(wVerts), gl.STATIC_DRAW);
+const waterIdxBuf = gl.createBuffer();
+gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, waterIdxBuf);
+gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(wIdx), gl.STATIC_DRAW);
+const waterIdxCount = wIdx.length;
+
+/* ---------- 相機與互動 ---------- */
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+function fitDist(){   // 依螢幕長寬比取景：讓全長 68 單位的船體飽滿入鏡（留 1.35 倍邊距）
+  const aspect = canvas.clientWidth / Math.max(1, canvas.clientHeight);
+  const halfH = Math.atan(Math.tan(22.5*Math.PI/180) * aspect);
+  return Math.max(50, Math.min(190, 45.9 / Math.tan(halfH)));
+}
+let az = 0.9, el = 0.12, dist = fitDist();   // 低視角：船身襯著水平線與晨光
+let autoRotate = !reduceMotion;
+let userPaused = false, resumeAt = 0;
+const TARGET = [2, 2.4, 0];
+const LIGHT = norm3([0.5, 0.6, 0.45]);
+
+const spinBtn = document.getElementById('spin');
+function syncSpinBtn(){
+  spinBtn.setAttribute('aria-pressed', String(autoRotate));
+  spinBtn.textContent = autoRotate ? '⏸ 自動旋轉：開 Auto-Rotate: On' : '▶ 自動旋轉：關 Auto-Rotate: Off';
+}
+syncSpinBtn();
+spinBtn.addEventListener('click', ()=>{ autoRotate = !autoRotate; userPaused = false; syncSpinBtn(); });
+
+const pointers = new Map();
+let lastPinch = 0;
+canvas.addEventListener('pointerdown', e=>{
+  canvas.setPointerCapture(e.pointerId);
+  pointers.set(e.pointerId, [e.clientX, e.clientY]);
+  canvas.classList.add('dragging');
+  userPaused = true;
+});
+canvas.addEventListener('pointermove', e=>{
+  if (!pointers.has(e.pointerId)) return;
+  const prev = pointers.get(e.pointerId);
+  pointers.set(e.pointerId, [e.clientX, e.clientY]);
+  if (pointers.size === 1){
+    az += (e.clientX - prev[0]) * 0.006;
+    el += (e.clientY - prev[1]) * 0.004;
+    el = Math.max(0.06, Math.min(1.05, el));
+  } else if (pointers.size === 2){
+    const pts = [...pointers.values()];
+    const d = Math.hypot(pts[0][0]-pts[1][0], pts[0][1]-pts[1][1]);
+    if (lastPinch > 0) dist = Math.max(45, Math.min(200, dist * lastPinch / d));
+    lastPinch = d;
+  }
+});
+function endPointer(e){
+  pointers.delete(e.pointerId);
+  if (pointers.size < 2) lastPinch = 0;
+  if (pointers.size === 0){
+    canvas.classList.remove('dragging');
+    resumeAt = performance.now() + 2500;   // 放手 2.5 秒後恢復自動旋轉
+  }
+}
+canvas.addEventListener('pointerup', endPointer);
+canvas.addEventListener('pointercancel', endPointer);
+canvas.addEventListener('wheel', e=>{
+  e.preventDefault();
+  dist = Math.max(45, Math.min(200, dist * Math.exp(e.deltaY * 0.0012)));
+}, { passive:false });
+
+/* ---------- 繪製 ---------- */
+const shipLoc = {
+  aPos: gl.getAttribLocation(shipProg,'aPos'),
+  aNor: gl.getAttribLocation(shipProg,'aNor'),
+  aCol: gl.getAttribLocation(shipProg,'aCol'),
+  uP: gl.getUniformLocation(shipProg,'uP'),
+  uV: gl.getUniformLocation(shipProg,'uV'),
+  uM: gl.getUniformLocation(shipProg,'uM'),
+  uLd: gl.getUniformLocation(shipProg,'uLd'),
+};
+const texLoc = {
+  aPos: gl.getAttribLocation(texProg,'aPos'),
+  aUV: gl.getAttribLocation(texProg,'aUV'),
+  uP: gl.getUniformLocation(texProg,'uP'),
+  uV: gl.getUniformLocation(texProg,'uV'),
+  uM: gl.getUniformLocation(texProg,'uM'),
+  uTex: gl.getUniformLocation(texProg,'uTex'),
+  uShade: gl.getUniformLocation(texProg,'uShade'),
+};
+const waterLoc = {
+  aXZ: gl.getAttribLocation(waterProg,'aXZ'),
+  uP: gl.getUniformLocation(waterProg,'uP'),
+  uV: gl.getUniformLocation(waterProg,'uV'),
+  uT: gl.getUniformLocation(waterProg,'uT'),
+  uLd: gl.getUniformLocation(waterProg,'uLd'),
+  uEye: gl.getUniformLocation(waterProg,'uEye'),
+};
+
+function resize(){
+  const dpr = Math.min(devicePixelRatio || 1, 2);
+  const w = Math.round(canvas.clientWidth * dpr), h = Math.round(canvas.clientHeight * dpr);
+  if (canvas.width !== w || canvas.height !== h){ canvas.width = w; canvas.height = h; }
+}
+addEventListener('resize', resize);
+
+gl.enable(gl.DEPTH_TEST);
+gl.clearColor(0,0,0,0);
+
+function frame(nowMs){
+  resize();
+  const t = reduceMotion ? 0 : nowMs / 1000;
+
+  if (autoRotate && (!userPaused || nowMs > resumeAt)){
+    userPaused = false;
+    az += 0.0035;
+  }
+
+  const eye = [
+    TARGET[0] + dist * Math.cos(el) * Math.cos(az),
+    TARGET[1] + dist * Math.sin(el),
+    TARGET[2] + dist * Math.cos(el) * Math.sin(az),
+  ];
+  const proj = mat4Perspective(45*Math.PI/180, canvas.width/canvas.height, 0.5, 800);
+  const view = mat4LookAt(eye, TARGET, [0,1,0]);
+
+  // 大型船：極輕微的縱搖／橫搖
+  const bobY  = Math.sin(t*0.6) * 0.06;
+  const pitch = Math.sin(t*0.50) * 0.006;
+  const roll  = Math.sin(t*0.37 + 1.3) * 0.010;
+  const model = mat4Mul(mat4Translate(0,bobY,0), mat4Mul(mat4RotX(roll), mat4RotZ(pitch)));
+
+  gl.viewport(0,0,canvas.width,canvas.height);
+  gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+  // 1) 船體（不透明）
+  gl.disable(gl.BLEND);
+  gl.depthMask(true);
+  gl.useProgram(shipProg);
+  gl.bindBuffer(gl.ARRAY_BUFFER, shipBuf);
+  gl.enableVertexAttribArray(shipLoc.aPos);
+  gl.enableVertexAttribArray(shipLoc.aNor);
+  gl.enableVertexAttribArray(shipLoc.aCol);
+  gl.vertexAttribPointer(shipLoc.aPos, 3, gl.FLOAT, false, 36, 0);
+  gl.vertexAttribPointer(shipLoc.aNor, 3, gl.FLOAT, false, 36, 12);
+  gl.vertexAttribPointer(shipLoc.aCol, 3, gl.FLOAT, false, 36, 24);
+  gl.uniformMatrix4fv(shipLoc.uP, false, proj);
+  gl.uniformMatrix4fv(shipLoc.uV, false, view);
+  gl.uniformMatrix4fv(shipLoc.uM, false, model);
+  gl.uniform3fv(shipLoc.uLd, LIGHT);
+  gl.drawArrays(gl.TRIANGLES, 0, shipVertCount);
+  gl.disableVertexAttribArray(shipLoc.aNor);
+  gl.disableVertexAttribArray(shipLoc.aCol);
+
+  // 2) 舷側文字（半透明貼圖，跟隨船體晃動）
+  gl.enable(gl.BLEND);
+  gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+  gl.depthMask(false);
+  gl.useProgram(texProg);
+  gl.uniformMatrix4fv(texLoc.uP, false, proj);
+  gl.uniformMatrix4fv(texLoc.uV, false, view);
+  gl.uniformMatrix4fv(texLoc.uM, false, model);
+  gl.activeTexture(gl.TEXTURE0);
+  gl.uniform1i(texLoc.uTex, 0);
+  gl.enableVertexAttribArray(texLoc.aPos);
+  gl.enableVertexAttribArray(texLoc.aUV);
+  for (const q of texQuads){
+    gl.bindTexture(gl.TEXTURE_2D, q.tex);
+    gl.uniform1f(texLoc.uShade, q.shade);
+    gl.bindBuffer(gl.ARRAY_BUFFER, q.buf);
+    gl.vertexAttribPointer(texLoc.aPos, 3, gl.FLOAT, false, 20, 0);
+    gl.vertexAttribPointer(texLoc.aUV, 2, gl.FLOAT, false, 20, 12);
+    gl.drawArrays(gl.TRIANGLES, 0, 6);
+  }
+  gl.disableVertexAttribArray(texLoc.aUV);
+
+  // 3) 海面（半透明，水線下船殼隱約可見）
+  gl.useProgram(waterProg);
+  gl.bindBuffer(gl.ARRAY_BUFFER, waterBuf);
+  gl.enableVertexAttribArray(waterLoc.aXZ);
+  gl.vertexAttribPointer(waterLoc.aXZ, 2, gl.FLOAT, false, 8, 0);
+  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, waterIdxBuf);
+  gl.uniformMatrix4fv(waterLoc.uP, false, proj);
+  gl.uniformMatrix4fv(waterLoc.uV, false, view);
+  gl.uniform1f(waterLoc.uT, t);
+  gl.uniform3fv(waterLoc.uLd, LIGHT);
+  gl.uniform3fv(waterLoc.uEye, eye);
+  gl.drawElements(gl.TRIANGLES, waterIdxCount, gl.UNSIGNED_SHORT, 0);
+  gl.depthMask(true);
+
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
